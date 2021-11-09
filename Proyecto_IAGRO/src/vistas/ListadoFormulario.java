@@ -15,11 +15,13 @@ import com.entities.Estado;
 import com.entities.Formulario;
 import com.entities.Usuario;
 import com.exception.ServiciosException;
+import com.servicios.DepartamentoBeanRemote;
 import com.servicios.FormularioBeanRemote;
 import com.servicios.UsuarioBeanRemote;
 
 import controladores.Constantes;
 import controladores.ControllerFormulario;
+import controladores.ControllerRegistro;
 import controladores.Main;
 
 import java.awt.Font;
@@ -34,6 +36,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ListadoFormulario extends JFrame implements Constantes{
 
@@ -257,13 +261,35 @@ public class ListadoFormulario extends JFrame implements Constantes{
 	lblNewLabel_1_1.setBounds(221, 99, 63, 14);
 	panel.add(lblNewLabel_1_1);
 	
-	JButton btnCompletar = new JButton("Nuevo Registro");
-	btnCompletar.setForeground(Color.WHITE);
-	btnCompletar.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
-	btnCompletar.setBorderPainted(false);
-	btnCompletar.setBackground(new Color(104, 171, 196));
-	btnCompletar.setBounds(609, 369, 136, 27);
-	panel.add(btnCompletar);
+	JButton btnRegistro = new JButton("Nuevo Registro");
+	btnRegistro.addMouseListener(new MouseAdapter() {
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			try {
+			int id = table.getSelectedRow();
+			if(id!= (-1)) {
+				String name = modelo.getValueAt(id, 1).toString();
+				
+				FormularioBeanRemote formBean = (FormularioBeanRemote)InitialContext.doLookup(RUTA_FormularioBean);
+				
+				Formulario form = formBean.buscarForm(name);
+				ControllerRegistro.form = form;
+				
+				ControllerRegistro.main(null);
+			}
+				
+			} catch (ServiciosException | NamingException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+	});
+	btnRegistro.setForeground(Color.WHITE);
+	btnRegistro.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
+	btnRegistro.setBorderPainted(false);
+	btnRegistro.setBackground(new Color(104, 171, 196));
+	btnRegistro.setBounds(610, 368, 136, 27);
+	panel.add(btnRegistro);
 	
 
 	

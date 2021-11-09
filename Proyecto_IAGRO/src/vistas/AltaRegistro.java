@@ -71,7 +71,7 @@ public class AltaRegistro extends JFrame implements Constantes{
 		Color azul=new Color (104,171,196); //color azul 104,171,196 / 68abc4
 		Color verde=new Color (166,187,95); //color verde 166,187,95 / a6bb5f 
 		setResizable(false);
-		setTitle("Usuarios");
+		setTitle("Registros");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 806, 450);
 		contentPane = new JPanel();
@@ -97,7 +97,7 @@ public class AltaRegistro extends JFrame implements Constantes{
 		banner.setBackground(verde);
 		banner.setLayout(null);
 
-		lblNewLabel = new JLabel("LISTADO DE FORMULARIOS");
+		lblNewLabel = new JLabel("ALTA REGISTRO");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setForeground(Color.WHITE);
 		lblNewLabel.setBounds(231, 20, 328, 27);
@@ -110,8 +110,12 @@ public class AltaRegistro extends JFrame implements Constantes{
 		modelo= new DefaultTableModel() {
 			@Override
 			public boolean isCellEditable(int row, int column) {
-				//all cells false
-				return false;
+				if(column == 4) {
+					return true;
+				}else {
+					return false;
+				}
+				
 			}
 		};
 
@@ -154,16 +158,6 @@ public class AltaRegistro extends JFrame implements Constantes{
 		lupe.setOpaque(false);
 		panel.add(lupe);
 
-		btnNuevo = new JButton("Nuevo Formulario");
-		btnNuevo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnNuevo.setBorderPainted(false);
-		btnNuevo.setVerticalAlignment(SwingConstants.TOP);
-		btnNuevo.setForeground(Color.WHITE);
-		btnNuevo.setBorder(new MatteBorder(2, 2, 2, 2, (Color) azul));
-		btnNuevo.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
-		btnNuevo.setBackground(azul);
-		btnNuevo.setBounds(92, 369, 125, 27);
-		panel.add(btnNuevo);
 
 		btnVolver = new JButton("Volver");
 		btnVolver.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -178,103 +172,10 @@ public class AltaRegistro extends JFrame implements Constantes{
 		btnVolver.setOpaque(false);
 		panel.add(btnVolver);
 
-		btnModificar = new JButton("Modificar");
-		btnModificar.setBorderPainted(false);
-		btnModificar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnModificar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnModificar.setVerticalAlignment(SwingConstants.TOP);
-		btnModificar.setForeground(Color.WHITE);
-		btnModificar.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
-		btnModificar.setBorder(new MatteBorder(2, 2, 2, 2, (Color) verde));
-		btnModificar.setBackground(verde);
-		btnModificar.setBounds(227, 369, 90, 27);
-		panel.add(btnModificar);
 
-
-		btnEliminar = new JButton("Eliminar");
-		btnEliminar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnEliminar.setForeground(Color.WHITE);
-		btnEliminar.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
-		btnEliminar.setBorderPainted(false);
-		btnEliminar.setBackground(verde);
-		btnEliminar.setBounds(327, 369, 90, 27);
-		panel.add(btnEliminar);
-
-
-		//crea un array que contiene los nombre de las columnas
-		final String[] columnNames = {"Identificador","Nombre","Comentarios","Ubicación","Fecha", "Usuario","Cantidad de Casillas"};		// insertamos las columnas
-		for(int column = 0; column < columnNames.length; column++){
-			//agrega las columnas a la tabla
-			modelo.addColumn(columnNames[column]);
-		}
-		//ORDEN DE LA TABLA
-		TableRowSorter<TableModel> orden=new  TableRowSorter<>(modelo);
-		table.setRowSorter(orden);
-		// Se crea un array que será una de las filas de la tabla. 
-		Object [] fila = new Object[columnNames.length]; 
-		// Se carga cada posición del array con una de las columnas de la tabla en base de datos.
-
-		FormularioBeanRemote formularioBean;
-		try {
-			formularioBean = (FormularioBeanRemote)
-					InitialContext.doLookup(RUTA_FormularioBean);
-
-			map = new HashMap<>();
-			//ControllerEstacion.CompletarCombo();
-			List<Formulario> form = formularioBean.obtenerTodos();
-			for (Formulario f: form) {
-				map.put(f.getIdFormulario(), f);
-
-				fila[0]=f.getIdFormulario();
-				fila[1]=f.getNombre();
-				fila[2]=f.getComentarios();
-				fila[3]=f.getUbicacion();
-				fila[4]=f.getFechaHora();
-				fila[5]=f.getIdUsuario();
-				fila[6]=f.getCasillas().size();
-				if  (f.getEstado().equals(Estado.ACTIVO)) {
-					
-					modelo.addRow(fila);
-
-				}
-			}
-
-		} catch (NamingException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-
-//////////////////****************************FILTROS********************************/////////////////7
 		
-	TableRowSorter<TableModel> filtro=new  TableRowSorter<>(modelo);
-	table.setRowSorter(filtro);
-	
-	JLabel lblNewLabel_1_1 = new JLabel("Usuario");
-	lblNewLabel_1_1.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
-	lblNewLabel_1_1.setBounds(221, 99, 63, 14);
-	panel.add(lblNewLabel_1_1);
-	
-	JButton btnCompletar = new JButton("Nuevo Registro");
-	btnCompletar.setForeground(Color.WHITE);
-	btnCompletar.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
-	btnCompletar.setBorderPainted(false);
-	btnCompletar.setBackground(new Color(104, 171, 196));
-	btnCompletar.setBounds(609, 369, 136, 27);
-	panel.add(btnCompletar);
-	
 
-	
-	filtroNombre.addKeyListener(new KeyAdapter() {
-		@Override
-		public void keyReleased(KeyEvent e) {
-			filtro.setRowFilter(RowFilter.regexFilter("(?i)"+filtroNombre.getText(), 0));
-
-		}
-	});
-
+		
 	}
 }
 
