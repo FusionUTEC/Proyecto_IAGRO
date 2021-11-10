@@ -34,8 +34,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+
 
 public class AltaRegistro extends JFrame implements Constantes{
 
@@ -46,6 +45,7 @@ public class AltaRegistro extends JFrame implements Constantes{
 	public JPanel panel;
 	public JPanel contentPane;
 	public JPanel banner;
+
 	public JTable table;
 	public DefaultTableModel modelo;
 	private JScrollPane scrollPane;
@@ -55,7 +55,6 @@ public class AltaRegistro extends JFrame implements Constantes{
 
 	public HashMap<Long,Formulario> map;
 	public JButton btnRegistrar;
-
 
 
 	public AltaRegistro() throws ServiciosException  {
@@ -100,6 +99,7 @@ public class AltaRegistro extends JFrame implements Constantes{
 		lblAltaRegistro.setBounds(230, 22, 328, 27);
 		banner.add(lblAltaRegistro);
 
+
 		// creamos el modelo de Tabla
 		modelo= new DefaultTableModel() {
 			@Override
@@ -121,9 +121,21 @@ public class AltaRegistro extends JFrame implements Constantes{
 
 
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(19, 97, 751, 251);
+
+		scrollPane.setBounds(34, 145, 721, 184);
 		panel.add(scrollPane);
 		scrollPane.setViewportView(table);
+
+		lblDep = new JLabel("Departamento");
+		lblDep.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
+		lblDep.setBounds(37, 96, 100, 27);
+		panel.add(lblDep);
+		
+		Fecha = new JTextField();
+		Fecha.setEditable(false);
+		Fecha.setColumns(10);
+		Fecha.setBounds(356, 101, 173, 20);
+		panel.add(Fecha);
 
 
 		btnVolver = new JButton("Volver");
@@ -131,14 +143,16 @@ public class AltaRegistro extends JFrame implements Constantes{
 		btnVolver.setBorderPainted(false);
 		btnVolver.setVerticalAlignment(SwingConstants.TOP);
 		btnVolver.setForeground(Color.WHITE);
+
 		btnVolver.setBounds(10, 369, 52, 35);		
+
 		Image volver = new ImageIcon(this.getClass().getResource("volver1.png")).getImage();
 		btnVolver.setIcon(new ImageIcon(volver));
 		btnVolver.setBackground(Color.WHITE);
 		btnVolver.setBorder(null);
 		btnVolver.setOpaque(false);
 		panel.add(btnVolver);
-		
+
 		btnImportar = new JButton("Importar");
 		btnImportar.setVerticalAlignment(SwingConstants.TOP);
 		btnImportar.setForeground(Color.WHITE);
@@ -161,6 +175,7 @@ public class AltaRegistro extends JFrame implements Constantes{
 		
 
 		
+
 	}
 }
 

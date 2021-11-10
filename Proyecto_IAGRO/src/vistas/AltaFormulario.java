@@ -220,10 +220,10 @@ public class AltaFormulario extends JFrame implements Constantes{
 
 
 		////////////////////////////***************CASILLAS*****************/////////////////////////////////////
-		
+
 
 	}
-	
+
 	public void cargarCasillas() {
 
 		ArrayList<JCheckBox> casillas = new ArrayList<>();
@@ -285,4 +285,3 @@ public class AltaFormulario extends JFrame implements Constantes{
 		
 	}
 }
-

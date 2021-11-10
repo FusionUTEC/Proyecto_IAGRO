@@ -2,6 +2,8 @@ package controladores;
 import java.awt.Font;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -57,6 +59,16 @@ public class ControllerUsuario implements Constantes{
 		altaU.btnRegistrar.setVisible(true);
 		altaU.btnGuardar.setVisible(false);
 		altaU.btnCambiarPass.setVisible(false);
+		ocultar("Administrador");
+		
+		altaU.comboRol.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+
+				String rol = altaU.comboRol.getSelectedItem().toString();
+				ocultar(rol);
+
+			}
+		});
 
 	}
 
@@ -65,6 +77,7 @@ public class ControllerUsuario implements Constantes{
 
 		altaU=new AltaUsuario();
 		altaU.lblAltaDeUsuarios.setText("MODIFICAR USUARIO");
+		altaU.setVisible(true);
 		altaU.btnRegistrar.setVisible(false);
 		altaU.btnGuardar.setVisible(true);
 		altaU.btnGuardar.setBounds(250, 373, 125, 27);
@@ -96,7 +109,6 @@ public class ControllerUsuario implements Constantes{
 		altaU.nombreUsu.enable(false);
 		altaU.email.enable(false);
 		altaU.comboRol.enable(false);
-		altaU.setVisible(true);
 
 	}
 
@@ -113,10 +125,10 @@ public class ControllerUsuario implements Constantes{
 			String userName=(String) listU.table.getValueAt(row, 3);
 			try {
 				int confirmado = JOptionPane.showOptionDialog(null,
-						"¿Desea dar de baja el usuario seleccionado?",
+						"ñDesea dar de baja el usuario seleccionado?",
 						"Exit Confirmation", JOptionPane.YES_NO_OPTION,
 						JOptionPane.QUESTION_MESSAGE,null, null, null);
-				//Si el usuario elige sí se borra la fila
+				//Si el usuario elige sñ se borra la fila
 				if (JOptionPane.OK_OPTION == confirmado) {
 
 					Usuario user = new Usuario();
@@ -125,7 +137,7 @@ public class ControllerUsuario implements Constantes{
 					user.setEstado(user.getEstado().INACTIVO);
 					//usuarioBean.borrar(id);
 					usuarioBean.actualizar(user);
-					System.out.println("Se borró exitosamente el usuario");
+					System.out.println("Se borrñ exitosamente el usuario");
 
 					actualizarListado(listU.modelo);
 				}
@@ -161,7 +173,7 @@ public class ControllerUsuario implements Constantes{
 		//ORDEN DE LA TABLA
 		TableRowSorter<TableModel> orden=new  TableRowSorter<>(modelo);
 		listU.table.setRowSorter(orden);
-		
+
 		for(int i = filas-1; i>=0; i--) {
 			modelo.removeRow(i);
 		}
@@ -170,7 +182,7 @@ public class ControllerUsuario implements Constantes{
 
 
 		Object [] fila = new Object[columnNames.length]; 
-		// Se carga cada posición del array con una de las columnas de la tabla en base de datos.
+		// Se carga cada posiciñn del array con una de las columnas de la tabla en base de datos.
 
 		List<Usuario> usuarios = ControllerUsuario.obtenerTodos();
 		for (Usuario u: usuarios) {
@@ -204,7 +216,7 @@ public class ControllerUsuario implements Constantes{
 			}
 		});
 
-		//Volver al Menú desde listado
+		//Volver al Menñ desde listado
 		listU.btnVolver.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -219,9 +231,8 @@ public class ControllerUsuario implements Constantes{
 			@Override
 			public void mouseClicked(MouseEvent e){
 
-				//Guardar Cambios
 				V_AltaUsuario();
-
+				
 				altaU.btnRegistrar.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent e) {
@@ -233,6 +244,7 @@ public class ControllerUsuario implements Constantes{
 						String pass = String.valueOf(altaU.contrasena.getPassword());
 						String pass2 = String.valueOf(altaU.confcontrasena.getPassword());
 						String tipo = (String) altaU.comboRol.getSelectedItem();
+
 						String cedula = altaU.cedula.getText();
 
 						String ciudad = altaU.ciudad.getText();
@@ -243,9 +255,9 @@ public class ControllerUsuario implements Constantes{
 
 						if (pass.equals(pass2)) {
 							int confirm = JOptionPane.showOptionDialog(null,
-									"¿Desea dar de alta el usuario?",
+									"ñDesea dar de alta el usuario?",
 									"Exit Confirmation", JOptionPane.YES_NO_OPTION,
-									JOptionPane.QUESTION_MESSAGE,null, null, null);							//Si el usuario elige sí se borra la fila
+									JOptionPane.QUESTION_MESSAGE,null, null, null);							//Si el usuario elige sñ se borra la fila
 							if (JOptionPane.YES_OPTION== confirm) {
 								//hacer para los otros atributos
 								try {
@@ -278,10 +290,6 @@ public class ControllerUsuario implements Constantes{
 		listU.btnModificar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
-				int fila = listU.table.getSelectedRow();
-				
-				if(fila != (-1)) {
 				V_ModUsuario();	
 
 				//Cargar datos de usuario
@@ -355,9 +363,9 @@ public class ControllerUsuario implements Constantes{
 						String ocupacion = altaU.ocupacion.getText();
 
 						int confirm = JOptionPane.showOptionDialog(null,
-								"¿Desea modificar el usuario?",
+								"ñDesea modificar el usuario?",
 								"Exit Confirmation", JOptionPane.YES_NO_OPTION,
-								JOptionPane.QUESTION_MESSAGE,null, null, null);							//Si el usuario elige sí se borra la fila
+								JOptionPane.QUESTION_MESSAGE,null, null, null);							//Si el usuario elige sñ se borra la fila
 						if (JOptionPane.YES_OPTION== confirm) {
 
 
@@ -373,11 +381,7 @@ public class ControllerUsuario implements Constantes{
 					}
 				});
 
-			}else {
-				JOptionPane.showMessageDialog(null, "Debe seleccionar un usuario", null, 1);
 			}
-				
-		}
 		});
 
 
@@ -390,23 +394,25 @@ public class ControllerUsuario implements Constantes{
 		boolean todoOK = camposVacios(ap, nom, mail, user, tipo, ciudad, documento, domicilio, telefono, ocupacion);
 		if (todoOK) {
 			todoOK = validarFormatos(mail, user);
-
-			if(todoOK) {
-				validarContraseña(pass);
-			}
-
-			if(todoOK && tipo.equalsIgnoreCase("ADMINISTRADOR") ) {
-				todoOK=ciValida(documento);
-			}
-			if(todoOK && tipo.equalsIgnoreCase("INVESTIGADOR")) {
-				todoOK=ciValida(documento);
-			}
-
 		}
+		if(todoOK) {
+			validarContraseña(pass);
+		}
+
+		if(todoOK && tipo.equalsIgnoreCase("ADMINISTRADOR") ) {
+			todoOK=ciValida(documento);
+		}
+		if(todoOK && tipo.equalsIgnoreCase("INVESTIGADOR")) {
+			todoOK=ciValida(documento);
+		}
+
+
+
 		UsuarioBeanRemote usuarioBean = (UsuarioBeanRemote)
 				InitialContext.doLookup(RUTA_UsuarioBean);
 
 		Usuario existeUser = usuarioBean.usuarioExistente(user);
+
 		if(existeUser != null) {
 			JOptionPane.showMessageDialog(null, "El nombre de usuario ingresado ya existe", null, 1);
 			todoOK = false;
@@ -442,6 +448,7 @@ public class ControllerUsuario implements Constantes{
 				admin.setDomicilio(domicilio);
 				admin.setTelefono(telefono);
 
+
 				try {
 
 					usuarioBean.crearAd(admin);
@@ -449,7 +456,7 @@ public class ControllerUsuario implements Constantes{
 					//System.out.println(admin.getIdUsuario() + admin.getNombreUsuario());
 					JOptionPane.showMessageDialog(null,"Usuario creado correctamente");
 
-					System.out.println("Se creó exitosamente el usuario Administrador");
+					System.out.println("Se creñ exitosamente el usuario Administrador");
 				} catch (ServiciosException e) {
 					System.out.println(e.getMessage());
 				}
@@ -476,7 +483,7 @@ public class ControllerUsuario implements Constantes{
 				try {
 					usuarioBean.crearIn(invest);
 					invest=usuarioBean.buscarInv(invest.getNombreUsuario());
-					System.out.println("Se creó exitosamente el usuario Investigador");
+					//System.out.println("Se creñ exitosamente el usuario Investigador");
 					JOptionPane.showMessageDialog(null,"Usuario creado correctamente");
 				} catch (ServiciosException e) {
 
@@ -892,16 +899,16 @@ public class ControllerUsuario implements Constantes{
 			return false;
 		}
 
-		//Usuario sin números
+		//Usuario sin nñmeros
 		if(user.matches("[0-9]+")) {
-			JOptionPane.showMessageDialog(null, "El nombre de usuario no puede contener números", null, 1);
+			JOptionPane.showMessageDialog(null, "El nombre de usuario no puede contener nñmeros", null, 1);
 			return false;
 		}
 
 
 		//correo no valido
 		if(!mail.contains("@")) {
-			JOptionPane.showMessageDialog(null, "El correo ingresado no es válido", null, 1);
+			JOptionPane.showMessageDialog(null, "El correo ingresado no es vñlido", null, 1);
 			return false;
 		}
 
@@ -921,14 +928,14 @@ public class ControllerUsuario implements Constantes{
 			return false;
 		}
 
-		//Contraseña con números y letras
+		//Contraseña con nñmeros y letras
 
 		String letras = pass.replaceAll("[*0-9]", "");
-		String numeros = pass.replaceAll("[*a-zA-ZÀ-ÿ\u00f1\u00d1]", "");
+		String numeros = pass.replaceAll("[*a-zA-Zñ-ñ\u00f1\u00d1]", "");
 
 
-		if(!numeros.matches("[0-9]+") || !letras.matches("[a-zA-ZÀ-ÿ\u00f1\u00d1]+")) {
-			JOptionPane.showMessageDialog(null, "La contraseña debe contener números y letras", null, 1);
+		if(!numeros.matches("[0-9]+") || !letras.matches("[a-zA-Zñ-ñ\u00f1\u00d1]+")) {
+			JOptionPane.showMessageDialog(null, "La contraseña debe contener nñmeros y letras", null, 1);
 			return false;
 		}
 

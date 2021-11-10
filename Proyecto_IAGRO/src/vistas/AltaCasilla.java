@@ -8,19 +8,20 @@ import javax.swing.border.MatteBorder;
 import com.entities.Departamento;
 import com.exception.ServiciosException;
 
-import controladores.ControllerEstacion;
 import controladores.ControllerUsuario;
 
 import java.awt.*;
 import java.util.*;
 //import org.jdatepicker.impl.DateComponentFormatter;
 import java.util.List;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class AltaCasilla extends JFrame {
 
 	private JPanel contentPane;
 	private JPanel panel;
-	public JLabel lblAltaEstacion;
+	public JLabel lblAltaCasilla;
 	private JPanel banner;
 	public JTextField buscador;
 	public JTextField textnombre;
@@ -29,13 +30,18 @@ public class AltaCasilla extends JFrame {
 	public JButton btnVolver;
 	private JLabel lblNewLabel;
 	private JLabel lblParametro;
-	public  JComboBox comboDpto;
+	public  JComboBox comboParametro;
+	public  JComboBox comboUnidad;
 	private JLabel lblDescripcion;
+	//public JTextPane textPane;
 	public JLabel lblNombreUser;
 	public JButton btnGuardar;
+	public Object textPane;
+	public JTextArea textDescripcion;
+	public JComboBox comboTipoValor;
 
 	public  AltaCasilla() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(AltaEstacion.class.getResource("/vistas/Logo_original.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(AltaCasilla.class.getResource("/vistas/Logo_original.png")));
 
 
 		Color azul=new Color (104,171,196); //color azul 104,171,196 / 68abc4
@@ -81,7 +87,14 @@ public class AltaCasilla extends JFrame {
 		lupe.setBorder(null);
 		panel.add(lupe);
 
-		btnRegistrar = new JButton("Agregar Casilla");
+		btnRegistrar = new JButton("Registrar");
+		btnRegistrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				
+			}
+		});
 		btnRegistrar.setBounds(343, 373, 125, 27);
 		btnRegistrar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnRegistrar.setBorderPainted(false);
@@ -122,16 +135,17 @@ public class AltaCasilla extends JFrame {
 		panel.add(lblParametro);
 
 		JLabel lblUnidMedida = new JLabel("Unidad de Medida");
-		lblUnidMedida.setBounds(381, 200, 130, 23);
+		lblUnidMedida.setBounds(392, 173, 130, 23);
 		lblUnidMedida.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 15));
 		panel.add(lblUnidMedida);
 
-		comboDpto = new JComboBox();
-		comboDpto.setBounds(533, 111, 130, 23);
-		panel.add(comboDpto);
+		comboParametro = new JComboBox();
+		comboParametro.setModel(new DefaultComboBoxModel(new String[] {"", "Volumen", "Densidad", "Cantidad", "Porcentaje"}));
+		comboParametro.setBounds(521, 111, 219, 23);
+		panel.add(comboParametro);
 
 		lblDescripcion = new JLabel("Descripci\u00F3n");
-		lblDescripcion.setBounds(29, 286, 107, 23);
+		lblDescripcion.setBounds(29, 236, 107, 23);
 		lblDescripcion.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 15));
 		panel.add(lblDescripcion);
 
@@ -140,23 +154,22 @@ public class AltaCasilla extends JFrame {
 		lblNombreUser.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 15));
 		panel.add(lblNombreUser);
 
-		lblAltaEstacion = new JLabel("ALTA DE CASILLA");
-		lblAltaEstacion.setHorizontalAlignment(SwingConstants.CENTER);
-		lblAltaEstacion.setBounds(231, 17, 328, 27);
-		banner.add(lblAltaEstacion);
-		lblAltaEstacion.setForeground(Color.WHITE);
-		lblAltaEstacion.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 22));
+		lblAltaCasilla = new JLabel("ALTA DE CASILLA");
+		lblAltaCasilla.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAltaCasilla.setBounds(231, 17, 328, 27);
+		banner.add(lblAltaCasilla);
+		lblAltaCasilla.setForeground(Color.WHITE);
+		lblAltaCasilla.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 22));
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(140, 286, 521, 64);
-		panel.add(scrollPane);
+		textDescripcion = new JTextArea();
+		textDescripcion.setBorder(new MatteBorder(1, 1, 1, 1, (Color) Color.LIGHT_GRAY));
+		textDescripcion.setBounds(29, 262, 429, 64);
+		panel.add(textDescripcion);
 		
-		JTextPane textPane = new JTextPane();
-		scrollPane.setViewportView(textPane);
-		
-		JComboBox comboDpto_1 = new JComboBox();
-		comboDpto_1.setBounds(533, 200, 130, 23);
-		panel.add(comboDpto_1);
+		comboUnidad = new JComboBox();
+		comboUnidad.setModel(new DefaultComboBoxModel(new String[] {"", "mm", "\u00B0C", "\u00B5g/m3", "g/m3", "ppm", "Unidad Dobson", "mg/l"}));
+		comboUnidad.setBounds(541, 176, 107, 23);
+		panel.add(comboUnidad);
 		
 		JLabel lblNombre = new JLabel("Nombre Casilla");
 		lblNombre.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 15));
@@ -165,12 +178,13 @@ public class AltaCasilla extends JFrame {
 		
 		JLabel lblTipoDeValor = new JLabel("Tipo de Valor");
 		lblTipoDeValor.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 15));
-		lblTipoDeValor.setBounds(29, 200, 142, 23);
+		lblTipoDeValor.setBounds(66, 173, 142, 23);
 		panel.add(lblTipoDeValor);
 		
-		JComboBox comboDpto_1_1 = new JComboBox();
-		comboDpto_1_1.setBounds(154, 203, 130, 23);
-		panel.add(comboDpto_1_1);
+		comboTipoValor = new JComboBox();
+		comboTipoValor.setModel(new DefaultComboBoxModel(new String[] {"", "String", "byte", "short", "int", "long", "float", "double", "boolean", "char"}));
+		comboTipoValor.setBounds(194, 176, 130, 23);
+		panel.add(comboTipoValor);
 		this.setVisible(true);
 
 

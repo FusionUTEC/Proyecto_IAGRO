@@ -24,6 +24,8 @@ import javax.swing.SwingConstants;
 import java.awt.Toolkit;
 import java.awt.SystemColor;
 import javax.swing.UIManager;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 public class AltaUsuario extends JFrame {
 
@@ -189,6 +191,7 @@ public class AltaUsuario extends JFrame {
 		panel.add(lblRol);
 
 		comboRol = new JComboBox();
+		
 		comboRol.setModel(new DefaultComboBoxModel(new String[] {"Administrador", "Investigador", "Aficionado"}));
 		comboRol.setBounds(122, 266, 137, 22);
 		panel.add(comboRol);

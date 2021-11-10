@@ -245,33 +245,38 @@ public class ListadoEstacion extends JFrame implements Constantes {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
-//////////////////****************************FILTROS********************************/////////////////7
 		TableRowSorter filtro  = new TableRowSorter(modelo);
+		table.setRowSorter(filtro);
 
 
-	filtroNombre.addKeyListener(new KeyAdapter() {
-		@Override
-		public void keyReleased(KeyEvent e) {
-			filtro.setRowFilter(RowFilter.regexFilter("(?i)"+filtroNombre.getText(), 0));
+		filtroNombre.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				filtro.setRowFilter(RowFilter.regexFilter("(?i)"+filtroNombre.getText(), 0));
 
-		}
-	});
-	
-	comboDpto.addItemListener(new ItemListener() {
-		public void itemStateChanged(ItemEvent e) {
-
-			String selected = comboDpto.getSelectedItem().toString();
-			if(selected != "") {
-				filtro.setRowFilter(RowFilter.regexFilter(selected, 1));
 			}
-			else {
-				filtro.setRowFilter(null);
-			}
+		});
 
-		}
-	});
+		comboDpto.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+
+				String selected = comboDpto.getSelectedItem().toString();
+				if(selected != "") {
+					filtro.setRowFilter(RowFilter.regexFilter(selected, 1));
+				
+				}
+				else {
+					filtro.setRowFilter(null);
+				}
+
+			}
+		});
 
 	}
 }
+
+
+
+
+
 

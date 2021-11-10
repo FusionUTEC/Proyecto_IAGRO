@@ -222,7 +222,9 @@ public class ListadoUsuarios extends JFrame implements Constantes{
 		panel.add(btnEliminar);
 
 
-		//filtro DE LA TABLA
+		//ORDEN DE LA TABLA
+		TableRowSorter<TableModel> orden=new  TableRowSorter<>(modelo);
+		table.setRowSorter(orden);
 
 		//crea un array que contiene los nombre de las columnas
 		final String[] columnNames = {"Nombre","Apellido","Correo", "Usuario", "Identificador","Rol"};
@@ -258,51 +260,49 @@ public class ListadoUsuarios extends JFrame implements Constantes{
 
 			}
 
+			//////////////////****************************FILTROS********************************/////////////////7
+			//filtro  = new TableRowSorter(modelo);
 
+			//orden.setRowFilter(RowFilter.regexFilter("^ACTIVO", 6));
+
+			filtroNombre.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyReleased(KeyEvent e) {
+					orden.setRowFilter(RowFilter.regexFilter("(?i)"+filtroNombre.getText(), 0));
+
+				}
+			});
+
+			filtroApellido.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyReleased(KeyEvent e) {
+					orden.setRowFilter(RowFilter.regexFilter("(?i)"+filtroApellido.getText(), 1));
+				}
+			});
+
+			filtroUsuario.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyReleased(KeyEvent e) {
+					orden.setRowFilter(RowFilter.regexFilter("(?i)"+filtroUsuario.getText(), 3));
+				}
+			});
+
+			comboBox.addItemListener(new ItemListener() {
+				public void itemStateChanged(ItemEvent e) {
+
+					String selected = comboBox.getSelectedItem().toString();
+					if(selected != "Rol") {
+						orden.setRowFilter(RowFilter.regexFilter(selected, 5));
+					}
+					else {
+						orden.setRowFilter(null);
+					}
+
+				}
+			});
 
 
 		}
-
-		//////////////////****************************FILTROS********************************/////////////////7
-
-		TableRowSorter<TableModel> filtro=new  TableRowSorter<>(modelo);
-		table.setRowSorter(filtro);
-
-		filtroNombre.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-				filtro.setRowFilter(RowFilter.regexFilter("(?i)"+filtroNombre.getText(), 0));
-
-			}
-		});
-
-		filtroApellido.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-				filtro.setRowFilter(RowFilter.regexFilter("(?i)"+filtroApellido.getText(), 1));
-			}
-		});
-
-		filtroUsuario.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-				filtro.setRowFilter(RowFilter.regexFilter("(?i)"+filtroUsuario.getText(), 3));
-			}
-		});
-
-		comboBox.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent e) {
-
-				String selected = comboBox.getSelectedItem().toString();
-				if(selected != "Rol") {
-					filtro.setRowFilter(RowFilter.regexFilter(selected, 5));
-				}
-				else {
-					filtro.setRowFilter(null);
-				}
-
-			}
-		});
 	}
 }
 

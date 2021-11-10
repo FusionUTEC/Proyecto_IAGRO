@@ -217,7 +217,7 @@ public class ControllerEstacion implements Constantes{
 							if(todoOK) {
 								todoOK=validarFormatos(longitud, latitud, calAgua,humedad);
 								if (todoOK) {
-									ControllerEstacion.actualizar(nom, dpto,Float.valueOf(latitud),Float.valueOf( longitud), Float.valueOf(calAgua), Float.valueOf(humedad));
+									ControllerEstacion.actualizar(nom, dpto,Float.valueOf(latitud),Float.valueOf( longitud), Float.valueOf(humedad), Float.valueOf(calAgua));
 									JOptionPane.showMessageDialog(null,"Estación actualizada correctamente");
 									actualizarListado(listE.modelo);
 								}

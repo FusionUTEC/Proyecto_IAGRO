@@ -56,6 +56,7 @@ public class ListadoFormulario extends JFrame implements Constantes{
 	private JScrollPane scrollPane;
 	private JLabel lblNewLabel_1;
 	private JTextField filtroNombre;
+	private JTextField filtroUsuario;
 	public JComboBox comboDpto;
 	public JButton btnVolver;
 	public JButton btnNuevo;
@@ -64,7 +65,6 @@ public class ListadoFormulario extends JFrame implements Constantes{
 	public JButton btnRegistro;
 
 	public HashMap<Long,Formulario> map;
-	private JTextField filtroUsuario;
 
 
 	public ListadoFormulario() throws ServiciosException  {
@@ -148,7 +148,6 @@ public class ListadoFormulario extends JFrame implements Constantes{
 		panel.add(filtroUsuario);
 
 
-
 		JButton lupe = new JButton("");
 		lupe.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lupe.setBorderPainted(false);
@@ -210,7 +209,7 @@ public class ListadoFormulario extends JFrame implements Constantes{
 
 
 		//crea un array que contiene los nombre de las columnas
-		final String[] columnNames = {"Identificador","Nombre","Comentarios","UbicaciÛn","Fecha", "Usuario","Cantidad de Casillas"};		// insertamos las columnas
+		final String[] columnNames = {"Identificador","Nombre","Comentarios","Ubicaci√≥n","Fecha", "Usuario","Cantidad de Casillas"};		// insertamos las columnas
 		for(int column = 0; column < columnNames.length; column++){
 			//agrega las columnas a la tabla
 			modelo.addColumn(columnNames[column]);
@@ -218,9 +217,9 @@ public class ListadoFormulario extends JFrame implements Constantes{
 		//ORDEN DE LA TABLA
 		TableRowSorter<TableModel> orden=new  TableRowSorter<>(modelo);
 		table.setRowSorter(orden);
-		// Se crea un array que ser· una de las filas de la tabla. 
+		// Se crea un array que ser√° una de las filas de la tabla. 
 		Object [] fila = new Object[columnNames.length]; 
-		// Se carga cada posiciÛn del array con una de las columnas de la tabla en base de datos.
+		// Se carga cada posici√≥n del array con una de las columnas de la tabla en base de datos.
 
 		FormularioBeanRemote formularioBean;
 		try {
@@ -241,7 +240,7 @@ public class ListadoFormulario extends JFrame implements Constantes{
 				fila[5]=f.getIdUsuario();
 				fila[6]=f.getCasillas().size();
 				if  (f.getEstado().equals(Estado.ACTIVO)) {
-					
+
 					modelo.addRow(fila);
 
 				}
@@ -251,6 +250,7 @@ public class ListadoFormulario extends JFrame implements Constantes{
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+
 
 //////////////////****************************FILTROS********************************/////////////////7
 		
@@ -277,8 +277,24 @@ public class ListadoFormulario extends JFrame implements Constantes{
 		public void keyReleased(KeyEvent e) {
 			filtro.setRowFilter(RowFilter.regexFilter("(?i)"+filtroNombre.getText(), 0));
 
-		}
-	});
+
+		TableRowSorter<TableModel> filtro=new  TableRowSorter<>(modelo);
+		table.setRowSorter(filtro);
+
+		JLabel lblNewLabel_1_1 = new JLabel("Usuario");
+		lblNewLabel_1_1.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
+		lblNewLabel_1_1.setBounds(221, 99, 63, 14);
+		panel.add(lblNewLabel_1_1);
+
+
+
+		filtroNombre.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				filtro.setRowFilter(RowFilter.regexFilter("(?i)"+filtroNombre.getText(), 1));
+
+			}
+		});
 
 	}
 }
