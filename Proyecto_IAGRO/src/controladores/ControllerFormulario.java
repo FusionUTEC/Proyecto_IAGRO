@@ -124,6 +124,8 @@ public class ControllerFormulario implements Constantes {
 				altaF.btnRegistrar.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent e) {
+						
+						
 
 						String comentario = altaF.textResumen.getText();
 						//Guardar fecha y hora en BD
@@ -162,6 +164,8 @@ public class ControllerFormulario implements Constantes {
 								e1.printStackTrace();
 							}
 						}
+						
+						altaF.setVisible(false);
 					}
 				});
 				//Volver al listado

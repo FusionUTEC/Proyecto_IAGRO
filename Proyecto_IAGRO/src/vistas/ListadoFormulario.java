@@ -297,5 +297,8 @@ public class ListadoFormulario extends JFrame implements Constantes{
 		});
 
 	}
-}
+});
+	
+	}}
+	
 

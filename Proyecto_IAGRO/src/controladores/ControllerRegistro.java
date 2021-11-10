@@ -47,24 +47,7 @@ public class ControllerRegistro implements Constantes {
 		
 	}
 	
-	public static void V_Alta_Registro() {
-		try {
-			AltaR = new AltaRegistro();
-			
-			
-			
-		} catch (ServiciosException e) {}
-		
-		
-	}
 	
-	public static void main(String[] args) throws ServiciosException {
-		
-		AltaR = new AltaRegistro();
-		AltaR.setVisible(true);
-		cargarTabla();
-		
-	}
 	
 	public static void crear() {
 		
@@ -103,7 +86,7 @@ public class ControllerRegistro implements Constantes {
 		
 		//Enviar registro a la base
 		
-		regBean.crear(r);
+		r = regBean.crear(r);
 		
 		//Datos de medición
 				for(int i = 0; i<filas; i++) {
@@ -114,7 +97,7 @@ public class ControllerRegistro implements Constantes {
 				Casilla c = casBean.buscar(AltaR.modelo.getValueAt(i, 0).toString());
 				dato.setCasilla(c);
 				
-				dato.setValor(AltaR.modelo.getValueAt(i, 4).toString());
+				dato.setValor(AltaR.table.getValueAt(i, 4).toString());
 					
 				datoBean.crear(dato);
 					
@@ -142,6 +125,15 @@ public class ControllerRegistro implements Constantes {
 				public void mouseClicked(MouseEvent e) {
 					
 					crear();
+				}
+			});
+			
+			AltaR.btnVolver.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					
+					AltaR.setVisible(false);
+					Main.menuP.setVisible(true);
 				}
 			});
 		} catch (ServiciosException e) {

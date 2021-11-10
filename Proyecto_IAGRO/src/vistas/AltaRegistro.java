@@ -126,16 +126,7 @@ public class AltaRegistro extends JFrame implements Constantes{
 		panel.add(scrollPane);
 		scrollPane.setViewportView(table);
 
-		lblDep = new JLabel("Departamento");
-		lblDep.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
-		lblDep.setBounds(37, 96, 100, 27);
-		panel.add(lblDep);
-		
-		Fecha = new JTextField();
-		Fecha.setEditable(false);
-		Fecha.setColumns(10);
-		Fecha.setBounds(356, 101, 173, 20);
-		panel.add(Fecha);
+	
 
 
 		btnVolver = new JButton("Volver");
