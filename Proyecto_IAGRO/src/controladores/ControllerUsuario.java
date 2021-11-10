@@ -919,7 +919,7 @@ public class ControllerUsuario implements Constantes{
 
 
 		//correo no valido
-		if(!mail.contains("@") || !mail.contains(".com")) {
+		if(!mail.contains("@")) {
 			JOptionPane.showMessageDialog(null, "El correo ingresado no es válido", null, 1);
 			return false;
 		}

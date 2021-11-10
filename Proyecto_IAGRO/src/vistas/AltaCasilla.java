@@ -140,7 +140,7 @@ public class AltaCasilla extends JFrame {
 		panel.add(lblUnidMedida);
 
 		comboParametro = new JComboBox();
-		comboParametro.setModel(new DefaultComboBoxModel(new String[] {"", "Volumen", "Densidad", "Cantidad", "Porcentaje"}));
+		comboParametro.setModel(new DefaultComboBoxModel(new String[] {"", "Volumen", "Densidad", "Cantidad", "Porcentaje", "N/A"}));
 		comboParametro.setBounds(482, 120, 130, 23);
 		panel.add(comboParametro);
 
@@ -167,7 +167,7 @@ public class AltaCasilla extends JFrame {
 		panel.add(textDescripcion);
 		
 		comboUnidad = new JComboBox();
-		comboUnidad.setModel(new DefaultComboBoxModel(new String[] {"", "mm", "\u00B0C", "\u00B5g/m3", "g/m3", "ppm", "Unidad Dobson", "mg/l"}));
+		comboUnidad.setModel(new DefaultComboBoxModel(new String[] {"", "mm", "\u00B0C", "\u00B5g/m3", "g/m3", "ppm", "Unidad Dobson", "mg/l", "N/A"}));
 		comboUnidad.setBounds(483, 176, 130, 23);
 		panel.add(comboUnidad);
 		
@@ -182,15 +182,10 @@ public class AltaCasilla extends JFrame {
 		panel.add(lblTipoDeValor);
 		
 		comboTipoValor = new JComboBox();
-		comboTipoValor.setModel(new DefaultComboBoxModel(new String[] {"", "String", "byte", "short", "int", "long", "float", "double", "boolean", "char"}));
+		comboTipoValor.setModel(new DefaultComboBoxModel(new String[] {"", "Entero","Decimal", "N/A"}));
 		comboTipoValor.setBounds(156, 176, 130, 23);
 		panel.add(comboTipoValor);
 		this.setVisible(true);
-
-
-		//chckbxNewCheckBox = new JCheckBox("New check box");
-		//chckbxNewCheckBox.setBounds(28, 19, 160, 23);
-		//panel_1.add(chckbxNewCheckBox);
 
 		setVisible(false);
 		this.setMinimumSize(new Dimension(670, 420));
