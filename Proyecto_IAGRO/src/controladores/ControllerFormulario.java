@@ -64,6 +64,26 @@ public class ControllerFormulario implements Constantes {
 				}
 			}
 		});
+		
+		listF.btnRegistro.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				try {
+				int id = listF.table.getSelectedRow();
+				if(id != (-1)) {
+					String name = listF.modelo.getValueAt(id, 1).toString();
+					
+					FormularioBeanRemote formBean = (FormularioBeanRemote)InitialContext.doLookup(RUTA_FormularioBean);
+					
+					Formulario form = formBean.buscarForm(name);
+					ControllerRegistro.form = form;
+					
+					ControllerRegistro.cargarTabla();
+				}
+					
+				} catch (NamingException e1) {}
+			}
+		});
 
 		//Volver al Menú desde listado
 		listF.btnVolver.addMouseListener(new MouseAdapter() {

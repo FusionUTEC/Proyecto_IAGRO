@@ -35,6 +35,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
 
+
 public class AltaRegistro extends JFrame implements Constantes{
 
 	private static final long serialVersionUID = 1L;
@@ -44,20 +45,16 @@ public class AltaRegistro extends JFrame implements Constantes{
 	public JPanel panel;
 	public JPanel contentPane;
 	public JPanel banner;
-	private JLabel lblNewLabel;
+
 	public JTable table;
 	public DefaultTableModel modelo;
-	private JTable table_1;
-	private JTable table_2;
 	private JScrollPane scrollPane;
-	private JLabel lblDep;
-	public JComboBox comboDpto;
 	public JButton btnVolver;
-	public JButton btnRegistrar;
+	public JButton btnImportar;
+
 
 	public HashMap<Long,Formulario> map;
-	private JTextField Fecha;
-	private JTextField textField;
+	public JButton btnRegistrar;
 
 
 	public AltaRegistro() throws ServiciosException  {
@@ -94,22 +91,25 @@ public class AltaRegistro extends JFrame implements Constantes{
 		panel.add(banner);
 		banner.setBackground(verde);
 		banner.setLayout(null);
-
-		lblNewLabel = new JLabel("ALTA DE REGISTRO");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setForeground(Color.WHITE);
-		lblNewLabel.setBounds(231, 20, 328, 27);
-		banner.add(lblNewLabel);
-		lblNewLabel.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 25));
-
+		
+		JLabel lblAltaRegistro = new JLabel("ALTA REGISTRO");
+		lblAltaRegistro.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAltaRegistro.setForeground(Color.WHITE);
+		lblAltaRegistro.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 25));
+		lblAltaRegistro.setBounds(230, 22, 328, 27);
+		banner.add(lblAltaRegistro);
 
 
 		// creamos el modelo de Tabla
 		modelo= new DefaultTableModel() {
 			@Override
 			public boolean isCellEditable(int row, int column) {
-				//all cells false
-				return false;
+				if(column == 4) {
+					return true;
+				}else {
+					return false;
+				}
+				
 			}
 		};
 
@@ -121,6 +121,7 @@ public class AltaRegistro extends JFrame implements Constantes{
 
 
 		scrollPane = new JScrollPane();
+
 		scrollPane.setBounds(34, 145, 721, 184);
 		panel.add(scrollPane);
 		scrollPane.setViewportView(table);
@@ -136,12 +137,15 @@ public class AltaRegistro extends JFrame implements Constantes{
 		Fecha.setBounds(356, 101, 173, 20);
 		panel.add(Fecha);
 
+
 		btnVolver = new JButton("Volver");
 		btnVolver.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnVolver.setBorderPainted(false);
 		btnVolver.setVerticalAlignment(SwingConstants.TOP);
 		btnVolver.setForeground(Color.WHITE);
-		btnVolver.setBounds(34, 358, 52, 35);		
+
+		btnVolver.setBounds(10, 369, 52, 35);		
+
 		Image volver = new ImageIcon(this.getClass().getResource("volver1.png")).getImage();
 		btnVolver.setIcon(new ImageIcon(volver));
 		btnVolver.setBackground(Color.WHITE);
@@ -149,89 +153,28 @@ public class AltaRegistro extends JFrame implements Constantes{
 		btnVolver.setOpaque(false);
 		panel.add(btnVolver);
 
+		btnImportar = new JButton("Importar");
+		btnImportar.setVerticalAlignment(SwingConstants.TOP);
+		btnImportar.setForeground(Color.WHITE);
+		btnImportar.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
+		btnImportar.setBorderPainted(false);
+		btnImportar.setBackground(azul);
+		btnImportar.setBounds(580, 368, 90, 27);
+		panel.add(btnImportar);
+		
 		btnRegistrar = new JButton("Registrar");
-		btnRegistrar.setBorderPainted(false);
-		btnRegistrar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnRegistrar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnRegistrar.setVerticalAlignment(SwingConstants.TOP);
 		btnRegistrar.setForeground(Color.WHITE);
 		btnRegistrar.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
-		btnRegistrar.setBorder(new MatteBorder(2, 2, 2, 2, (Color) verde));
+		btnRegistrar.setBorderPainted(false);
 		btnRegistrar.setBackground(verde);
-		btnRegistrar.setBounds(322, 359, 139, 27);
+		btnRegistrar.setBounds(680, 368, 90, 27);
 		panel.add(btnRegistrar);
 
 
-		//crea un array que contiene los nombre de las columnas
-		final String[] columnNames = {"Casilla","Tipo","Unidad de Medida","Parámetro","Dato"};		// insertamos las columnas
-		for(int column = 0; column < columnNames.length; column++){
-			//agrega las columnas a la tabla
-			modelo.addColumn(columnNames[column]);
-		}
-		//ORDEN DE LA TABLA
-		TableRowSorter<TableModel> orden=new  TableRowSorter<>(modelo);
-		table.setRowSorter(orden);
-		// Se crea un array que será una de las filas de la tabla. 
-		Object [] fila = new Object[columnNames.length]; 
-		// Se carga cada posición del array con una de las columnas de la tabla en base de datos.
-
-		FormularioBeanRemote formularioBean;
-		try {
-			formularioBean = (FormularioBeanRemote)
-					InitialContext.doLookup(RUTA_FormularioBean);
-
-			map = new HashMap<>();
-			//ControllerEstacion.CompletarCombo();
-			List<Formulario> form = formularioBean.obtenerTodos();
-			for (Formulario f: form) {
-				map.put(f.getIdFormulario(), f);
-
-				fila[0]=f.getIdFormulario();
-				fila[1]=f.getNombre();
-				fila[2]=f.getComentarios();
-				fila[3]=f.getUbicacion();
-				fila[4]=f.getFechaHora();
-				fila[5]=f.getIdUsuario();
-				fila[6]=f.getCasillas().size();
-				if  (f.getEstado().equals(Estado.ACTIVO)) {
-					
-					modelo.addRow(fila);
-
-				}
-			}
-
-		} catch (NamingException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-
-//////////////////****************************FILTROS********************************/////////////////7
 		
-	TableRowSorter<TableModel> filtro=new  TableRowSorter<>(modelo);
-	table.setRowSorter(filtro);
-	
-	JLabel lbluser = new JLabel("Usuario");
-	lbluser.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
-	lbluser.setBounds(300, 102, 63, 14);
-	panel.add(lbluser);
-	
-	JComboBox comboBox = new JComboBox();
-	comboBox.setBounds(138, 100, 136, 22);
-	panel.add(comboBox);
-	
-	JLabel lblfecha = new JLabel("Fecha");
-	lblfecha.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
-	lblfecha.setBounds(549, 104, 44, 14);
-	panel.add(lblfecha);
-	
-	textField = new JTextField();
-	textField.setEditable(false);
-	textField.setColumns(10);
-	textField.setBounds(592, 101, 166, 20);
-	panel.add(textField);
+
+		
 
 	}
 }
