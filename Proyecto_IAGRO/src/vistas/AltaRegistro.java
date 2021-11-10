@@ -34,6 +34,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class AltaRegistro extends JFrame implements Constantes{
 
@@ -44,22 +46,16 @@ public class AltaRegistro extends JFrame implements Constantes{
 	public JPanel panel;
 	public JPanel contentPane;
 	public JPanel banner;
-	private JLabel lblNewLabel;
 	public JTable table;
 	public DefaultTableModel modelo;
-	private JTable table_1;
-	private JTable table_2;
 	private JScrollPane scrollPane;
-	private JLabel lblNewLabel_1;
-	private JTextField filtroNombre;
-	public JComboBox comboDpto;
 	public JButton btnVolver;
-	public JButton btnNuevo;
-	public JButton btnModificar;
-	public JButton btnEliminar;
+	public JButton btnImportar;
+
 
 	public HashMap<Long,Formulario> map;
-	private JTextField filtroUsuario;
+	public JButton btnRegistrar;
+
 
 
 	public AltaRegistro() throws ServiciosException  {
@@ -96,15 +92,13 @@ public class AltaRegistro extends JFrame implements Constantes{
 		panel.add(banner);
 		banner.setBackground(verde);
 		banner.setLayout(null);
-
-		lblNewLabel = new JLabel("ALTA REGISTRO");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setForeground(Color.WHITE);
-		lblNewLabel.setBounds(231, 20, 328, 27);
-		banner.add(lblNewLabel);
-		lblNewLabel.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 25));
-
-
+		
+		JLabel lblAltaRegistro = new JLabel("ALTA REGISTRO");
+		lblAltaRegistro.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAltaRegistro.setForeground(Color.WHITE);
+		lblAltaRegistro.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 25));
+		lblAltaRegistro.setBounds(230, 22, 328, 27);
+		banner.add(lblAltaRegistro);
 
 		// creamos el modelo de Tabla
 		modelo= new DefaultTableModel() {
@@ -127,36 +121,9 @@ public class AltaRegistro extends JFrame implements Constantes{
 
 
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 135, 770, 213);
+		scrollPane.setBounds(19, 97, 751, 251);
 		panel.add(scrollPane);
 		scrollPane.setViewportView(table);
-
-		lblNewLabel_1 = new JLabel("Nombre");
-		lblNewLabel_1.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
-		lblNewLabel_1.setBounds(10, 99, 63, 14);
-		panel.add(lblNewLabel_1);
-
-		filtroNombre = new JTextField();
-		filtroNombre.setBounds(74, 98, 123, 20);
-		panel.add(filtroNombre);
-		filtroNombre.setColumns(10);
-		
-		filtroUsuario = new JTextField();
-		filtroUsuario.setColumns(10);
-		filtroUsuario.setBounds(277, 98, 123, 20);
-		panel.add(filtroUsuario);
-
-
-
-		JButton lupe = new JButton("");
-		lupe.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		lupe.setBorderPainted(false);
-		lupe.setBorder(new MatteBorder(0, 0, 0, 0, (Color) new Color(0, 0, 0)));
-		lupe.setBackground(Color.WHITE);
-		lupe.setIcon(new ImageIcon("C:\\Users\\Estudio\\Desktop\\Imprimir\\Agosto\\lupa.png"));
-		lupe.setBounds(749, 97, 28, 23);
-		lupe.setOpaque(false);
-		panel.add(lupe);
 
 
 		btnVolver = new JButton("Volver");
@@ -171,6 +138,24 @@ public class AltaRegistro extends JFrame implements Constantes{
 		btnVolver.setBorder(null);
 		btnVolver.setOpaque(false);
 		panel.add(btnVolver);
+		
+		btnImportar = new JButton("Importar");
+		btnImportar.setVerticalAlignment(SwingConstants.TOP);
+		btnImportar.setForeground(Color.WHITE);
+		btnImportar.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
+		btnImportar.setBorderPainted(false);
+		btnImportar.setBackground(azul);
+		btnImportar.setBounds(580, 368, 90, 27);
+		panel.add(btnImportar);
+		
+		btnRegistrar = new JButton("Registrar");
+		btnRegistrar.setVerticalAlignment(SwingConstants.TOP);
+		btnRegistrar.setForeground(Color.WHITE);
+		btnRegistrar.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
+		btnRegistrar.setBorderPainted(false);
+		btnRegistrar.setBackground(verde);
+		btnRegistrar.setBounds(680, 368, 90, 27);
+		panel.add(btnRegistrar);
 
 
 		

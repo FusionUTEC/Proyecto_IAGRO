@@ -61,6 +61,7 @@ public class ListadoFormulario extends JFrame implements Constantes{
 	public JButton btnNuevo;
 	public JButton btnModificar;
 	public JButton btnEliminar;
+	public JButton btnRegistro;
 
 	public HashMap<Long,Formulario> map;
 	private JTextField filtroUsuario;
@@ -261,34 +262,12 @@ public class ListadoFormulario extends JFrame implements Constantes{
 	lblNewLabel_1_1.setBounds(221, 99, 63, 14);
 	panel.add(lblNewLabel_1_1);
 	
-	JButton btnRegistro = new JButton("Nuevo Registro");
-	btnRegistro.addMouseListener(new MouseAdapter() {
-		@Override
-		public void mouseClicked(MouseEvent e) {
-			try {
-			int id = table.getSelectedRow();
-			if(id!= (-1)) {
-				String name = modelo.getValueAt(id, 1).toString();
-				
-				FormularioBeanRemote formBean = (FormularioBeanRemote)InitialContext.doLookup(RUTA_FormularioBean);
-				
-				Formulario form = formBean.buscarForm(name);
-				ControllerRegistro.form = form;
-				
-				ControllerRegistro.main(null);
-			}
-				
-			} catch (ServiciosException | NamingException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		}
-	});
+	btnRegistro = new JButton("Nuevo Registro");
 	btnRegistro.setForeground(Color.WHITE);
 	btnRegistro.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
 	btnRegistro.setBorderPainted(false);
 	btnRegistro.setBackground(new Color(104, 171, 196));
-	btnRegistro.setBounds(610, 368, 136, 27);
+	btnRegistro.setBounds(641, 368, 136, 27);
 	panel.add(btnRegistro);
 	
 

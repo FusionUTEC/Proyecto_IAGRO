@@ -13,9 +13,11 @@ import javax.swing.table.TableRowSorter;
 
 import com.entities.Estado;
 import com.entities.Formulario;
+import com.entities.Registro;
 import com.entities.Usuario;
 import com.exception.ServiciosException;
-import com.servicios.FormularioBeanRemote;
+import com.servicios.RegistroBeanRemote;
+import com.servicios.RegistroBeanRemote;
 import com.servicios.UsuarioBeanRemote;
 
 import controladores.Constantes;
@@ -50,16 +52,14 @@ public class ListadoRegistro extends JFrame implements Constantes{
 	private JTable table_1;
 	private JTable table_2;
 	private JScrollPane scrollPane;
-	private JLabel lblNewLabel_1;
-	private JTextField filtroNombre;
+	private JLabel lblDep;
 	public JComboBox comboDpto;
 	public JButton btnVolver;
 	public JButton btnNuevo;
 	public JButton btnModificar;
 	public JButton btnEliminar;
 
-	public HashMap<Long,Formulario> map;
-	private JTextField filtroUsuario;
+	public HashMap<Long,Registro> map;
 
 
 	public ListadoRegistro() throws ServiciosException  {
@@ -97,7 +97,7 @@ public class ListadoRegistro extends JFrame implements Constantes{
 		banner.setBackground(verde);
 		banner.setLayout(null);
 
-		lblNewLabel = new JLabel("LISTADO DE FORMULARIOS");
+		lblNewLabel = new JLabel("LISTADO DE REGISTROS");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setForeground(Color.WHITE);
 		lblNewLabel.setBounds(231, 20, 328, 27);
@@ -127,20 +127,10 @@ public class ListadoRegistro extends JFrame implements Constantes{
 		panel.add(scrollPane);
 		scrollPane.setViewportView(table);
 
-		lblNewLabel_1 = new JLabel("Nombre");
-		lblNewLabel_1.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
-		lblNewLabel_1.setBounds(10, 99, 63, 14);
-		panel.add(lblNewLabel_1);
-
-		filtroNombre = new JTextField();
-		filtroNombre.setBounds(74, 98, 123, 20);
-		panel.add(filtroNombre);
-		filtroNombre.setColumns(10);
-		
-		filtroUsuario = new JTextField();
-		filtroUsuario.setColumns(10);
-		filtroUsuario.setBounds(277, 98, 123, 20);
-		panel.add(filtroUsuario);
+		lblDep = new JLabel("Departamento");
+		lblDep.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
+		lblDep.setBounds(10, 83, 103, 25);
+		panel.add(lblDep);
 
 
 
@@ -205,7 +195,7 @@ public class ListadoRegistro extends JFrame implements Constantes{
 
 
 		//crea un array que contiene los nombre de las columnas
-		final String[] columnNames = {"Identificador","Nombre","Comentarios","Ubicación","Fecha", "Usuario","Cantidad de Casillas"};		// insertamos las columnas
+		final String[] columnNames = {"Identificador","Formulario","Departamento","Usuario","Fecha"};		// insertamos las columnas
 		for(int column = 0; column < columnNames.length; column++){
 			//agrega las columnas a la tabla
 			modelo.addColumn(columnNames[column]);
@@ -217,24 +207,22 @@ public class ListadoRegistro extends JFrame implements Constantes{
 		Object [] fila = new Object[columnNames.length]; 
 		// Se carga cada posición del array con una de las columnas de la tabla en base de datos.
 
-		FormularioBeanRemote formularioBean;
+		RegistroBeanRemote RegistroBean;
 		try {
-			formularioBean = (FormularioBeanRemote)
-					InitialContext.doLookup(RUTA_FormularioBean);
+			RegistroBean = (RegistroBeanRemote)
+					InitialContext.doLookup(RUTA_RegistroBean);
 
 			map = new HashMap<>();
 			//ControllerEstacion.CompletarCombo();
-			List<Formulario> form = formularioBean.obtenerTodos();
-			for (Formulario f: form) {
-				map.put(f.getIdFormulario(), f);
+			List<Registro> form = RegistroBean.obtenerTodos();
+			for (Registro f: form) {
+				map.put(f.getIdRegistro(), f);
 
-				fila[0]=f.getIdFormulario();
-				fila[1]=f.getNombre();
-				fila[2]=f.getComentarios();
-				fila[3]=f.getUbicacion();
+				fila[0]=f.getIdRegistro();
+				fila[1]=f.getFormulario().getNombre();
+				fila[2]=f.getDepartamento().getNombre();
+				fila[3]=f.getUsuario().getNombre() + " " + f.getUsuario().getApellido();
 				fila[4]=f.getFechaHora();
-				fila[5]=f.getIdUsuario();
-				fila[6]=f.getCasillas().size();
 				if  (f.getEstado().equals(Estado.ACTIVO)) {
 					
 					modelo.addRow(fila);
@@ -252,11 +240,6 @@ public class ListadoRegistro extends JFrame implements Constantes{
 	TableRowSorter<TableModel> filtro=new  TableRowSorter<>(modelo);
 	table.setRowSorter(filtro);
 	
-	JLabel lblNewLabel_1_1 = new JLabel("Usuario");
-	lblNewLabel_1_1.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
-	lblNewLabel_1_1.setBounds(221, 99, 63, 14);
-	panel.add(lblNewLabel_1_1);
-	
 	JButton btnCompletar = new JButton("Nuevo Registro");
 	btnCompletar.setForeground(Color.WHITE);
 	btnCompletar.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
@@ -265,15 +248,9 @@ public class ListadoRegistro extends JFrame implements Constantes{
 	btnCompletar.setBounds(609, 369, 136, 27);
 	panel.add(btnCompletar);
 	
-
-	
-	filtroNombre.addKeyListener(new KeyAdapter() {
-		@Override
-		public void keyReleased(KeyEvent e) {
-			filtro.setRowFilter(RowFilter.regexFilter("(?i)"+filtroNombre.getText(), 0));
-
-		}
-	});
+	JComboBox comboBox = new JComboBox();
+	comboBox.setBounds(106, 86, 160, 22);
+	panel.add(comboBox);
 
 	}
 }

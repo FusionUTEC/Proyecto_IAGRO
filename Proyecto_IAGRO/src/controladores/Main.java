@@ -155,6 +155,48 @@ public class Main implements Constantes	{
 				}
 			}
 		});
+		
+		//MENU LISTADO registros DESDE INVE	
+				menuP.btnRegistroInv.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {	
+						try {
+							ControllerRegistro.V_Listado_Registro();
+							menuP.setVisible(false);
+						} catch (ServiciosException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					}
+				});
+				
+				//MENU LISTADO registros DESDE afi	
+				menuP.btnRegistroAfi.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {	
+						try {
+							ControllerRegistro.V_Listado_Registro();
+							menuP.setVisible(false);
+						} catch (ServiciosException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					}
+				});
+				
+				//MENU LISTADO registros DESDE INVE	
+				menuP.btnRegistroAdm.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {	
+						try {
+							ControllerRegistro.V_Listado_Registro();
+							menuP.setVisible(false);
+						} catch (ServiciosException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					}
+				});
 		menuP.btnsalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int confirm = JOptionPane.showOptionDialog(null,

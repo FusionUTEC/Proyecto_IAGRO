@@ -1,5 +1,7 @@
 package controladores;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -11,12 +13,15 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 import com.entities.Casilla;
+import com.entities.Dato;
 import com.entities.Departamento;
+import com.entities.Estado;
 import com.entities.Formulario;
 import com.entities.Registro;
 import com.entities.Usuario;
 import com.exception.ServiciosException;
 import com.servicios.CasillaBeanRemote;
+import com.servicios.DatoBeanRemote;
 import com.servicios.DepartamentoBeanRemote;
 import com.servicios.FormularioBeanRemote;
 import com.servicios.RegistroBeanRemote;
@@ -30,6 +35,29 @@ public class ControllerRegistro implements Constantes {
 	public static AltaRegistro AltaR;
 	public static Formulario form;
 	
+	
+	
+	public static void V_Listado_Registro() throws ServiciosException {
+		
+		ListaR = new ListadoRegistro();
+		ListaR.setVisible(true);
+		
+		
+		
+		
+	}
+	
+	public static void V_Alta_Registro() {
+		try {
+			AltaR = new AltaRegistro();
+			
+			
+			
+		} catch (ServiciosException e) {}
+		
+		
+	}
+	
 	public static void main(String[] args) throws ServiciosException {
 		
 		AltaR = new AltaRegistro();
@@ -41,12 +69,15 @@ public class ControllerRegistro implements Constantes {
 	public static void crear() {
 		
 		try {
-			
-		DepartamentoBeanRemote dptoBean = (DepartamentoBeanRemote)InitialContext.doLookup(RUTA_DepartamentoBean);
 		
-		//Departamento
-		String dep = AltaR.comboDpto.getSelectedItem().toString();
-		Departamento d = dptoBean.buscar(dep);
+		RegistroBeanRemote regBean = (RegistroBeanRemote)InitialContext.doLookup(RUTA_RegistroBean);
+		DepartamentoBeanRemote dptoBean = (DepartamentoBeanRemote)InitialContext.doLookup(RUTA_DepartamentoBean);
+		CasillaBeanRemote casBean = (CasillaBeanRemote)InitialContext.doLookup(RUTA_CasillaBean);
+		DatoBeanRemote datoBean = (DatoBeanRemote)InitialContext.doLookup(RUTA_DatoBean);
+		
+		Departamento d = dptoBean.buscar("MONTEVIDEO");
+		//dptoBean.buscar(RUTA_CasillaBean)
+		
 		
 		//Fecha
 		LocalDateTime fe=LocalDateTime.now();	
@@ -54,35 +85,40 @@ public class ControllerRegistro implements Constantes {
 		
 		//Casillas
 		int filas = AltaR.modelo.getRowCount();
-		String[][] datos = new String[filas][];
+	
 		
 		
-		for(int i = 0; i<filas; i++) {
-			
-			String[] dato = new String[5];
-			
-			dato[0] = AltaR.modelo.getValueAt(i, 0).toString();
-			dato[1] = AltaR.modelo.getValueAt(i, 1).toString();
-			dato[2] = AltaR.modelo.getValueAt(i, 2).toString();
-			dato[3] = AltaR.modelo.getValueAt(i, 3).toString();
-			dato[4] = AltaR.modelo.getValueAt(i, 4).toString();
-			
-			datos[i] = dato;
-			
-		}
+		
 		
 		//Usuario
 		Usuario user = Main.User;
 		
 		Registro r = new Registro();
-		r.setDepartamento(d);
+		//r.setDepartamento(d);
 		r.setFechaHora(fecha);
-		r.setDatos(datos);
 		r.setUsuario(user);
+		r.setFormulario(form);
+		r.setDepartamento(d);
+		r.setEstado(Estado.ACTIVO);
 		
 		//Enviar registro a la base
-		RegistroBeanRemote regBean = (RegistroBeanRemote)InitialContext.doLookup(RUTA_RegistroBean);
+		
 		regBean.crear(r);
+		
+		//Datos de medición
+				for(int i = 0; i<filas; i++) {
+					
+				Dato dato = new Dato();
+				dato.setRegistro(r);
+				
+				Casilla c = casBean.buscar(AltaR.modelo.getValueAt(i, 0).toString());
+				dato.setCasilla(c);
+				
+				dato.setValor(AltaR.modelo.getValueAt(i, 4).toString());
+					
+				datoBean.crear(dato);
+					
+				}
 		
 		
 		} catch (NamingException | ServiciosException e) {}
@@ -96,6 +132,22 @@ public class ControllerRegistro implements Constantes {
 		
 		//CasillaBeanRemote casBean = (CasillaBeanRemote)InitialContext.doLookup(RUTA_CasillaBean);
 		//List<Casilla> casillas = casBean.obtenerTodos();
+		
+		try {
+			AltaR = new AltaRegistro();
+			AltaR.setVisible(true);
+			
+			AltaR.btnRegistrar.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					
+					crear();
+				}
+			});
+		} catch (ServiciosException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		DefaultTableModel tabla = AltaR.modelo;
 		
@@ -119,5 +171,25 @@ public class ControllerRegistro implements Constantes {
 		}
 		
 		
+		
+		
 	}
+	
+	
+	public static Registro buscarR(String id) {
+		
+		RegistroBeanRemote regBean;
+		try {
+			regBean = (RegistroBeanRemote)InitialContext.doLookup(RUTA_RegistroBean);
+			Registro r = regBean.buscar(id);
+			
+			return r;
+		} catch (NamingException e) {
+			return null;
+		}	
+			
+	}
+	
 }
+
+
