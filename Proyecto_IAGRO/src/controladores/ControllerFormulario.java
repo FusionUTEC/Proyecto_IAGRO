@@ -67,6 +67,26 @@ public class ControllerFormulario implements Constantes {
 				}
 			}
 		});
+		
+		listF.btnRegistro.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				try {
+				int id = listF.table.getSelectedRow();
+				if(id != (-1)) {
+					String name = listF.modelo.getValueAt(id, 1).toString();
+					
+					FormularioBeanRemote formBean = (FormularioBeanRemote)InitialContext.doLookup(RUTA_FormularioBean);
+					
+					Formulario form = formBean.buscarForm(name);
+					ControllerRegistro.form = form;
+					
+					ControllerRegistro.cargarTabla();
+				}
+					
+				} catch (NamingException e1) {}
+			}
+		});
 
 		listF.btnExportar.addMouseListener(new MouseAdapter() {
 
@@ -119,6 +139,8 @@ public class ControllerFormulario implements Constantes {
 				altaF.btnRegistrar.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent e) {
+						
+						
 
 						String comentario = altaF.textResumen.getText();
 						//Guardar fecha y hora en BD
@@ -156,6 +178,8 @@ public class ControllerFormulario implements Constantes {
 								e1.printStackTrace();
 							}
 						}
+						
+						altaF.setVisible(false);
 					}
 				});
 				//Volver al listado
