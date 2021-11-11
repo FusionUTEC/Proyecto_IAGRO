@@ -88,17 +88,6 @@ public class ControllerFormulario implements Constantes {
 			}
 		});
 
-		listF.btnExportar.addMouseListener(new MouseAdapter() {
-
-			@Override
-			public void mouseClicked(MouseEvent e) {
-
-				ModelImpExp model=new ModelImpExp();
-				ControllerImpExp cont=new ControllerImpExp(listF, model);
-
-			}
-		});
-
 		//Volver al Menú desde listado
 		listF.btnVolver.addMouseListener(new MouseAdapter() {
 			@Override

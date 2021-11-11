@@ -402,7 +402,7 @@ public class ControllerUsuario implements Constantes{
 		}
 		if(todoOK) {
 
-			todoOK=validarContraseÃ±a(pass);
+			todoOK=validarContraseña(pass);
 
 		}
 
@@ -444,7 +444,7 @@ public class ControllerUsuario implements Constantes{
 				admin.setNombre(nom);
 				admin.setMail(mail);
 				admin.setNombreUsuario(user);
-				admin.setContraseÃ±a(pass);
+				admin.setContraseña(pass);
 				admin.setTipo(tipo);
 				admin.setEstado(admin.getEstado().ACTIVO);
 
@@ -476,7 +476,7 @@ public class ControllerUsuario implements Constantes{
 				invest.setNombre(nom);
 				invest.setMail(mail);
 				invest.setNombreUsuario(user);
-				invest.setContraseÃ±a(pass);
+				invest.setContraseña(pass);
 				invest.setTipo(tipo);
 				invest.setEstado(invest.getEstado().ACTIVO);
 
@@ -504,7 +504,7 @@ public class ControllerUsuario implements Constantes{
 				aficionado.setNombre(nom);
 				aficionado.setMail(mail);
 				aficionado.setNombreUsuario(user);
-				aficionado.setContraseÃ±a(pass);
+				aficionado.setContraseña(pass);
 				aficionado.setTipo(tipo);
 				aficionado.setOcupacion(ocupacion);
 				aficionado.setEstado(aficionado.getEstado().ACTIVO);
@@ -656,8 +656,8 @@ public class ControllerUsuario implements Constantes{
 			altaU.apellido.setText(adm.getApellido());
 			altaU.nombre.setText(adm.getNombre());
 			altaU.email.setText(adm.getMail());
-			altaU.contrasena.setText(adm.getContraseÃ±a());
-			altaU.confcontrasena.setText(adm.getContraseÃ±a());
+			altaU.contrasena.setText(adm.getContraseña());
+			altaU.confcontrasena.setText(adm.getContraseña());
 			altaU.nombreUsu.setText(adm.getNombreUsuario());
 			altaU.cedula.setText(adm.getDocumento());
 			altaU.domicilio.setText(adm.getDomicilio());
@@ -671,8 +671,8 @@ public class ControllerUsuario implements Constantes{
 			altaU.nombre.setText(inv.getNombre());
 			altaU.email.setText(inv.getMail());
 			altaU.nombreUsu.setText(inv.getNombreUsuario());
-			altaU.contrasena.setText(inv.getContraseÃ±a());
-			altaU.confcontrasena.setText(inv.getContraseÃ±a());
+			altaU.contrasena.setText(inv.getContraseña());
+			altaU.confcontrasena.setText(inv.getContraseña());
 			altaU.cedula.setText(inv.getDocumento());
 			altaU.domicilio.setText(inv.getDomicilio());
 			altaU.ciudad.setText(inv.getCiudad());
@@ -683,8 +683,8 @@ public class ControllerUsuario implements Constantes{
 			Aficionado afi = usuarioBean.buscarAfi(user);
 			altaU.apellido.setText(afi.getApellido());
 			altaU.nombre.setText(afi.getNombre());
-			altaU.contrasena.setText(afi.getContraseÃ±a());
-			altaU.confcontrasena.setText(afi.getContraseÃ±a());
+			altaU.contrasena.setText(afi.getContraseña());
+			altaU.confcontrasena.setText(afi.getContraseña());
 			altaU.email.setText(afi.getMail());
 			altaU.nombreUsu.setText(afi.getNombreUsuario());
 			altaU.ocupacion.setText(afi.getOcupacion());
@@ -781,19 +781,19 @@ public class ControllerUsuario implements Constantes{
 
 
 	//metodo para actualizar PASSWORD
-	public static void actualizarPass(String nombreUsuario, String contraseÃ±a) throws NamingException {
+	public static void actualizarPass(String nombreUsuario, String contraseña) throws NamingException {
 
 		UsuarioBeanRemote usuarioBean = (UsuarioBeanRemote)
 				InitialContext.doLookup(RUTA_UsuarioBean);
 
-		boolean todoOK =validarContraseÃ±a(contraseÃ±a);
+		boolean todoOK =validarContraseña(contraseña);
 
 		if(todoOK) {
 			Usuario user=new Usuario();
 			user=usuarioBean.buscarUser(nombreUsuario);
 			System.out.println(nombreUsuario);
-			user.setContraseÃ±a(contraseÃ±a);
-			System.out.println(contraseÃ±a);
+			user.setContraseña(contraseña);
+			System.out.println(contraseña);
 
 			try {
 				usuarioBean.actualizar(user);
@@ -940,7 +940,7 @@ public class ControllerUsuario implements Constantes{
 
 	}
 
-	public static boolean validarContraseÃ±a(String pass) {
+	public static boolean validarContraseña(String pass) {
 
 
 		boolean bandera = true;

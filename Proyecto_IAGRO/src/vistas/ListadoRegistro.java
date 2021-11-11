@@ -55,14 +55,13 @@ public class ListadoRegistro extends JFrame implements Constantes{
 	private JLabel lblDep;
 	public JComboBox comboDpto;
 	public JButton btnVolver;
-	public JButton btnNuevo;
 	public JButton btnModificar;
 	public JButton btnEliminar;
 
 	public HashMap<Long,Registro> map;
 
 
-	public ListadoRegistro() throws ServiciosException  {
+	public ListadoRegistro()   {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ListadoEstacion.class.getResource("/vistas/Logo_original.png")));
 
 		//Frame
@@ -144,17 +143,6 @@ public class ListadoRegistro extends JFrame implements Constantes{
 		lupe.setOpaque(false);
 		panel.add(lupe);
 
-		btnNuevo = new JButton("Nuevo Formulario");
-		btnNuevo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnNuevo.setBorderPainted(false);
-		btnNuevo.setVerticalAlignment(SwingConstants.TOP);
-		btnNuevo.setForeground(Color.WHITE);
-		btnNuevo.setBorder(new MatteBorder(2, 2, 2, 2, (Color) azul));
-		btnNuevo.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
-		btnNuevo.setBackground(azul);
-		btnNuevo.setBounds(92, 369, 125, 27);
-		panel.add(btnNuevo);
-
 		btnVolver = new JButton("Volver");
 		btnVolver.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnVolver.setBorderPainted(false);
@@ -180,7 +168,7 @@ public class ListadoRegistro extends JFrame implements Constantes{
 		btnModificar.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
 		btnModificar.setBorder(new MatteBorder(2, 2, 2, 2, (Color) verde));
 		btnModificar.setBackground(verde);
-		btnModificar.setBounds(227, 369, 90, 27);
+		btnModificar.setBounds(400, 369, 90, 27);
 		panel.add(btnModificar);
 
 
@@ -190,7 +178,7 @@ public class ListadoRegistro extends JFrame implements Constantes{
 		btnEliminar.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
 		btnEliminar.setBorderPainted(false);
 		btnEliminar.setBackground(verde);
-		btnEliminar.setBounds(327, 369, 90, 27);
+		btnEliminar.setBounds(487, 369, 90, 27);
 		panel.add(btnEliminar);
 
 
@@ -245,7 +233,7 @@ public class ListadoRegistro extends JFrame implements Constantes{
 	btnCompletar.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
 	btnCompletar.setBorderPainted(false);
 	btnCompletar.setBackground(new Color(104, 171, 196));
-	btnCompletar.setBounds(609, 369, 136, 27);
+	btnCompletar.setBounds(266, 369, 136, 27);
 	panel.add(btnCompletar);
 	
 	JComboBox comboBox = new JComboBox();

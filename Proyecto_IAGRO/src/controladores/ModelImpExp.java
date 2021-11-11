@@ -29,6 +29,7 @@ public class ModelImpExp  {
 	public String Importar (File archivo, JTable tablaD) {
 		String respuesta="No se pudo realizar la importación";
 		DefaultTableModel modeloT= new DefaultTableModel();
+		
 		tablaD.setModel(modeloT);
 		try {
 			wb=WorkbookFactory.create(new FileInputStream(archivo));
@@ -72,7 +73,7 @@ public class ModelImpExp  {
 			}
 			respuesta="Importación Exitosa";
 		}catch (Exception e) {
-
+			e.getMessage();
 		}
 		return respuesta;
 	}
@@ -91,7 +92,6 @@ public class ModelImpExp  {
 		try {
 			for (int i=-1; i<numFila;i++) {
 				Row fila=hoja.createRow(i+1);
-				//Row fila=hoja.getRow(i);
 				for(int j=0;j<numColumna;j++) {
 					Cell celda=fila.createCell(j);
 					if(i==-1) {

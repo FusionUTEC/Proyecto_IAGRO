@@ -37,7 +37,7 @@ public class ControllerRegistro implements Constantes {
 	
 	
 	
-	public static void V_Listado_Registro() throws ServiciosException {
+	public static void V_Listado_Registro()  {
 		
 		ListaR = new ListadoRegistro();
 		ListaR.setVisible(true);
@@ -46,8 +46,8 @@ public class ControllerRegistro implements Constantes {
 		
 		
 	}
-	
-	
+
+
 	
 	public static void crear() {
 		
@@ -128,6 +128,29 @@ public class ControllerRegistro implements Constantes {
 				}
 			});
 			
+			AltaR.btnExportarPlant.addMouseListener(new MouseAdapter() {
+
+				@Override
+				public void mouseClicked(MouseEvent e) {
+
+					ModelImpExp model=new ModelImpExp();
+					ControllerImpExp cont=new ControllerImpExp(AltaR, model);
+
+				}
+			});
+			
+			AltaR.btnImportar.addMouseListener(new MouseAdapter() {
+
+				@Override
+				public void mouseClicked(MouseEvent e) {
+
+					ModelImpExp model=new ModelImpExp();
+					ControllerImpExp cont=new ControllerImpExp(AltaR, model);
+
+				}
+			});
+			
+			
 			AltaR.btnVolver.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
@@ -136,7 +159,7 @@ public class ControllerRegistro implements Constantes {
 					Main.menuP.setVisible(true);
 				}
 			});
-		} catch (ServiciosException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
