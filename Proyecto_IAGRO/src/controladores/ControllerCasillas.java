@@ -513,7 +513,7 @@ public class ControllerCasillas implements Constantes{
 		CasillaBeanRemote casillaBean = (CasillaBeanRemote)
 				InitialContext.doLookup(RUTA_CasillaBean);
 
-		List<Casilla> list = (List<Casilla>) casillaBean.buscarCas();
+		List<Casilla> list = (List<Casilla>) casillaBean.obtenerTodos();
 		System.out.println(list.size());
 		return list;
 	}
