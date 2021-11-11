@@ -188,7 +188,7 @@ public class ListadoEstacion extends JFrame implements Constantes {
 		btnModificar.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
 		btnModificar.setBorder(new MatteBorder(2, 2, 2, 2, (Color) verde));
 		btnModificar.setBackground(verde);
-		btnModificar.setBounds(356, 370, 90, 27);
+		btnModificar.setBounds(345, 370, 90, 27);
 		panel.add(btnModificar);
 
 

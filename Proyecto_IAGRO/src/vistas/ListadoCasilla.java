@@ -9,6 +9,8 @@ import javax.naming.NamingException;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 import com.entities.Casilla;
 import com.entities.Estacion;
@@ -29,6 +31,10 @@ import java.util.List;
 import javax.swing.border.MatteBorder;
 import java.awt.Cursor;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
 
@@ -47,8 +53,8 @@ public class ListadoCasilla extends JFrame implements Constantes{
 	private JTable table_2;
 	private JScrollPane scrollPane;
 	private JLabel lblNewLabel_1;
-	private JTextField textFieldNombre;
-	public JComboBox comboTipoCasilla;
+	private JTextField filtroNombre;
+	public JComboBox comboFiltroDato;
 	public JButton btnVolver;
 	public JButton btnNuevo;
 	public JButton btnModificar;
@@ -127,10 +133,10 @@ public class ListadoCasilla extends JFrame implements Constantes{
 		lblNewLabel_1.setBounds(10, 99, 63, 14);
 		panel.add(lblNewLabel_1);
 
-		textFieldNombre = new JTextField();
-		textFieldNombre.setBounds(74, 98, 123, 20);
-		panel.add(textFieldNombre);
-		textFieldNombre.setColumns(10);
+		filtroNombre = new JTextField();
+		filtroNombre.setBounds(72, 98, 115, 20);
+		panel.add(filtroNombre);
+		filtroNombre.setColumns(10);
 
 		JLabel lblNewLabel_1_1 = new JLabel("Tipo de dato");
 		lblNewLabel_1_1.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
@@ -187,7 +193,7 @@ public class ListadoCasilla extends JFrame implements Constantes{
 		btnModificar.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
 		btnModificar.setBorder(new MatteBorder(2, 2, 2, 2, (Color) verde));
 		btnModificar.setBackground(verde);
-		btnModificar.setBounds(356, 370, 90, 27);
+		btnModificar.setBounds(344, 370, 90, 27);
 		panel.add(btnModificar);
 
 
@@ -197,12 +203,14 @@ public class ListadoCasilla extends JFrame implements Constantes{
 		btnEliminar.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
 		btnEliminar.setBorderPainted(false);
 		btnEliminar.setBackground(verde);
-		btnEliminar.setBounds(456, 370, 90, 27);
+		btnEliminar.setBounds(457, 369, 90, 27);
 		panel.add(btnEliminar);
 
-		comboTipoCasilla = new JComboBox();
-		comboTipoCasilla.setBounds(321, 98, 141, 20);
-		panel.add(comboTipoCasilla);
+		comboFiltroDato = new JComboBox();
+		comboFiltroDato.setBounds(321, 98, 113, 20);
+		panel.add(comboFiltroDato);
+		comboFiltroDato.setModel(new DefaultComboBoxModel(new String[] {"", "Entero","Decimal"}));
+		this.setVisible(true);
 
 		//crea un array que contiene los nombre de las columnas
 		final String[] columnNames = {"Nombre","Descripción","Parametro", "Tipo Input", "Unidad de Medida", "Identificador"};
@@ -244,6 +252,32 @@ public class ListadoCasilla extends JFrame implements Constantes{
 
 
 		}
+		TableRowSorter<TableModel> filtro=new  TableRowSorter<>(modelo);
+		table.setRowSorter(filtro);
+		filtroNombre.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				filtro.setRowFilter(RowFilter.regexFilter("(?i)"+filtroNombre.getText(), 0));
+
+			}
+		});
+
+		comboFiltroDato.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+
+				String selected = comboFiltroDato.getSelectedItem().toString();
+				if(selected != "") {
+					filtro.setRowFilter(RowFilter.regexFilter(selected, 3));
+
+				}
+				else {
+					filtro.setRowFilter(null);
+				}
+
+			}
+		});
+
+
 	}
 }
 

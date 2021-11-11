@@ -62,12 +62,15 @@ public class ListadoFormulario extends JFrame implements Constantes{
 	public JButton btnNuevo;
 	public JButton btnModificar;
 	public JButton btnEliminar;
-	public JButton btnRegistro;
+
+	public JButton btnExportar;
+
+
 
 	public HashMap<Long,Formulario> map;
 
 
-	public ListadoFormulario() throws ServiciosException  {
+	public ListadoFormulario()   {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ListadoEstacion.class.getResource("/vistas/Logo_original.png")));
 
 		//Frame
@@ -194,7 +197,9 @@ public class ListadoFormulario extends JFrame implements Constantes{
 		btnModificar.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
 		btnModificar.setBorder(new MatteBorder(2, 2, 2, 2, (Color) verde));
 		btnModificar.setBackground(verde);
-		btnModificar.setBounds(227, 369, 90, 27);
+
+		btnModificar.setBounds(345, 370, 90, 27);
+
 		panel.add(btnModificar);
 
 
@@ -206,10 +211,23 @@ public class ListadoFormulario extends JFrame implements Constantes{
 		btnEliminar.setBackground(verde);
 		btnEliminar.setBounds(327, 369, 90, 27);
 		panel.add(btnEliminar);
+		
+		btnExportar = new JButton("Exportar");
+		btnExportar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnExportar.setBorderPainted(false);
+		btnExportar.setVerticalAlignment(SwingConstants.TOP);
+		btnExportar.setForeground(Color.WHITE);
+		btnExportar.setBorder(new MatteBorder(2, 2, 2, 2, (Color) verde));
+		btnExportar.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
+		btnExportar.setBackground(verde);
+		btnExportar.setBounds(590, 370, 125, 27);
+		panel.add(btnExportar);
 
 
 		//crea un array que contiene los nombre de las columnas
-		final String[] columnNames = {"Identificador","Nombre","Comentarios","Ubicación","Fecha", "Usuario","Cantidad de Casillas"};		// insertamos las columnas
+
+		final String[] columnNames = {"Identificador","Nombre","Comentarios","Fecha", "Usuario","Cantidad de Casillas"};		// insertamos las columnas
+
 		for(int column = 0; column < columnNames.length; column++){
 			//agrega las columnas a la tabla
 			modelo.addColumn(columnNames[column]);
@@ -235,10 +253,9 @@ public class ListadoFormulario extends JFrame implements Constantes{
 				fila[0]=f.getIdFormulario();
 				fila[1]=f.getNombre();
 				fila[2]=f.getComentarios();
-				fila[3]=f.getUbicacion();
-				fila[4]=f.getFechaHora();
-				fila[5]=f.getIdUsuario();
-				fila[6]=f.getCasillas().size();
+				fila[3]=f.getFechaHora();
+				fila[4]=f.getIdUsuario();
+				fila[5]=f.getCasillas().size();
 				if  (f.getEstado().equals(Estado.ACTIVO)) {
 
 					modelo.addRow(fila);

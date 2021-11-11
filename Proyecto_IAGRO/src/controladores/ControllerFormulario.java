@@ -25,13 +25,16 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
+import org.apache.poi.ss.formula.ptg.ValueOperatorPtg;
 import org.hibernate.type.LocalDateType;
 
 import com.entities.Casilla;
 
 import com.entities.Estado;
 import com.entities.Formulario;
+import com.entities.Usuario;
 import com.exception.ServiciosException;
+import com.servicios.CasillaBean;
 import com.servicios.CasillaBeanRemote;
 
 import com.servicios.FormularioBeanRemote;
@@ -85,6 +88,17 @@ public class ControllerFormulario implements Constantes {
 			}
 		});
 
+		listF.btnExportar.addMouseListener(new MouseAdapter() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+
+				ModelImpExp model=new ModelImpExp();
+				ControllerImpExp cont=new ControllerImpExp(listF, model);
+
+			}
+		});
+
 		//Volver al Menú desde listado
 		listF.btnVolver.addMouseListener(new MouseAdapter() {
 			@Override
@@ -102,6 +116,7 @@ public class ControllerFormulario implements Constantes {
 
 				try {
 					V_AltaForm();
+
 
 					//visualizar hora linda
 					LocalDateTime fecha = LocalDateTime.now();
@@ -133,9 +148,7 @@ public class ControllerFormulario implements Constantes {
 						LocalDateTime fe=LocalDateTime.now();
 						fe.format(formato);
 						Timestamp fecha= Timestamp.valueOf(fe);
-						String nombre=altaF.nombre.getText();
-						String ubicacion=altaF.textUbicacion.getText();
-
+						String nombre=altaF.nombre.getText();	
 
 						int confirm = JOptionPane.showOptionDialog(null,
 								"¿Desea dar de alta el Formulario?",
@@ -143,13 +156,14 @@ public class ControllerFormulario implements Constantes {
 								JOptionPane.QUESTION_MESSAGE,null, null, null);							//Si el usuario elige sí se borra la fila
 						if (JOptionPane.YES_OPTION== confirm) {
 							try {
-								boolean todoOK=camposVacios(nombre,ubicacion);
+								boolean todoOK=camposVacios(nombre);
 
 								if(todoOK) {
 
 
 									try {
-										crear(comentario,fecha,Main.User.getIdUsuario(),nombre,ubicacion);
+
+										crear(comentario,fecha,Main.User.getIdUsuario(),nombre);
 									} catch (ServiciosException e1) {
 										// TODO Auto-generated catch block
 										e1.printStackTrace();
@@ -224,14 +238,12 @@ public class ControllerFormulario implements Constantes {
 
 					altaF.nombre.setText(fo.getNombre());
 					altaF.lblUser.setText(usuario);
-					altaF.textUbicacion.setText(fo.getUbicacion());
 					altaF.textResumen.setText(fo.getComentarios());
 					altaF.lblfechaHoy.setText(fech);
-
 					List<Casilla>casi=fo.getCasillas();
 					for(Casilla c: casi) {
 						altaF.map.put(c.getIdCasilla(), c);
-						
+
 					}
 
 					altaF.cargarCasillas();
@@ -253,22 +265,19 @@ public class ControllerFormulario implements Constantes {
 					public void mouseClicked(MouseEvent e) {
 
 						String nom = altaF.nombre.getText();
-						String ubi=altaF.textUbicacion.getText();
 						String res = altaF.textResumen.getText();
 						//Guardar fecha y hora en BD
 						LocalDateTime fe=LocalDateTime.now();	
 						String nombre=altaF.nombre.getText();
-						Timestamp fecha= Timestamp.valueOf(fe);
-
-
+						Timestamp fecha= Timestamp.valueOf(fe);			
 
 						try {
-							boolean todoOK=camposVacios(nom,ubi);
+							boolean todoOK=camposVacios(nom);
 
 							if(todoOK) {
 
 								try {
-									ControllerFormulario.actualizar(res,fecha,Main.User.getIdUsuario(),nom,ubi);
+									ControllerFormulario.actualizar(res,fecha,Main.User.getIdUsuario(),nom);
 								} catch (ServiciosException e1) {
 									// TODO Auto-generated catch block
 									e1.printStackTrace();
@@ -286,6 +295,7 @@ public class ControllerFormulario implements Constantes {
 
 
 				});
+
 
 			}
 
@@ -320,21 +330,20 @@ public class ControllerFormulario implements Constantes {
 	}
 
 	//ACTUALIZAR FORMULARIO
-	public static void actualizar(String resumen,Timestamp fecha, Long idUser,String nombre, String ubicacion) throws NamingException, ServiciosException {
+	public static void actualizar(String resumen,Timestamp fecha, Long idUser,String nombre) throws NamingException, ServiciosException {
 		FormularioBeanRemote formBean = (FormularioBeanRemote)
 				InitialContext.doLookup(RUTA_FormularioBean);
 
 
 		CasillaBeanRemote CasillaBean = (CasillaBeanRemote)
 				InitialContext.doLookup(RUTA_CasillaBean);
-		
-		
+
+
 		Formulario form = new Formulario();
 		form=formBean.buscarForm(nombre);
 		form.setFechaHora(fecha);
 		form.setIdUsuario(idUser);
 		form.setNombre(nombre);
-		form.setUbicacion(ubicacion);
 		form.setComentarios(resumen);
 		ArrayList <Casilla> casillas = new ArrayList<>();
 
@@ -373,7 +382,6 @@ public class ControllerFormulario implements Constantes {
 		altaF.btnGuardar.setVisible(false);
 		altaF.cargarCasillas();
 		listF.setVisible(false);
-
 		Main.menuP.setVisible(false);
 		//altaE.comboDpto.setModel(new DefaultComboBoxModel (CompletarCombo()));
 
@@ -393,11 +401,11 @@ public class ControllerFormulario implements Constantes {
 		TableRowSorter<TableModel> orden=new  TableRowSorter<>(modelo);
 		listF.table.setRowSorter(orden);
 
-		final String[] columnNames = {"Identificador","Nombre","Comentarios","Ubicación","Fecha", "Usuario","Cantidad de Casillas"};
+		final String[] columnNames = {"Identificador","Nombre","Comentarios","Fecha", "Usuario","Cantidad de Casillas"};
 
 		Object [] fila = new Object[columnNames.length]; 
 		// Se carga cada posición del array con una de las columnas de la tabla en base de datos.
-	
+
 		List<Formulario> form = obtenerTodos();
 		for (Formulario f: form) {
 			//map.put(f.getIdFormulario(), f);
@@ -405,10 +413,9 @@ public class ControllerFormulario implements Constantes {
 			fila[0]=f.getIdFormulario();
 			fila[1]=f.getNombre();
 			fila[2]=f.getComentarios();
-			fila[3]=f.getUbicacion();
-			fila[4]=f.getFechaHora();
-			fila[5]=f.getIdUsuario();
-			fila[6]=f.getCasillas().size();
+			fila[3]=f.getFechaHora();
+			fila[4]=f.getIdUsuario();
+			fila[5]=f.getCasillas().size();
 			if  (f.getEstado().equals(Estado.ACTIVO)) {
 				modelo.addRow(fila);
 
@@ -416,7 +423,7 @@ public class ControllerFormulario implements Constantes {
 		}
 
 	}
-	public static void crear(String comentario,Timestamp fecha, Long idUser, String nombre,String ubicacion) throws NamingException, ServiciosException {
+	public static void crear(String comentario,Timestamp fecha, Long idUser, String nombre) throws NamingException, ServiciosException {
 
 		FormularioBeanRemote FormularioBean = (FormularioBeanRemote)
 				InitialContext.doLookup(RUTA_FormularioBean);
@@ -425,22 +432,24 @@ public class ControllerFormulario implements Constantes {
 				InitialContext.doLookup(RUTA_CasillaBean);
 
 		Formulario f = new Formulario();
-		ArrayList <Casilla> casillas = new ArrayList<>();
+		FormularioBean.buscarForm(nombre);
+		ArrayList<Casilla> casillas = new ArrayList<>();
 		f.setComentarios(comentario);
 		f.setFechaHora(fecha);
 		f.setIdUsuario(idUser);
 		f.setNombre(nombre);
-		f.setUbicacion(ubicacion);
 		f.setEstado(f.getEstado().ACTIVO);
 		for (Entry<Long, Casilla> entry : altaF.map.entrySet()) {
 
 			Casilla c = new Casilla();
 			String nom = entry.getValue().getNombre();
-			c = CasillaBean.buscar(nom);
+			c = CasillaBean.buscar(nom);		
 
 			casillas.add(c);
 		}
+
 		f.setCasillas(casillas);
+
 
 		try {
 			FormularioBean.crear(f);
@@ -498,7 +507,7 @@ public class ControllerFormulario implements Constantes {
 		}
 
 	}
-	public static boolean camposVacios(String nombre, String ubicacion) {
+	public static boolean camposVacios(String nombre) {
 
 		boolean bandera = true;
 
@@ -506,11 +515,7 @@ public class ControllerFormulario implements Constantes {
 			JOptionPane.showMessageDialog(null, "Debe completar el campo Nombre", null, 1);
 			return false;
 		}
-		if (ubicacion.isEmpty()) {
-			JOptionPane.showMessageDialog(null, "Debe completar el campo Ubicación", null, 1);
-			return false;
 
-		}
 
 		return bandera;
 
