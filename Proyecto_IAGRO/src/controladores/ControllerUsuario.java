@@ -83,22 +83,22 @@ public class ControllerUsuario implements Constantes{
 		altaU.btnGuardar.setBounds(250, 373, 125, 27);
 		altaU.btnCambiarPass.setVisible(true);
 		altaU.btnCambiarPass.setBounds(420, 373, 135, 27);
-		altaU.contrasena.enable(false);
-		altaU.confcontrasena.enable(false);
-		altaU.lblConfContrasea.enable(false);
-		altaU.lblContrasena.enable(false);
+		altaU.contrasena.setVisible(false);
+		altaU.confcontrasena.setVisible(false);
+		altaU.lblConfContrasea.setVisible(false);
+		altaU.lblContrasena.setVisible(false);
 
-		//altaU.lblRol.setBounds(300, 194, 84, 23);
-		//altaU.comboRol.setBounds(340, 194, 137, 23);
+		altaU.lblRol.setBounds(300, 194, 84, 23);
+		altaU.comboRol.setBounds(340, 194, 137, 23);
 
-		//altaU.cedula.setBounds(560, 194, 95, 23);
-		//altaU.lblCedula.setBounds(500, 194, 161, 23);
+		altaU.cedula.setBounds(560, 194, 95, 23);
+		altaU.lblCedula.setBounds(500, 194, 161, 23);
 
-		//altaU.lblCiudad.setBounds(30, 265, 84, 23);
-		//altaU.ciudad.setBounds(90, 265, 137, 23);
+		altaU.lblCiudad.setBounds(30, 265, 84, 23);
+		altaU.ciudad.setBounds(90, 265, 137, 23);
 
-		//altaU.lblTelefono.setBounds(279, 265, 72, 23);
-		//altaU.telefono.setBounds(350, 265, 83, 23);
+		altaU.lblTelefono.setBounds(279, 265, 72, 23);
+		altaU.telefono.setBounds(350, 265, 83, 23);
 
 		altaU.lblOcupacion.setBounds(49, 333, 105, 23);
 		altaU.ocupacion.setBounds(130, 333, 105, 23);
@@ -125,10 +125,10 @@ public class ControllerUsuario implements Constantes{
 			String userName=(String) listU.table.getValueAt(row, 3);
 			try {
 				int confirmado = JOptionPane.showOptionDialog(null,
-						"√±Desea dar de baja el usuario seleccionado?",
+						"ÒDesea dar de baja el usuario seleccionado?",
 						"Exit Confirmation", JOptionPane.YES_NO_OPTION,
 						JOptionPane.QUESTION_MESSAGE,null, null, null);
-				//Si el usuario elige s√± se borra la fila
+				//Si el usuario elige sÒ se borra la fila
 				if (JOptionPane.OK_OPTION == confirmado) {
 
 					Usuario user = new Usuario();
@@ -137,9 +137,7 @@ public class ControllerUsuario implements Constantes{
 					user.setEstado(user.getEstado().INACTIVO);
 					//usuarioBean.borrar(id);
 					usuarioBean.actualizar(user);
-
-					System.out.println("Se borr√≥ exitosamente el usuario");
-
+					System.out.println("Se borrÒ exitosamente el usuario");
 
 					actualizarListado(listU.modelo);
 				}
@@ -184,7 +182,7 @@ public class ControllerUsuario implements Constantes{
 
 
 		Object [] fila = new Object[columnNames.length]; 
-		// Se carga cada posici√±n del array con una de las columnas de la tabla en base de datos.
+		// Se carga cada posiciÒn del array con una de las columnas de la tabla en base de datos.
 
 		List<Usuario> usuarios = ControllerUsuario.obtenerTodos();
 		for (Usuario u: usuarios) {
@@ -218,7 +216,7 @@ public class ControllerUsuario implements Constantes{
 			}
 		});
 
-		//Volver al Men√± desde listado
+		//Volver al MenÒ desde listado
 		listU.btnVolver.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -257,10 +255,9 @@ public class ControllerUsuario implements Constantes{
 
 						if (pass.equals(pass2)) {
 							int confirm = JOptionPane.showOptionDialog(null,
-
-									"¬øDesea dar de alta el usuario?",
+									"ÒDesea dar de alta el usuario?",
 									"Exit Confirmation", JOptionPane.YES_NO_OPTION,
-									JOptionPane.QUESTION_MESSAGE,null, null, null);							//Si el usuario elige s√± se borra la fila
+									JOptionPane.QUESTION_MESSAGE,null, null, null);							//Si el usuario elige sÒ se borra la fila
 							if (JOptionPane.YES_OPTION== confirm) {
 								//hacer para los otros atributos
 								try {
@@ -272,7 +269,7 @@ public class ControllerUsuario implements Constantes{
 								}
 							}
 						}else {
-							JOptionPane.showMessageDialog(null, "Las Contrase√±as ingresadas no coinciden");
+							JOptionPane.showMessageDialog(null, "Las ContraseÒas ingresadas no coinciden");
 						}
 
 					}
@@ -301,7 +298,7 @@ public class ControllerUsuario implements Constantes{
 				listU.setVisible(false);
 
 
-				//Cambio de Contrase√±a - 
+				//Cambio de ContraseÒa - 
 				altaU.btnCambiarPass.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent e) {
@@ -310,12 +307,12 @@ public class ControllerUsuario implements Constantes{
 						JPasswordField cont = new JPasswordField();
 						JPasswordField confContr = new JPasswordField();
 						JPanel panel = new JPanel(new GridLayout(0, 1));
-						panel.add(new JLabel("Contrase√±a"));
+						panel.add(new JLabel("ContraseÒa"));
 						panel.add(cont);
-						panel.add(new JLabel("Confirmar Contrase√±a"));
+						panel.add(new JLabel("Confirmar ContraseÒa"));
 						panel.add(confContr);
 
-						int result = JOptionPane.showConfirmDialog(null, panel, "Cambio de Contrase√±a",
+						int result = JOptionPane.showConfirmDialog(null, panel, "Cambio de ContraseÒa",
 								JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 						if (result == JOptionPane.OK_OPTION ) {
 
@@ -330,7 +327,7 @@ public class ControllerUsuario implements Constantes{
 									e1.printStackTrace();
 								}
 							}else {
-								JOptionPane.showMessageDialog(null, "Las contrase√±as no coinciden");
+								JOptionPane.showMessageDialog(null, "Las contraseÒas no coinciden");
 							}
 
 						} else { 
@@ -366,11 +363,9 @@ public class ControllerUsuario implements Constantes{
 						String ocupacion = altaU.ocupacion.getText();
 
 						int confirm = JOptionPane.showOptionDialog(null,
-
-								"¬øDesea modificar el usuario?",
-
+								"ÒDesea modificar el usuario?",
 								"Exit Confirmation", JOptionPane.YES_NO_OPTION,
-								JOptionPane.QUESTION_MESSAGE,null, null, null);							//Si el usuario elige s√± se borra la fila
+								JOptionPane.QUESTION_MESSAGE,null, null, null);							//Si el usuario elige sÒ se borra la fila
 						if (JOptionPane.YES_OPTION== confirm) {
 
 
@@ -401,16 +396,14 @@ public class ControllerUsuario implements Constantes{
 			todoOK = validarFormatos(mail, user);
 		}
 		if(todoOK) {
-
-			todoOK=validarContrase√±a(pass);
-
+			validarContraseÒa(pass);
 		}
 
-		if(todoOK && !tipo.equalsIgnoreCase("Aficionado") ) {
+		if(todoOK && tipo.equalsIgnoreCase("ADMINISTRADOR") ) {
 			todoOK=ciValida(documento);
 		}
-		if(todoOK && !tipo.equalsIgnoreCase("Aficionado")) {
-			todoOK=validarTel(telefono);
+		if(todoOK && tipo.equalsIgnoreCase("INVESTIGADOR")) {
+			todoOK=ciValida(documento);
 		}
 
 
@@ -444,7 +437,7 @@ public class ControllerUsuario implements Constantes{
 				admin.setNombre(nom);
 				admin.setMail(mail);
 				admin.setNombreUsuario(user);
-				admin.setContrase√±a(pass);
+				admin.setContraseÒa(pass);
 				admin.setTipo(tipo);
 				admin.setEstado(admin.getEstado().ACTIVO);
 
@@ -460,9 +453,10 @@ public class ControllerUsuario implements Constantes{
 
 					usuarioBean.crearAd(admin);
 					admin=usuarioBean.buscarAdm(admin.getNombreUsuario());
+					//System.out.println(admin.getIdUsuario() + admin.getNombreUsuario());
 					JOptionPane.showMessageDialog(null,"Usuario creado correctamente");
 
-
+					System.out.println("Se creÒ exitosamente el usuario Administrador");
 				} catch (ServiciosException e) {
 					System.out.println(e.getMessage());
 				}
@@ -476,7 +470,7 @@ public class ControllerUsuario implements Constantes{
 				invest.setNombre(nom);
 				invest.setMail(mail);
 				invest.setNombreUsuario(user);
-				invest.setContrase√±a(pass);
+				invest.setContraseÒa(pass);
 				invest.setTipo(tipo);
 				invest.setEstado(invest.getEstado().ACTIVO);
 
@@ -489,7 +483,7 @@ public class ControllerUsuario implements Constantes{
 				try {
 					usuarioBean.crearIn(invest);
 					invest=usuarioBean.buscarInv(invest.getNombreUsuario());
-					//System.out.println("Se cre√± exitosamente el usuario Investigador");
+					//System.out.println("Se creÒ exitosamente el usuario Investigador");
 					JOptionPane.showMessageDialog(null,"Usuario creado correctamente");
 				} catch (ServiciosException e) {
 
@@ -504,7 +498,7 @@ public class ControllerUsuario implements Constantes{
 				aficionado.setNombre(nom);
 				aficionado.setMail(mail);
 				aficionado.setNombreUsuario(user);
-				aficionado.setContrase√±a(pass);
+				aficionado.setContraseÒa(pass);
 				aficionado.setTipo(tipo);
 				aficionado.setOcupacion(ocupacion);
 				aficionado.setEstado(aficionado.getEstado().ACTIVO);
@@ -546,9 +540,6 @@ public class ControllerUsuario implements Constantes{
 
 			altaU.lblOcupacion.setVisible(true);
 			altaU.ocupacion.setVisible(true);
-			
-			altaU.lblOcupacion.setBounds(305,265,95, 23);
-			altaU.ocupacion.setBounds(387, 265, 110, 23);
 
 		}else {
 
@@ -563,7 +554,6 @@ public class ControllerUsuario implements Constantes{
 
 			altaU.lblOcupacion.setVisible(false);
 			altaU.ocupacion.setVisible(false);
-			
 
 		}
 
@@ -656,8 +646,6 @@ public class ControllerUsuario implements Constantes{
 			altaU.apellido.setText(adm.getApellido());
 			altaU.nombre.setText(adm.getNombre());
 			altaU.email.setText(adm.getMail());
-			altaU.contrasena.setText(adm.getContrase√±a());
-			altaU.confcontrasena.setText(adm.getContrase√±a());
 			altaU.nombreUsu.setText(adm.getNombreUsuario());
 			altaU.cedula.setText(adm.getDocumento());
 			altaU.domicilio.setText(adm.getDomicilio());
@@ -671,8 +659,6 @@ public class ControllerUsuario implements Constantes{
 			altaU.nombre.setText(inv.getNombre());
 			altaU.email.setText(inv.getMail());
 			altaU.nombreUsu.setText(inv.getNombreUsuario());
-			altaU.contrasena.setText(inv.getContrase√±a());
-			altaU.confcontrasena.setText(inv.getContrase√±a());
 			altaU.cedula.setText(inv.getDocumento());
 			altaU.domicilio.setText(inv.getDomicilio());
 			altaU.ciudad.setText(inv.getCiudad());
@@ -683,8 +669,6 @@ public class ControllerUsuario implements Constantes{
 			Aficionado afi = usuarioBean.buscarAfi(user);
 			altaU.apellido.setText(afi.getApellido());
 			altaU.nombre.setText(afi.getNombre());
-			altaU.contrasena.setText(afi.getContrase√±a());
-			altaU.confcontrasena.setText(afi.getContrase√±a());
 			altaU.email.setText(afi.getMail());
 			altaU.nombreUsu.setText(afi.getNombreUsuario());
 			altaU.ocupacion.setText(afi.getOcupacion());
@@ -704,13 +688,9 @@ public class ControllerUsuario implements Constantes{
 		if(todoOK) {
 			todoOK = validarFormatos(mail, user);
 			if(todoOK && !tipo.equalsIgnoreCase("Aficionado")) {
-				todoOK=ciValida(documento);	
-			}
-			if(todoOK && !tipo.equalsIgnoreCase("Aficionado")) {
-				todoOK=validarTel(telefono);
+				todoOK=ciValida(documento);
 			}
 		}
-		
 
 
 
@@ -781,23 +761,23 @@ public class ControllerUsuario implements Constantes{
 
 
 	//metodo para actualizar PASSWORD
-	public static void actualizarPass(String nombreUsuario, String contrase√±a) throws NamingException {
+	public static void actualizarPass(String nombreUsuario, String contraseÒa) throws NamingException {
 
 		UsuarioBeanRemote usuarioBean = (UsuarioBeanRemote)
 				InitialContext.doLookup(RUTA_UsuarioBean);
 
-		boolean todoOK =validarContrase√±a(contrase√±a);
+		boolean todoOK =validarContraseÒa(contraseÒa);
 
 		if(todoOK) {
 			Usuario user=new Usuario();
 			user=usuarioBean.buscarUser(nombreUsuario);
 			System.out.println(nombreUsuario);
-			user.setContrase√±a(contrase√±a);
-			System.out.println(contrase√±a);
+			user.setContraseÒa(contraseÒa);
+			System.out.println(contraseÒa);
 
 			try {
 				usuarioBean.actualizar(user);
-				JOptionPane.showMessageDialog(null, "Contrase√±a actualizada correctamente");
+				JOptionPane.showMessageDialog(null, "ContraseÒa actualizada correctamente");
 			} catch (ServiciosException e) {
 
 				System.out.println(e.getMessage());
@@ -830,7 +810,7 @@ public class ControllerUsuario implements Constantes{
 			}
 
 			if (correcto!=8){	// Le faltaron digitos ingresar o ingreso otro tipo de caracter
-				JOptionPane.showMessageDialog(null, "Datos no v√°lidos o faltantes en el campo Cedula", null, 1);
+				JOptionPane.showMessageDialog(null, "Debe ingresar solo numeros o le faltaron digitos", null, 1);
 				return false;
 			} else {
 				// Caso de ingreso correcto hacemos la verificacion
@@ -841,7 +821,7 @@ public class ControllerUsuario implements Constantes{
 				if (resto == cedula[7]) {
 					System.out.println("Correcto");
 				} else {
-					JOptionPane.showMessageDialog(null,"Cedula No v√°lida: No coincide el digito verificador : "+ resto+ " --> Digito ingresado :"+cedula[7]);
+					JOptionPane.showMessageDialog(null,"No coincide el digito verificador : "+resto+ " --> Digito ingresado :"+cedula[7]);
 					return false;
 				}
 
@@ -919,68 +899,51 @@ public class ControllerUsuario implements Constantes{
 			return false;
 		}
 
-
-		//Usuario sin n√∫meros
-
+		//Usuario sin nÒmeros
 		if(user.matches("[0-9]+")) {
-			JOptionPane.showMessageDialog(null, "El nombre de usuario no puede contener n√±meros", null, 1);
+			JOptionPane.showMessageDialog(null, "El nombre de usuario no puede contener nÒmeros", null, 1);
 			return false;
 		}
 
 
 		//correo no valido
 		if(!mail.contains("@")) {
-
-			JOptionPane.showMessageDialog(null, "El correo ingresado no es v√°lido", null, 1);
-
+			JOptionPane.showMessageDialog(null, "El correo ingresado no es vÒlido", null, 1);
 			return false;
 		}
-		
+
+
 		return bandera;
 
 	}
 
-	public static boolean validarContrase√±a(String pass) {
+	public static boolean validarContraseÒa(String pass) {
 
 
 		boolean bandera = true;
 
 		//Minimo caracteres
 		if(pass.length() <8) {
-			JOptionPane.showMessageDialog(null, "La contrase√±a debe tener al menos 8 caracteres", null, 1);
+			JOptionPane.showMessageDialog(null, "La contraseÒa debe tener al menos 8 caracteres", null, 1);
 			return false;
 		}
 
-
-		//Contrase√±a con n√∫meros y letras
+		//ContraseÒa con nÒmeros y letras
 
 		String letras = pass.replaceAll("[*0-9]", "");
-		String numeros = pass.replaceAll("[*a-zA-Z√Ä-√ø\\u00f1\\u00d1]", "");
-		
+		String numeros = pass.replaceAll("[*a-zA-ZÒ-Ò\u00f1\u00d1]", "");
+
+
+		if(!numeros.matches("[0-9]+") || !letras.matches("[a-zA-ZÒ-Ò\u00f1\u00d1]+")) {
+			JOptionPane.showMessageDialog(null, "La contraseÒa debe contener nÒmeros y letras", null, 1);
+			return false;
+		}
+
 		if(pass.isEmpty()) {
-			JOptionPane.showMessageDialog(null, "Debe completar el campo Contrase√±a", null, 1);
+			JOptionPane.showMessageDialog(null, "Debe completar el campo ContraseÒa", null, 1);
 			return false;
 		}
 
-		if(!numeros.matches("[0-9]+") || !letras.matches("[a-zA-Z√Ä-√ø\\u00f1\\u00d1]+")) {
-			JOptionPane.showMessageDialog(null, "La contrase√±a debe contener n√∫meros y letras", null, 1);
-
-			return false;
-		}
-
-	
-
-		return bandera;
-	}
-	
-	public static boolean validarTel(String tel) {
-		
-		boolean bandera = true;
-		
-		if(!tel.matches("[0-9]+")){
-			JOptionPane.showMessageDialog(null, "El tel√©fono ingresado no es v√°lido", null, 1);
-			return false;
-		}
 		return bandera;
 	}
 

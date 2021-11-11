@@ -3,12 +3,10 @@ package controladores;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.Iterator;
 
 
 import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import org.apache.poi.*;
 import org.apache.poi.hssf.usermodel.HSSFCell;
@@ -36,7 +34,6 @@ public class ModelImpExp  {
 			Sheet hoja=wb.getSheetAt(0);
 			Iterator filaIterator=hoja.rowIterator();
 			int indiceFila=-1;
-
 			while (filaIterator.hasNext()){
 				indiceFila++;
 				Row fila=(Row)filaIterator.next();
@@ -44,7 +41,6 @@ public class ModelImpExp  {
 				Iterator columnaIterator=fila.cellIterator();
 				Object [] listaColumna=new Object[5];
 				int indiceColumna=-1;
-
 				while(columnaIterator.hasNext()){
 					indiceColumna++;
 					Cell celda=(Cell) columnaIterator.next();
@@ -59,61 +55,59 @@ public class ModelImpExp  {
 							case STRING:
 								listaColumna[indiceColumna]=celda.getStringCellValue();
 								break;
-							default:
-								listaColumna[indiceColumna]=celda.getDateCellValue();
-								break;
+								default:
+									listaColumna[indiceColumna]=celda.getDateCellValue();
+									break;
 							}
 						}
 					}
 				}
 				//SI EL INDICE=0 SE LE AGREGA EL NOMBRE DE CADA COLUMNA.
 				if(indiceFila!=0)modeloT.addRow(listaColumna);
+					
+				}
+			respuesta="Importación Exitosa";
+			}catch (Exception e) {
 
 			}
-			respuesta="Importación Exitosa";
-		}catch (Exception e) {
-
+			return respuesta;
 		}
-		return respuesta;
-	}
-
+	
 	public String Exportar (File archivo, JTable tablaD) {
 		String respuesta="No se pudo realizar la exportación";
 		int numFila = tablaD.getRowCount();
 		int numColumna=tablaD.getColumnCount();
 		//Verificar Extensión del archivo 
-		if (archivo.getName().endsWith(".xls")) {
+		if (archivo.getName().endsWith("xls")) {
 			wb=new HSSFWorkbook();
 		}else {
 			wb=new XSSFWorkbook();
 		}
-		Sheet hoja=wb.createSheet("Prueba");
-		try {
-			for (int i=-1; i<numFila;i++) {
-				Row fila=hoja.createRow(i+1);
-				//Row fila=hoja.getRow(i);
-				for(int j=0;j<numColumna;j++) {
-					Cell celda=fila.createCell(j);
-					if(i==-1) {
-						celda.setCellValue(String.valueOf(tablaD.getColumnName(j)));
-					}else {
-						celda.setCellValue(String.valueOf(tablaD.getValueAt(i, j)));
-
+			Sheet hoja=wb.createSheet("Prueba");
+			try {
+				for (int i=-1; i<numFila;i++) {
+					Row fila=hoja.createRow(i+1);
+					for(int j=0;j<numColumna;j++) {
+						Cell celda=fila.createCell(j);
+						if(i==-1) {
+							celda.setCellValue(String.valueOf(tablaD.getColumnName(j)));
+						}else {
+							celda.setCellValue(String.valueOf(tablaD.getValueAt(i, j)));
+							
+						}
+						wb.write(new FileOutputStream(archivo));
 					}
-					wb.write(new FileOutputStream(archivo));
+						
 				}
-
+				respuesta="Exportación exitosa";
+				
+			}catch (Exception e) {
+				
 			}
-			respuesta="Exportación exitosa";
-
-		}catch (Exception e) {
-
-		}
-
-
+		
+		
 		return respuesta;
 	}
 
-
-
-}
+	
+	}

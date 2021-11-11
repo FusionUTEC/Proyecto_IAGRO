@@ -11,25 +11,5 @@
 	<classpathentry kind="lib" path="C:/wildfly-20.0.1.Final/modules/system/layers/base/org/hibernate/main/hibernate-core-5.3.17.Final.jar"/>
 	<classpathentry kind="lib" path="C:/wildfly-20.0.1.Final/modules/system/layers/base/org/jboss/ejb-client/main/jboss-ejb-client-4.0.33.Final.jar"/>
 	<classpathentry kind="lib" path="C:/wildfly-20.0.1.Final/modules/system/layers/base/org/hibernate/main/hibernate-envers-5.3.17.Final.jar"/>
-
-	<classpathentry kind="lib" path="C:/Users/Usuario/OneDrive/Desktop/FACULTAD/Semestre 2/PDT/poi-bin-5.1.0/ooxml-lib/commons-compress-1.21.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Usuario/OneDrive/Desktop/FACULTAD/Semestre 2/PDT/poi-bin-5.1.0/ooxml-lib/commons-logging-1.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Usuario/OneDrive/Desktop/FACULTAD/Semestre 2/PDT/poi-bin-5.1.0/ooxml-lib/curvesapi-1.06.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Usuario/OneDrive/Desktop/FACULTAD/Semestre 2/PDT/poi-bin-5.1.0/ooxml-lib/xmlbeans-5.0.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Usuario/OneDrive/Desktop/FACULTAD/Semestre 2/PDT/poi-bin-5.1.0/poi-5.1.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Usuario/OneDrive/Desktop/FACULTAD/Semestre 2/PDT/poi-bin-5.1.0/poi-ooxml-5.1.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Usuario/OneDrive/Desktop/FACULTAD/Semestre 2/PDT/poi-bin-5.1.0/poi-ooxml-full-5.1.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Usuario/OneDrive/Desktop/FACULTAD/Semestre 2/PDT/commons-io-2.11.0-bin/commons-io-2.11.0/commons-io-2.11.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Usuario/OneDrive/Desktop/FACULTAD/Semestre 2/PDT/commons-io-2.11.0-bin/commons-io-2.11.0/commons-io-2.11.0-javadoc.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Usuario/OneDrive/Desktop/FACULTAD/Semestre 2/PDT/commons-io-2.11.0-bin/commons-io-2.11.0/commons-io-2.11.0-sources.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Usuario/OneDrive/Desktop/FACULTAD/Semestre 2/PDT/apache-log4j-2.14.1-bin/apache-log4j-2.14.1-bin/log4j-1.2-api-2.14.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Usuario/OneDrive/Desktop/FACULTAD/Semestre 2/PDT/apache-log4j-2.14.1-bin/apache-log4j-2.14.1-bin/log4j-api-2.14.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Usuario/OneDrive/Desktop/FACULTAD/Semestre 2/PDT/apache-log4j-2.14.1-bin/apache-log4j-2.14.1-bin/log4j-appserver-2.14.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Usuario/OneDrive/Desktop/FACULTAD/Semestre 2/PDT/apache-log4j-2.14.1-bin/apache-log4j-2.14.1-bin/log4j-core-2.14.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Usuario/OneDrive/Desktop/FACULTAD/Semestre 2/PDT/commons-collections4-4.4-bin/commons-collections4-4.4/commons-collections4-4.4.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Usuario/OneDrive/Desktop/FACULTAD/Semestre 2/PDT/commons-collections4-4.4-bin/commons-collections4-4.4/commons-collections4-4.4-javadoc.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Usuario/OneDrive/Desktop/FACULTAD/Semestre 2/PDT/commons-collections4-4.4-bin/commons-collections4-4.4/commons-collections4-4.4-sources.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Usuario/Downloads/wildfly-20.0.1.Final/modules/system/layers/base/org/antlr/main/antlr-2.7.7.jar"/>
-
 	<classpathentry kind="output" path="bin"/>
 </classpath>

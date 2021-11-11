@@ -69,7 +69,7 @@ public class AltaCasilla extends JFrame {
 		banner.setLayout(null);
 
 		textnombre = new JTextField();
-		textnombre.setBounds(158, 119, 130, 23);
+		textnombre.setBounds(208, 111, 116, 23);
 		textnombre.setBackground(Color.LIGHT_GRAY);
 		textnombre.setBorder(new MatteBorder(0, 0, 2, 0, (Color) Color.LIGHT_GRAY));
 		textnombre.setOpaque(false); //Le quita la opacidad
@@ -130,18 +130,18 @@ public class AltaCasilla extends JFrame {
 		panel.add(btnVolver);
 
 		lblParametro = new JLabel("Parametro");
-		lblParametro.setBounds(338, 120, 79, 23);
+		lblParametro.setBounds(432, 109, 79, 23);
 		lblParametro.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 15));
 		panel.add(lblParametro);
 
 		JLabel lblUnidMedida = new JLabel("Unidad de Medida");
-		lblUnidMedida.setBounds(343, 176, 130, 23);
+		lblUnidMedida.setBounds(392, 173, 130, 23);
 		lblUnidMedida.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 15));
 		panel.add(lblUnidMedida);
 
 		comboParametro = new JComboBox();
-		comboParametro.setModel(new DefaultComboBoxModel(new String[] {"", "Volumen", "Densidad", "Cantidad", "Porcentaje", "N/A"}));
-		comboParametro.setBounds(482, 120, 130, 23);
+		comboParametro.setModel(new DefaultComboBoxModel(new String[] {"", "Volumen", "Densidad", "Cantidad", "Porcentaje"}));
+		comboParametro.setBounds(521, 111, 219, 23);
 		panel.add(comboParametro);
 
 		lblDescripcion = new JLabel("Descripci\u00F3n");
@@ -163,12 +163,12 @@ public class AltaCasilla extends JFrame {
 		
 		textDescripcion = new JTextArea();
 		textDescripcion.setBorder(new MatteBorder(1, 1, 1, 1, (Color) Color.LIGHT_GRAY));
-		textDescripcion.setBounds(29, 262, 629, 64);
+		textDescripcion.setBounds(29, 262, 429, 64);
 		panel.add(textDescripcion);
 		
 		comboUnidad = new JComboBox();
-		comboUnidad.setModel(new DefaultComboBoxModel(new String[] {"", "mm", "\u00B0C", "\u00B5g/m3", "g/m3", "ppm", "Unidad Dobson", "mg/l", "N/A"}));
-		comboUnidad.setBounds(483, 176, 130, 23);
+		comboUnidad.setModel(new DefaultComboBoxModel(new String[] {"", "mm", "\u00B0C", "\u00B5g/m3", "g/m3", "ppm", "Unidad Dobson", "mg/l"}));
+		comboUnidad.setBounds(541, 176, 107, 23);
 		panel.add(comboUnidad);
 		
 		JLabel lblNombre = new JLabel("Nombre Casilla");
@@ -178,14 +178,19 @@ public class AltaCasilla extends JFrame {
 		
 		JLabel lblTipoDeValor = new JLabel("Tipo de Valor");
 		lblTipoDeValor.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 15));
-		lblTipoDeValor.setBounds(29, 176, 107, 23);
+		lblTipoDeValor.setBounds(66, 173, 142, 23);
 		panel.add(lblTipoDeValor);
 		
 		comboTipoValor = new JComboBox();
-		comboTipoValor.setModel(new DefaultComboBoxModel(new String[] {"", "Entero","Decimal", "N/A"}));
-		comboTipoValor.setBounds(156, 176, 130, 23);
+		comboTipoValor.setModel(new DefaultComboBoxModel(new String[] {"", "String", "byte", "short", "int", "long", "float", "double", "boolean", "char"}));
+		comboTipoValor.setBounds(194, 176, 130, 23);
 		panel.add(comboTipoValor);
 		this.setVisible(true);
+
+
+		//chckbxNewCheckBox = new JCheckBox("New check box");
+		//chckbxNewCheckBox.setBounds(28, 19, 160, 23);
+		//panel_1.add(chckbxNewCheckBox);
 
 		setVisible(false);
 		this.setMinimumSize(new Dimension(670, 420));
