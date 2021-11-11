@@ -43,7 +43,6 @@ public class ControllerCasillas implements Constantes{
 		listC=new ListadoCasilla();
 		listC.setVisible(true);
 		obtenerTodos();
-		//obtenerCas();
 
 		listC.btnEliminar.addMouseListener(new MouseAdapter() {
 
@@ -508,13 +507,5 @@ public class ControllerCasillas implements Constantes{
 		return bandera;
 
 	}
-	//LISTADO DE CASILLA
-	public static  List<Casilla> obtenerCas() throws NamingException, ServiciosException{
-		CasillaBeanRemote casillaBean = (CasillaBeanRemote)
-				InitialContext.doLookup(RUTA_CasillaBean);
 
-		List<Casilla> list = (List<Casilla>) casillaBean.buscarCas();
-		System.out.println(list.size());
-		return list;
-	}
 }

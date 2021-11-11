@@ -247,7 +247,7 @@ public class AltaUsuario extends JFrame {
 		ocupacion.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 		ocupacion.setBorder(new MatteBorder(0, 0, 2, 0, (Color) Color.LIGHT_GRAY));
 		ocupacion.setBackground(Color.LIGHT_GRAY);
-		ocupacion.setBounds(590, 332, 110, 23);
+		ocupacion.setBounds(612, 332, 110, 23);
 		panel.add(ocupacion);
 
 		lblOcupacion = new JLabel("Ocupación");
@@ -266,7 +266,7 @@ public class AltaUsuario extends JFrame {
 		telefono.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 		telefono.setBorder(new MatteBorder(0, 0, 2, 0, (Color) Color.LIGHT_GRAY));
 		telefono.setBackground(Color.LIGHT_GRAY);
-		telefono.setBounds(329, 332, 110, 23);
+		telefono.setBounds(343, 332, 110, 23);
 		panel.add(telefono);
 
 		btnVolver = new JButton("Volver");
@@ -291,7 +291,7 @@ public class AltaUsuario extends JFrame {
 		btnRegistrar.setBorder(new MatteBorder(2, 2, 2, 2, (Color) azul));
 		btnRegistrar.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
 		btnRegistrar.setBackground(azul);
-		btnRegistrar.setBounds(295, 377, 110, 27);
+		btnRegistrar.setBounds(332, 373, 125, 27);
 		panel.add(btnRegistrar);
 
 		btnCambiarPass = new JButton("Cambiar Contraseña");
@@ -301,8 +301,8 @@ public class AltaUsuario extends JFrame {
 		btnCambiarPass.setForeground(Color.WHITE);
 		btnCambiarPass.setBorder(new MatteBorder(2, 2, 2, 2, (Color) azul));
 		btnCambiarPass.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
-		btnCambiarPass.setBackground(verde);
-		btnCambiarPass.setBounds(413, 377, 142, 27);
+		btnCambiarPass.setBackground(azul);
+		btnCambiarPass.setBounds(478, 373, 142, 27);
 		panel.add(btnCambiarPass);
 
 
@@ -314,7 +314,7 @@ public class AltaUsuario extends JFrame {
 		btnGuardar.setBorder(new MatteBorder(2, 2, 2, 2, (Color) azul));
 		btnGuardar.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
 		btnGuardar.setBackground(azul);
-		btnGuardar.setBounds(298, 377, 118, 27);
+		btnGuardar.setBounds(343, 373, 125, 27);
 		panel.add(btnGuardar);
 
 		JPanel banner = new JPanel();

@@ -11,24 +11,28 @@ import org.hibernate.service.spi.ServiceException;
 
 import java.awt.event.*;
 
+
 import vistas.AltaRegistro;
 import vistas.Importar;
-
 
 public class ControllerImpExp implements ActionListener  {
 
 
+
 	AltaRegistro vistaR=new AltaRegistro();
+
 	ModelImpExp modelE=new ModelImpExp();
 	JFileChooser selectArchivo=new JFileChooser();
 	File archivo;
 	int contAccion;
+
 
 	public ControllerImpExp(AltaRegistro vistaR, ModelImpExp modelE) {
 		this.vistaR=vistaR;
 		this.modelE=modelE;
 		this.vistaR.btnImportar.addActionListener(this);
 		this.vistaR.btnExportarPlant.addActionListener(this);
+
 	}
 	public void AgregarFiltro() {
 		selectArchivo.setFileFilter(new FileNameExtensionFilter("Excel (*.xls)", "xls"));
@@ -39,29 +43,35 @@ public class ControllerImpExp implements ActionListener  {
 		contAccion++;
 		if(contAccion==1)AgregarFiltro();
 
+
 		if(e.getSource()==vistaR.btnImportar) {
+
 			if(selectArchivo.showDialog(null, "Seleccionar archivo")==JFileChooser.APPROVE_OPTION) {
 				archivo=selectArchivo.getSelectedFile();
 				if(archivo.getName().endsWith("xls") || archivo.getName().endsWith("xlsx")) {
 					JOptionPane.showMessageDialog(null, modelE.Importar(archivo, vistaR.table));
 				}else {
-					JOptionPane.showMessageDialog(null, "Elija un formato de archivo v·lido *.xls o *.xlsx");
+					JOptionPane.showMessageDialog(null, "Elija un formato de archivo v√°lido *.xls o *.xlsx");
 				}
 			}
 		}
+
 		if(e.getSource()==vistaR.btnExportarPlant) {
 			if(selectArchivo.showDialog(null, "Exportar Archivo")==JFileChooser.APPROVE_OPTION) {
 				archivo=selectArchivo.getSelectedFile();
 				if(archivo.getName().endsWith(".xls") || archivo.getName().endsWith(".xlsx")) {
 					JOptionPane.showMessageDialog(null, modelE.Exportar(archivo,vistaR.table));
+
 				}else {
-					JOptionPane.showMessageDialog(null, "Elija un formato de archivo v·lido (*.xls o *.xlsx");
+					JOptionPane.showMessageDialog(null, "Elija un formato de archivo v√°lido (*.xls o *.xlsx");
 				}
 			}
 
 		}
 
+
 		vistaR.btnVolver.addMouseListener(new MouseAdapter() {
+
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				;

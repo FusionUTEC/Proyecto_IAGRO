@@ -40,6 +40,7 @@ public class AltaFormulario extends JFrame implements Constantes{
 	public JLabel lblfecha;
 	public JLabel lblfechaHoy;
 	public JLabel lblUser;
+	public JTextField textUbicacion;
 	public HashMap<Long, Casilla> map = new HashMap<>();
 
 	public AltaFormulario() throws NamingException {
@@ -73,8 +74,6 @@ public class AltaFormulario extends JFrame implements Constantes{
 		lblAltaDeFormulario.setForeground(Color.WHITE);
 		lblAltaDeFormulario.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 22));
 		this.setVisible(true);
-
-
 
 		buscador = new JTextField();
 		buscador.setBounds(528, 88, 231, 30);
@@ -164,8 +163,6 @@ public class AltaFormulario extends JFrame implements Constantes{
 		btnVolver.setOpaque(false);
 		panel.add(btnVolver);
 
-
-
 		lblNewLabel = new JLabel("Nombre");
 		lblNewLabel.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 15));
 		lblNewLabel.setBounds(48, 121, 84, 23);
@@ -196,35 +193,49 @@ public class AltaFormulario extends JFrame implements Constantes{
 		lblFecha.setBounds(48, 201, 59, 23);
 		panel.add(lblFecha);
 
+		JLabel lblUbicacin = new JLabel("Ubicaci\u00F3n");
+		lblUbicacin.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 15));
+		lblUbicacin.setBounds(48, 163, 84, 23);
+		panel.add(lblUbicacin);
+
+		textUbicacion = new JTextField();
+		textUbicacion.setOpaque(false);
+		textUbicacion.setForeground(Color.LIGHT_GRAY);
+		textUbicacion.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+		textUbicacion.setBorder(new MatteBorder(0, 0, 2, 0, (Color) Color.LIGHT_GRAY));
+		textUbicacion.setBackground(Color.LIGHT_GRAY);
+		textUbicacion.setBounds(122, 157, 124, 23);
+		panel.add(textUbicacion);
+
 		JLabel lblUsuarioCre = new JLabel("Usuario");
 		lblUsuarioCre.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 15));
-		lblUsuarioCre.setBounds(48, 167, 59, 23);
+		lblUsuarioCre.setBounds(283, 128, 59, 23);
 		panel.add(lblUsuarioCre);
 
 		lblUser = new JLabel("");
 		lblUser.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 15));
-		lblUser.setBounds(122, 167, 87, 23);
+		lblUser.setBounds(362, 128, 87, 23);
 		panel.add(lblUser);
 
 
 
 		////////////////////////////***************CASILLAS*****************/////////////////////////////////////
 
-	}
 
+	}
 
 	public void cargarCasillas() {
 
 		ArrayList<JCheckBox> casillas = new ArrayList<>();
 
-
+		
 		try {
 			CasillaBeanRemote casillaBean;
 			casillaBean = (CasillaBeanRemote)
 					InitialContext.doLookup(RUTA_CasillaBean);
-
+			
 			ArrayList<Casilla> allCasillas = (ArrayList<Casilla>) casillaBean.obtenerTodos();
-
+			
 			int y = 0;
 
 			for(Casilla c: allCasillas){
@@ -232,40 +243,13 @@ public class AltaFormulario extends JFrame implements Constantes{
 				chckbxNewCheckBox.setBounds(0, y, 160, 23);
 				chckbxNewCheckBox.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 13));
 				//Insertar casillas en panel
-
 				panel_1.add(chckbxNewCheckBox);
-
-			
+				
 				//Marcar casillas ya existentes
 				if(map.containsKey(c.getIdCasilla())) {
 					chckbxNewCheckBox.doClick();
 				}
-				if(c.getNombre().equals("DEPARTAMENTO")) {
-					chckbxNewCheckBox.doClick();
-					chckbxNewCheckBox.setEnabled(false);
 
-				}
-				if(c.getNombre().equals("FECHA Y HORA")) {
-					chckbxNewCheckBox.doClick();
-					chckbxNewCheckBox.setEnabled(false);
-
-				}
-				if(c.getNombre().equals("USUARIO")) {
-					chckbxNewCheckBox.doClick();
-					chckbxNewCheckBox.setEnabled(false);
-
-				}
-				
-				if(c.getNombre().equals("COMENTARIOS")) {
-					chckbxNewCheckBox.doClick();
-					chckbxNewCheckBox.setEnabled(false);
-
-				}
-				if(chckbxNewCheckBox.isSelected()) {
-					map.put(c.getIdCasilla(), c);
-				}
-
-			
 				//Generar evento de chequear/deschequear por casilla
 				chckbxNewCheckBox.addItemListener(new ItemListener() {
 
@@ -295,9 +279,9 @@ public class AltaFormulario extends JFrame implements Constantes{
 			setLocationRelativeTo(null);
 		} catch (NamingException e1) {}
 
+		
 
 
-
-
+		
 	}
 }

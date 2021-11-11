@@ -31,7 +31,7 @@ public class Main implements Constantes	{
 	public static MenuPrincipal menuP;
 	public static Login login;
 	public static ModelImpExp model;
-	//public static Importar impExp;
+	public static Importar impExp;
 
 	public static void main(String[] args) throws NamingException, ServiciosException {
 
@@ -271,7 +271,7 @@ public class Main implements Constantes	{
 			}
 		});
 
-		/*menuP.btnImportExport.addMouseListener(new MouseAdapter() {
+		menuP.btnImportExport.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {	
 				impExp=new Importar();
@@ -284,8 +284,6 @@ public class Main implements Constantes	{
 
 			}
 		});
-	}*/
+	}
 
-}
-	
 }

@@ -3,12 +3,10 @@ package controladores;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.Iterator;
 
 
 import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import org.apache.poi.*;
 import org.apache.poi.hssf.usermodel.HSSFCell;
@@ -27,7 +25,7 @@ public class ModelImpExp  {
 	Workbook wb;
 
 	public String Importar (File archivo, JTable tablaD) {
-		String respuesta="No se pudo realizar la importaci髇";
+		String respuesta="No se pudo realizar la importaci贸n";
 		DefaultTableModel modeloT= new DefaultTableModel();
 		
 		tablaD.setModel(modeloT);
@@ -37,7 +35,6 @@ public class ModelImpExp  {
 			Sheet hoja=wb.getSheetAt(0);
 			Iterator filaIterator=hoja.rowIterator();
 			int indiceFila=-1;
-
 			while (filaIterator.hasNext()){
 				indiceFila++;
 				Row fila=(Row)filaIterator.next();
@@ -45,7 +42,6 @@ public class ModelImpExp  {
 				Iterator columnaIterator=fila.cellIterator();
 				Object [] listaColumna=new Object[5];
 				int indiceColumna=-1;
-
 				while(columnaIterator.hasNext()){
 					indiceColumna++;
 					Cell celda=(Cell) columnaIterator.next();
@@ -60,34 +56,35 @@ public class ModelImpExp  {
 							case STRING:
 								listaColumna[indiceColumna]=celda.getStringCellValue();
 								break;
-							default:
-								listaColumna[indiceColumna]=celda.getDateCellValue();
-								break;
+								default:
+									listaColumna[indiceColumna]=celda.getDateCellValue();
+									break;
 							}
 						}
 					}
 				}
 				//SI EL INDICE=0 SE LE AGREGA EL NOMBRE DE CADA COLUMNA.
 				if(indiceFila!=0)modeloT.addRow(listaColumna);
+					
+				}
+			respuesta="Importaci贸n Exitosa";
 
-			}
-			respuesta="Importaci髇 Exitosa";
 		}catch (Exception e) {
 			e.getMessage();
-		}
-		return respuesta;
-	}
 
+		}
+	
 	public String Exportar (File archivo, JTable tablaD) {
-		String respuesta="No se pudo realizar la exportaci髇";
+		String respuesta="No se pudo realizar la exportaci贸n";
 		int numFila = tablaD.getRowCount();
 		int numColumna=tablaD.getColumnCount();
-		//Verificar Extensi髇 del archivo 
-		if (archivo.getName().endsWith(".xls")) {
+		//Verificar Extensi贸n del archivo 
+		if (archivo.getName().endsWith("xls")) {
 			wb=new HSSFWorkbook();
 		}else {
 			wb=new XSSFWorkbook();
 		}
+
 		Sheet hoja=wb.createSheet("Prueba");
 		try {
 			for (int i=-1; i<numFila;i++) {
@@ -99,21 +96,19 @@ public class ModelImpExp  {
 					}else {
 						celda.setCellValue(String.valueOf(tablaD.getValueAt(i, j)));
 
+
 					}
-					wb.write(new FileOutputStream(archivo));
+						
 				}
-
+				respuesta="Exportaci贸n exitosa";
+				
+			}catch (Exception e) {
+				
 			}
-			respuesta="Exportaci髇 exitosa";
-
-		}catch (Exception e) {
-
-		}
-
-
+		
+		
 		return respuesta;
 	}
 
-
-
-}
+	
+	}

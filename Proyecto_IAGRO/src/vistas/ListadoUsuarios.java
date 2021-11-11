@@ -208,7 +208,7 @@ public class ListadoUsuarios extends JFrame implements Constantes{
 		btnModificar.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
 		btnModificar.setBorder(new MatteBorder(2, 2, 2, 2, (Color) verde));
 		btnModificar.setBackground(verde);
-		btnModificar.setBounds(344, 370, 90, 27);
+		btnModificar.setBounds(356, 370, 90, 27);
 		panel.add(btnModificar);
 
 
@@ -263,12 +263,12 @@ public class ListadoUsuarios extends JFrame implements Constantes{
 			//////////////////****************************FILTROS********************************/////////////////7
 			//filtro  = new TableRowSorter(modelo);
 
-			TableRowSorter<TableModel> filtro=new  TableRowSorter<>(modelo);
-			table.setRowSorter(filtro);
+			//orden.setRowFilter(RowFilter.regexFilter("^ACTIVO", 6));
+
 			filtroNombre.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyReleased(KeyEvent e) {
-					filtro.setRowFilter(RowFilter.regexFilter("(?i)"+filtroNombre.getText(), 0));
+					orden.setRowFilter(RowFilter.regexFilter("(?i)"+filtroNombre.getText(), 0));
 
 				}
 			});
@@ -276,14 +276,14 @@ public class ListadoUsuarios extends JFrame implements Constantes{
 			filtroApellido.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyReleased(KeyEvent e) {
-					filtro.setRowFilter(RowFilter.regexFilter("(?i)"+filtroApellido.getText(), 1));
+					orden.setRowFilter(RowFilter.regexFilter("(?i)"+filtroApellido.getText(), 1));
 				}
 			});
 
 			filtroUsuario.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyReleased(KeyEvent e) {
-					filtro.setRowFilter(RowFilter.regexFilter("(?i)"+filtroUsuario.getText(), 3));
+					orden.setRowFilter(RowFilter.regexFilter("(?i)"+filtroUsuario.getText(), 3));
 				}
 			});
 
@@ -292,10 +292,10 @@ public class ListadoUsuarios extends JFrame implements Constantes{
 
 					String selected = comboBox.getSelectedItem().toString();
 					if(selected != "Rol") {
-						filtro.setRowFilter(RowFilter.regexFilter(selected, 5));
+						orden.setRowFilter(RowFilter.regexFilter(selected, 5));
 					}
 					else {
-						filtro.setRowFilter(null);
+						orden.setRowFilter(null);
 					}
 
 				}
