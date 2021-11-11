@@ -166,7 +166,7 @@ public class Main implements Constantes	{
 						try {
 							ControllerRegistro.V_Listado_Registro();
 							menuP.setVisible(false);
-						} catch (ServiciosException e1) {
+						} catch (Exception e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
@@ -180,7 +180,7 @@ public class Main implements Constantes	{
 						try {
 							ControllerRegistro.V_Listado_Registro();
 							menuP.setVisible(false);
-						} catch (ServiciosException e1) {
+						} catch (Exception e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
@@ -194,7 +194,7 @@ public class Main implements Constantes	{
 						try {
 							ControllerRegistro.V_Listado_Registro();
 							menuP.setVisible(false);
-						} catch (ServiciosException e1) {
+						} catch (Exception e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}

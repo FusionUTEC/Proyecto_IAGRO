@@ -64,6 +64,7 @@ public class ListadoFormulario extends JFrame implements Constantes{
 	public JButton btnEliminar;
 	public JButton btnRegistro;
 
+
 	public HashMap<Long,Formulario> map;
 
 
@@ -194,7 +195,11 @@ public class ListadoFormulario extends JFrame implements Constantes{
 		btnModificar.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
 		btnModificar.setBorder(new MatteBorder(2, 2, 2, 2, (Color) verde));
 		btnModificar.setBackground(verde);
-		btnModificar.setBounds(227, 369, 90, 27);
+
+
+		btnModificar.setBounds(343, 369, 90, 27);
+
+
 		panel.add(btnModificar);
 
 

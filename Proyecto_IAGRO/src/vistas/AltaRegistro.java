@@ -36,7 +36,7 @@ import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
 
 
-public class AltaRegistro extends JFrame implements Constantes{
+public class AltaRegistro extends JFrame implements Constantes {
 
 	private static final long serialVersionUID = 1L;
 
@@ -51,13 +51,14 @@ public class AltaRegistro extends JFrame implements Constantes{
 	private JScrollPane scrollPane;
 	public JButton btnVolver;
 	public JButton btnImportar;
+	public JButton btnExportarPlant;
 
 
 	public HashMap<Long,Formulario> map;
 	public JButton btnRegistrar;
 
 
-	public AltaRegistro() throws ServiciosException  {
+	public AltaRegistro() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ListadoEstacion.class.getResource("/vistas/Logo_original.png")));
 
 		//Frame
@@ -144,13 +145,13 @@ public class AltaRegistro extends JFrame implements Constantes{
 		btnVolver.setOpaque(false);
 		panel.add(btnVolver);
 
-		btnImportar = new JButton("Importar");
+		btnImportar = new JButton("Importar Datos");
 		btnImportar.setVerticalAlignment(SwingConstants.TOP);
 		btnImportar.setForeground(Color.WHITE);
 		btnImportar.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
 		btnImportar.setBorderPainted(false);
 		btnImportar.setBackground(azul);
-		btnImportar.setBounds(580, 368, 90, 27);
+		btnImportar.setBounds(402, 98, 146, 27);
 		panel.add(btnImportar);
 		
 		btnRegistrar = new JButton("Registrar");
@@ -158,9 +159,18 @@ public class AltaRegistro extends JFrame implements Constantes{
 		btnRegistrar.setForeground(Color.WHITE);
 		btnRegistrar.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
 		btnRegistrar.setBorderPainted(false);
-		btnRegistrar.setBackground(verde);
-		btnRegistrar.setBounds(680, 368, 90, 27);
+		btnRegistrar.setBackground(azul);
+		btnRegistrar.setBounds(350, 368, 103, 27);
 		panel.add(btnRegistrar);
+		
+		btnExportarPlant = new JButton("Exportar Plantilla");
+		btnExportarPlant.setVerticalAlignment(SwingConstants.TOP);
+		btnExportarPlant.setForeground(Color.WHITE);
+		btnExportarPlant.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
+		btnExportarPlant.setBorderPainted(false);
+		btnExportarPlant.setBackground(verde);
+		btnExportarPlant.setBounds(251, 98, 155, 27);
+		panel.add(btnExportarPlant);
 
 
 		

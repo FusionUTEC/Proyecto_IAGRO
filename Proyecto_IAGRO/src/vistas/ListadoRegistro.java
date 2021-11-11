@@ -61,12 +61,15 @@ public class ListadoRegistro extends JFrame implements Constantes{
 	private JLabel lblDep;
 	public JComboBox comboDept;
 	public JButton btnVolver;
+
+	public JButton btnModificar;
+
 	public JButton btnEliminar;
 
 	public HashMap<Long,Registro> map;
 
 
-	public ListadoRegistro() throws ServiciosException  {
+	public ListadoRegistro()   {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ListadoEstacion.class.getResource("/vistas/Logo_original.png")));
 
 		//Frame
@@ -136,6 +139,19 @@ public class ListadoRegistro extends JFrame implements Constantes{
 		lblDep.setBounds(10, 83, 90, 25);
 		panel.add(lblDep);
 
+
+
+		JButton lupe = new JButton("");
+		lupe.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		lupe.setBorderPainted(false);
+		lupe.setBorder(new MatteBorder(0, 0, 0, 0, (Color) new Color(0, 0, 0)));
+		lupe.setBackground(Color.WHITE);
+		lupe.setIcon(new ImageIcon("C:\\Users\\Estudio\\Desktop\\Imprimir\\Agosto\\lupa.png"));
+		lupe.setBounds(749, 97, 28, 23);
+		lupe.setOpaque(false);
+		panel.add(lupe);
+
+
 		btnVolver = new JButton("Volver");
 		btnVolver.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnVolver.setBorderPainted(false);
@@ -150,13 +166,32 @@ public class ListadoRegistro extends JFrame implements Constantes{
 		panel.add(btnVolver);
 
 
+		btnModificar = new JButton("Modificar");
+		btnModificar.setBorderPainted(false);
+		btnModificar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnModificar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnModificar.setVerticalAlignment(SwingConstants.TOP);
+		btnModificar.setForeground(Color.WHITE);
+		btnModificar.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
+		btnModificar.setBorder(new MatteBorder(2, 2, 2, 2, (Color) verde));
+		btnModificar.setBackground(verde);
+		btnModificar.setBounds(400, 369, 90, 27);
+		panel.add(btnModificar);
+
+
+
 		btnEliminar = new JButton("Eliminar");
 		btnEliminar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnEliminar.setForeground(Color.WHITE);
 		btnEliminar.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
 		btnEliminar.setBorderPainted(false);
 		btnEliminar.setBackground(verde);
-		btnEliminar.setBounds(525, 369, 90, 27);
+
+		btnEliminar.setBounds(487, 369, 90, 27);
+
 		panel.add(btnEliminar);
 
 
@@ -169,9 +204,9 @@ public class ListadoRegistro extends JFrame implements Constantes{
 		//ORDEN DE LA TABLA
 		TableRowSorter<TableModel> orden=new  TableRowSorter<>(modelo);
 		table.setRowSorter(orden);
-		// Se crea un array que ser· una de las filas de la tabla. 
+		// Se crea un array que ser√° una de las filas de la tabla. 
 		Object [] fila = new Object[columnNames.length]; 
-		// Se carga cada posiciÛn del array con una de las columnas de la tabla en base de datos.
+		// Se carga cada posici√≥n del array con una de las columnas de la tabla en base de datos.
 
 		RegistroBeanRemote RegistroBean;
 		try {
@@ -239,6 +274,15 @@ public class ListadoRegistro extends JFrame implements Constantes{
 	TableRowSorter<TableModel> filtro=new  TableRowSorter<>(modelo);
 	table.setRowSorter(filtro);
 	
+
+	JButton btnCompletar = new JButton("Nuevo Registro");
+	btnCompletar.setForeground(Color.WHITE);
+	btnCompletar.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
+	btnCompletar.setBorderPainted(false);
+	btnCompletar.setBackground(new Color(104, 171, 196));
+	btnCompletar.setBounds(266, 369, 136, 27);
+	panel.add(btnCompletar);
+
 	
 	comboDept.addItemListener(new ItemListener() {
 		public void itemStateChanged(ItemEvent e) {

@@ -25,8 +25,9 @@ public class ModelImpExp  {
 	Workbook wb;
 
 	public String Importar (File archivo, JTable tablaD) {
-		String respuesta="No se pudo realizar la importaci髇";
+		String respuesta="No se pudo realizar la importaci贸n";
 		DefaultTableModel modeloT= new DefaultTableModel();
+		
 		tablaD.setModel(modeloT);
 		try {
 			wb=WorkbookFactory.create(new FileInputStream(archivo));
@@ -66,40 +67,40 @@ public class ModelImpExp  {
 				if(indiceFila!=0)modeloT.addRow(listaColumna);
 					
 				}
-			respuesta="Importaci髇 Exitosa";
-			}catch (Exception e) {
+			respuesta="Importaci贸n Exitosa";
 
-			}
-			return respuesta;
+		}catch (Exception e) {
+			e.getMessage();
+
 		}
 	
 	public String Exportar (File archivo, JTable tablaD) {
-		String respuesta="No se pudo realizar la exportaci髇";
+		String respuesta="No se pudo realizar la exportaci贸n";
 		int numFila = tablaD.getRowCount();
 		int numColumna=tablaD.getColumnCount();
-		//Verificar Extensi髇 del archivo 
+		//Verificar Extensi贸n del archivo 
 		if (archivo.getName().endsWith("xls")) {
 			wb=new HSSFWorkbook();
 		}else {
 			wb=new XSSFWorkbook();
 		}
-			Sheet hoja=wb.createSheet("Prueba");
-			try {
-				for (int i=-1; i<numFila;i++) {
-					Row fila=hoja.createRow(i+1);
-					for(int j=0;j<numColumna;j++) {
-						Cell celda=fila.createCell(j);
-						if(i==-1) {
-							celda.setCellValue(String.valueOf(tablaD.getColumnName(j)));
-						}else {
-							celda.setCellValue(String.valueOf(tablaD.getValueAt(i, j)));
-							
-						}
-						wb.write(new FileOutputStream(archivo));
+
+		Sheet hoja=wb.createSheet("Prueba");
+		try {
+			for (int i=-1; i<numFila;i++) {
+				Row fila=hoja.createRow(i+1);
+				for(int j=0;j<numColumna;j++) {
+					Cell celda=fila.createCell(j);
+					if(i==-1) {
+						celda.setCellValue(String.valueOf(tablaD.getColumnName(j)));
+					}else {
+						celda.setCellValue(String.valueOf(tablaD.getValueAt(i, j)));
+
+
 					}
 						
 				}
-				respuesta="Exportaci髇 exitosa";
+				respuesta="Exportaci贸n exitosa";
 				
 			}catch (Exception e) {
 				

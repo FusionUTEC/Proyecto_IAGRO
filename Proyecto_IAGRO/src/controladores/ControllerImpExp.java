@@ -7,24 +7,32 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.hibernate.engine.transaction.jta.platform.internal.JOnASJtaPlatform;
+import org.hibernate.service.spi.ServiceException;
 
 import java.awt.event.*;
+
+
+import vistas.AltaRegistro;
 import vistas.Importar;
 
-public class ControllerImpExp implements ActionListener{
-	//public static Importar vistaE;	
+public class ControllerImpExp implements ActionListener  {
 
-	Importar vistaE=new Importar();
+
+
+	AltaRegistro vistaR=new AltaRegistro();
+
 	ModelImpExp modelE=new ModelImpExp();
 	JFileChooser selectArchivo=new JFileChooser();
 	File archivo;
 	int contAccion;
 
-	public ControllerImpExp(Importar vistaE, ModelImpExp modelE) {
-		this.vistaE=vistaE;
+
+	public ControllerImpExp(AltaRegistro vistaR, ModelImpExp modelE) {
+		this.vistaR=vistaR;
 		this.modelE=modelE;
-		this.vistaE.btnImportar.addActionListener(this);
-		this.vistaE.btnExportar.addActionListener(this);
+		this.vistaR.btnImportar.addActionListener(this);
+		this.vistaR.btnExportarPlant.addActionListener(this);
+
 	}
 	public void AgregarFiltro() {
 		selectArchivo.setFileFilter(new FileNameExtensionFilter("Excel (*.xls)", "xls"));
@@ -35,35 +43,43 @@ public class ControllerImpExp implements ActionListener{
 		contAccion++;
 		if(contAccion==1)AgregarFiltro();
 
-		if(e.getSource()==vistaE.btnImportar) {
+
+		if(e.getSource()==vistaR.btnImportar) {
+
 			if(selectArchivo.showDialog(null, "Seleccionar archivo")==JFileChooser.APPROVE_OPTION) {
 				archivo=selectArchivo.getSelectedFile();
 				if(archivo.getName().endsWith("xls") || archivo.getName().endsWith("xlsx")) {
-					JOptionPane.showMessageDialog(null, modelE.Importar(archivo, vistaE.table));
+					JOptionPane.showMessageDialog(null, modelE.Importar(archivo, vistaR.table));
 				}else {
-					JOptionPane.showMessageDialog(null, "Elija un formato de archivo v·lido (*.xls o *.xlsx");
+					JOptionPane.showMessageDialog(null, "Elija un formato de archivo v√°lido *.xls o *.xlsx");
 				}
 			}
 		}
-		if(e.getSource()==vistaE.btnExportar) {
+
+		if(e.getSource()==vistaR.btnExportarPlant) {
 			if(selectArchivo.showDialog(null, "Exportar Archivo")==JFileChooser.APPROVE_OPTION) {
 				archivo=selectArchivo.getSelectedFile();
-				if(archivo.getName().endsWith("xls") || archivo.getName().endsWith("xlsx")) {
-					JOptionPane.showMessageDialog(null, modelE.Exportar(archivo, vistaE.table));
+				if(archivo.getName().endsWith(".xls") || archivo.getName().endsWith(".xlsx")) {
+					JOptionPane.showMessageDialog(null, modelE.Exportar(archivo,vistaR.table));
+
 				}else {
-					JOptionPane.showMessageDialog(null, "Elija un formato de archivo v·lido (*.xls o *.xlsx");
+					JOptionPane.showMessageDialog(null, "Elija un formato de archivo v√°lido (*.xls o *.xlsx");
 				}
 			}
+
 		}
 
 
-		vistaE.btnVolver.addMouseListener(new MouseAdapter() {
+		vistaR.btnVolver.addMouseListener(new MouseAdapter() {
+
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				;
 				Main.menuP.setVisible(true);
-				vistaE.setVisible(false);
+				vistaR.setVisible(false);
 			}
 		});
+
+
 	}
 }
