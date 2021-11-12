@@ -285,6 +285,7 @@ public class MenuPrincipal extends JFrame {
 		btnsalir.setForeground(new Color(255, 255, 255));
 		btnsalir.setBounds(710, 11, 62, 49);
 		Image log_out = new ImageIcon(this.getClass().getResource("logout.png")).getImage();
+		btnsalir.setIcon(new ImageIcon(log_out));
 		btnsalir.setBackground(Color.WHITE);
 		btnsalir.setBorder(null);
 		btnsalir.setOpaque(false);
