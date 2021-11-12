@@ -50,7 +50,7 @@ public class VistaRegistro extends JFrame implements Constantes {
 	public DefaultTableModel modelo;
 	private JScrollPane scrollPane;
 	public JButton btnVolver;
-	public JButton btnExportarPlant;
+	public JButton btnExportarReg;
 
 
 	public HashMap<Long,Formulario> map;
@@ -143,14 +143,14 @@ public class VistaRegistro extends JFrame implements Constantes {
 		btnVolver.setOpaque(false);
 		panel.add(btnVolver);
 		
-		btnExportarPlant = new JButton("Exportar Registro");
-		btnExportarPlant.setVerticalAlignment(SwingConstants.TOP);
-		btnExportarPlant.setForeground(Color.WHITE);
-		btnExportarPlant.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
-		btnExportarPlant.setBorderPainted(false);
-		btnExportarPlant.setBackground(azul);
-		btnExportarPlant.setBounds(317, 351, 155, 27);
-		panel.add(btnExportarPlant);
+		btnExportarReg = new JButton("Exportar Registro");
+		btnExportarReg.setVerticalAlignment(SwingConstants.TOP);
+		btnExportarReg.setForeground(Color.WHITE);
+		btnExportarReg.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
+		btnExportarReg.setBorderPainted(false);
+		btnExportarReg.setBackground(azul);
+		btnExportarReg.setBounds(317, 351, 155, 27);
+		panel.add(btnExportarReg);
 
 
 		
