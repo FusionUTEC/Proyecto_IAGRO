@@ -11,11 +11,14 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
+import com.entities.Departamento;
 import com.entities.Estado;
 import com.entities.Formulario;
 import com.entities.Registro;
 import com.entities.Usuario;
 import com.exception.ServiciosException;
+import com.servicios.DepartamentoBeanRemote;
+import com.servicios.EstacionBeanRemote;
 import com.servicios.RegistroBeanRemote;
 import com.servicios.RegistroBeanRemote;
 import com.servicios.UsuarioBeanRemote;
@@ -34,8 +37,13 @@ import java.awt.Cursor;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.Serializable;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ListadoRegistro extends JFrame implements Constantes{
 
@@ -53,10 +61,14 @@ public class ListadoRegistro extends JFrame implements Constantes{
 	private JTable table_2;
 	private JScrollPane scrollPane;
 	private JLabel lblDep;
-	public JComboBox comboDpto;
+	public JComboBox comboDept;
 	public JButton btnVolver;
+
 	public JButton btnModificar;
+
 	public JButton btnEliminar;
+	
+	public JButton btnVisualizar;
 
 	public HashMap<Long,Registro> map;
 
@@ -70,7 +82,7 @@ public class ListadoRegistro extends JFrame implements Constantes{
 		Color azul=new Color (104,171,196); //color azul 104,171,196 / 68abc4
 		Color verde=new Color (166,187,95); //color verde 166,187,95 / a6bb5f 
 		setResizable(false);
-		setTitle("Usuarios");
+		setTitle("Registros");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 806, 450);
 		contentPane = new JPanel();
@@ -128,20 +140,13 @@ public class ListadoRegistro extends JFrame implements Constantes{
 
 		lblDep = new JLabel("Departamento");
 		lblDep.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
-		lblDep.setBounds(10, 83, 103, 25);
+		lblDep.setBounds(10, 83, 90, 25);
 		panel.add(lblDep);
 
 
 
-		JButton lupe = new JButton("");
-		lupe.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		lupe.setBorderPainted(false);
-		lupe.setBorder(new MatteBorder(0, 0, 0, 0, (Color) new Color(0, 0, 0)));
-		lupe.setBackground(Color.WHITE);
-		lupe.setIcon(new ImageIcon("C:\\Users\\Estudio\\Desktop\\Imprimir\\Agosto\\lupa.png"));
-		lupe.setBounds(749, 97, 28, 23);
-		lupe.setOpaque(false);
-		panel.add(lupe);
+	
+
 
 		btnVolver = new JButton("Volver");
 		btnVolver.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -156,6 +161,7 @@ public class ListadoRegistro extends JFrame implements Constantes{
 		btnVolver.setOpaque(false);
 		panel.add(btnVolver);
 
+
 		btnModificar = new JButton("Modificar");
 		btnModificar.setBorderPainted(false);
 		btnModificar.addActionListener(new ActionListener() {
@@ -167,18 +173,22 @@ public class ListadoRegistro extends JFrame implements Constantes{
 		btnModificar.setForeground(Color.WHITE);
 		btnModificar.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
 		btnModificar.setBorder(new MatteBorder(2, 2, 2, 2, (Color) verde));
-		btnModificar.setBackground(verde);
+		btnModificar.setBackground(azul);
 		btnModificar.setBounds(400, 369, 90, 27);
 		panel.add(btnModificar);
 
 
+
 		btnEliminar = new JButton("Eliminar");
+		
 		btnEliminar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnEliminar.setForeground(Color.WHITE);
 		btnEliminar.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
 		btnEliminar.setBorderPainted(false);
 		btnEliminar.setBackground(verde);
+
 		btnEliminar.setBounds(487, 369, 90, 27);
+
 		panel.add(btnEliminar);
 
 
@@ -191,9 +201,9 @@ public class ListadoRegistro extends JFrame implements Constantes{
 		//ORDEN DE LA TABLA
 		TableRowSorter<TableModel> orden=new  TableRowSorter<>(modelo);
 		table.setRowSorter(orden);
-		// Se crea un array que ser· una de las filas de la tabla. 
+		// Se crea un array que ser√° una de las filas de la tabla. 
 		Object [] fila = new Object[columnNames.length]; 
-		// Se carga cada posiciÛn del array con una de las columnas de la tabla en base de datos.
+		// Se carga cada posici√≥n del array con una de las columnas de la tabla en base de datos.
 
 		RegistroBeanRemote RegistroBean;
 		try {
@@ -222,23 +232,63 @@ public class ListadoRegistro extends JFrame implements Constantes{
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		
+		DepartamentoBeanRemote depBean;
+		try {
+			depBean = (DepartamentoBeanRemote)
+					InitialContext.doLookup(RUTA_DepartamentoBean);
+			
+			comboDept = new JComboBox();
+			
+			comboDept.setBounds(110, 86, 187, 22);
+			panel.add(comboDept);
+			
+			List<Departamento> dptoList= depBean.obtenerTodos();
+			comboDept.addItem("");
+			for (Departamento d: dptoList) {
+				
+				String nom = d.getNombre();
+				
+				comboDept.addItem(nom);
+
+			}	
+
+		} catch (NamingException e) {}
+		
+			
+			
+		
+		btnVisualizar = new JButton("Visualizar Registro");
+		btnVisualizar.setForeground(Color.WHITE);
+		btnVisualizar.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
+		btnVisualizar.setBorderPainted(false);
+		btnVisualizar.setBackground(new Color(104, 171, 196));
+		btnVisualizar.setBounds(625, 368, 155, 27);
+		panel.add(btnVisualizar);
 
 //////////////////****************************FILTROS********************************/////////////////7
 		
 	TableRowSorter<TableModel> filtro=new  TableRowSorter<>(modelo);
 	table.setRowSorter(filtro);
+
 	
-	JButton btnCompletar = new JButton("Nuevo Registro");
-	btnCompletar.setForeground(Color.WHITE);
-	btnCompletar.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
-	btnCompletar.setBorderPainted(false);
-	btnCompletar.setBackground(new Color(104, 171, 196));
-	btnCompletar.setBounds(266, 369, 136, 27);
-	panel.add(btnCompletar);
+	comboDept.addItemListener(new ItemListener() {
+		public void itemStateChanged(ItemEvent e) {
+
+			String selected = comboDept.getSelectedItem().toString();
+			if(selected != "") {
+				filtro.setRowFilter(RowFilter.regexFilter(selected, 2));
+			
+			}
+			else {
+				filtro.setRowFilter(null);
+			}
+
+		}
+	});
 	
-	JComboBox comboBox = new JComboBox();
-	comboBox.setBounds(106, 86, 160, 22);
-	panel.add(comboBox);
+	
+	
 
 	}
 }
