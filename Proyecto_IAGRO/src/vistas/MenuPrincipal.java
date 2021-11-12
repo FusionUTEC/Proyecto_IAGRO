@@ -36,6 +36,7 @@ public class MenuPrincipal extends JFrame {
 	public JPanel panelAficionado;
 	public JButton btnsalir;
 	public JButton btnRegistro;
+	public JButton btnFormularioAfi;
 	public JButton btnFormularioInv;
 	public JButton btnFormularioAdm;
 	private Image form;
@@ -125,13 +126,26 @@ public class MenuPrincipal extends JFrame {
 		btnRegistroAfi.setToolTipText("Registros");
 		btnRegistroAfi.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 16));
 		btnRegistroAfi.setForeground(new Color(255, 255, 255));
-		btnRegistroAfi.setBounds(19, 140, 146, 40);
+		btnRegistroAfi.setBounds(19, 150, 146, 40);
 		reg= new ImageIcon(this.getClass().getResource("Registros.png")).getImage();
 		btnRegistroAfi.setIcon(new ImageIcon(reg));
 		btnRegistroAfi.setBackground(Color.WHITE);
 		btnRegistroAfi.setBorder(null);
 		btnRegistroAfi.setOpaque(false);
 		panelAficionado.add(btnRegistroAfi);
+		
+		btnFormularioAfi = new JButton("Formularios");
+		btnFormularioAfi.setHorizontalAlignment(SwingConstants.LEFT);
+		btnFormularioAfi.setToolTipText("Formularios");
+		btnFormularioAfi.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 16));
+		btnFormularioAfi.setForeground(new Color(255, 255, 255));
+		btnFormularioAfi.setBounds(9, 89, 156, 40);
+		Image form = new ImageIcon(this.getClass().getResource("formulario.png")).getImage();
+		btnFormularioAfi.setIcon(new ImageIcon(form));
+		btnFormularioAfi.setBackground(Color.WHITE);
+		btnFormularioAfi.setBorder(null);
+		btnFormularioAfi.setOpaque(false);
+		panelAficionado.add(btnFormularioAfi);
 
 
 		//botones Admin
@@ -142,7 +156,7 @@ public class MenuPrincipal extends JFrame {
 		btnFormularioAdm.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 16));
 		btnFormularioAdm.setForeground(new Color(255, 255, 255));
 		btnFormularioAdm.setBounds(19, 38, 156, 40);
-		Image form = new ImageIcon(this.getClass().getResource("formulario.png")).getImage();
+		//Image formu = new ImageIcon(this.getClass().getResource("formulario.png")).getImage();
 		btnFormularioAdm.setIcon(new ImageIcon(form));
 		btnFormularioAdm.setBackground(Color.WHITE);
 		btnFormularioAdm.setBorder(null);

@@ -54,6 +54,7 @@ public class ControllerFormulario implements Constantes {
 		listF=new ListadoFormulario();
 		listF.setVisible(true);
 		obtenerTodos();
+		
 
 		listF.btnEliminar.addMouseListener(new MouseAdapter() {
 
@@ -168,7 +169,6 @@ public class ControllerFormulario implements Constantes {
 							}
 						}
 						
-						altaF.setVisible(false);
 					}
 				});
 				//Volver al listado

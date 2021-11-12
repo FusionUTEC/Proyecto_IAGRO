@@ -402,6 +402,7 @@ public class ControllerCasillas implements Constantes{
 
 		//CompletarCombo();
 		int filas = modelo.getRowCount();
+		
 
 		for(int i = filas-1; i>=0; i--) {
 			modelo.removeRow(i);
@@ -434,9 +435,12 @@ public class ControllerCasillas implements Constantes{
 			if  (c.getEstado().equals(Estado.ACTIVO)) {
 				modelo.addRow(fila);
 			}
+			
+
+		}
 		}
 
-	}
+	
 	//BORRAR CASILLA
 	public static void borrar() throws NamingException {
 
@@ -513,7 +517,7 @@ public class ControllerCasillas implements Constantes{
 		CasillaBeanRemote casillaBean = (CasillaBeanRemote)
 				InitialContext.doLookup(RUTA_CasillaBean);
 
-		List<Casilla> list = (List<Casilla>) casillaBean.buscarCas();
+		List<Casilla> list = (List<Casilla>) casillaBean.obtenerTodos();
 		System.out.println(list.size());
 		return list;
 	}

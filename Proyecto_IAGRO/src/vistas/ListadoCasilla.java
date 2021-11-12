@@ -12,6 +12,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
+import org.apache.poi.ss.usermodel.Row;
+
 import com.entities.Casilla;
 import com.entities.Estacion;
 import com.entities.Estado;
@@ -111,11 +113,13 @@ public class ListadoCasilla extends JFrame implements Constantes{
 		modelo= new DefaultTableModel() {
 			@Override
 			public boolean isCellEditable(int row, int column) {
+
 				//all cells false
 				return false;
 			}
+			
 		};
-
+	
 
 		// se crea la Tabla con el modelo DefaultTableModel
 		table = new JTable(modelo);
@@ -231,8 +235,16 @@ public class ListadoCasilla extends JFrame implements Constantes{
 			map = new HashMap<>();
 			//ControllerCasilla.CompletarCombo();
 			List<Casilla> casilla = casillaBean.obtenerTodos();
+
+
 			//comboTipoCasilla.setModel(new DefaultComboBoxModel (ControllerCasilla.CompletarCombo()));
 			for (Casilla c: casilla) {
+				c=casillaBean.buscar(c.getNombre());
+				if(c.getNombre().equals("DEPARTAMENTO")) {
+				table.setRowSelectionAllowed(false);
+				table.setCellSelectionEnabled(false);
+				table.setColumnSelectionAllowed(false);
+				}
 				// String ca=Math.toIntExact(c.getTipoImput());
 				map.put(c.getIdCasilla(), c);
 
@@ -243,8 +255,11 @@ public class ListadoCasilla extends JFrame implements Constantes{
 				fila[4]=c.getUnidadMedida();
 				fila[5]=c.getIdCasilla();
 				if  (c.getEstado().equals(Estado.ACTIVO)) {
+
 					modelo.addRow(fila);
 				}
+
+
 			}
 		} catch (NamingException e1) {
 			// TODO Auto-generated catch block
@@ -279,6 +294,7 @@ public class ListadoCasilla extends JFrame implements Constantes{
 
 
 	}
+
 }
 
 

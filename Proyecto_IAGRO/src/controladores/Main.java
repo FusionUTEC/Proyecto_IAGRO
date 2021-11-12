@@ -219,7 +219,7 @@ public class Main implements Constantes	{
 				}
 			}
 		});
-		//FORMULARIO ADMIN E INVE
+		//FORMULARIO ADMIN , INVE AFI
 		menuP.btnFormularioAdm.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {	
@@ -232,7 +232,19 @@ public class Main implements Constantes	{
 				}
 			}
 		});
-
+	menuP.btnFormularioAfi.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {	
+				try {
+					ControllerFormulario.V_ListaForm();
+					menuP.setVisible(false);
+					
+				} catch (NamingException | ServiciosException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		menuP.btnFormularioInv.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {	

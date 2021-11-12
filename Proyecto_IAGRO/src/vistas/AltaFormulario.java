@@ -7,6 +7,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 
 import com.entities.Casilla;
+import com.entities.Estado;
 import com.servicios.CasillaBeanRemote;
 
 import controladores.Constantes;
@@ -228,14 +229,20 @@ public class AltaFormulario extends JFrame implements Constantes{
 			int y = 0;
 
 			for(Casilla c: allCasillas){
+
+
 				chckbxNewCheckBox = new JCheckBox(c.getNombre());
 				chckbxNewCheckBox.setBounds(0, y, 160, 23);
 				chckbxNewCheckBox.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 13));
 				//Insertar casillas en panel
 
-				panel_1.add(chckbxNewCheckBox);
+				if(c.getEstado().equals(Estado.ACTIVO)) {
 
-			
+					//HABRÍA QUE ORDENARLAS. PQ NO LAS MUESTRA PERO DEJA LOS ESPACIOS VACÍOS
+					panel_1.add(chckbxNewCheckBox);
+					y += 30;
+				}
+				
 				//Marcar casillas ya existentes
 				if(map.containsKey(c.getIdCasilla())) {
 					chckbxNewCheckBox.doClick();
@@ -255,7 +262,7 @@ public class AltaFormulario extends JFrame implements Constantes{
 					chckbxNewCheckBox.setEnabled(false);
 
 				}
-				
+
 				if(c.getNombre().equals("COMENTARIOS")) {
 					chckbxNewCheckBox.doClick();
 					chckbxNewCheckBox.setEnabled(false);
@@ -265,7 +272,7 @@ public class AltaFormulario extends JFrame implements Constantes{
 					map.put(c.getIdCasilla(), c);
 				}
 
-			
+
 				//Generar evento de chequear/deschequear por casilla
 				chckbxNewCheckBox.addItemListener(new ItemListener() {
 
@@ -287,7 +294,7 @@ public class AltaFormulario extends JFrame implements Constantes{
 
 
 
-				y += 30;
+				
 			}
 
 			setVisible(true);

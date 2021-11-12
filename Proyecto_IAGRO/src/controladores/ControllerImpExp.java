@@ -6,13 +6,10 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import org.hibernate.engine.transaction.jta.platform.internal.JOnASJtaPlatform;
-import org.hibernate.service.spi.ServiceException;
 
 import java.awt.event.*;
 
 import vistas.AltaRegistro;
-import vistas.Importar;
 
 
 public class ControllerImpExp implements ActionListener  {
