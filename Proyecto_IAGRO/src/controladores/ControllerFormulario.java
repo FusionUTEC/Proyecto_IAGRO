@@ -80,9 +80,10 @@ public class ControllerFormulario implements Constantes {
 					FormularioBeanRemote formBean = (FormularioBeanRemote)InitialContext.doLookup(RUTA_FormularioBean);
 					
 					Formulario form = formBean.buscarForm(name);
+					form.getCasillas().get(0);
 					ControllerRegistro.form = form;
-					
-					ControllerRegistro.cargarTabla();
+					//
+					ControllerRegistro.V_Alta_Registro();
 				}
 					
 				} catch (NamingException e1) {}
@@ -169,6 +170,7 @@ public class ControllerFormulario implements Constantes {
 							}
 						}
 						
+
 					}
 				});
 				//Volver al listado
