@@ -272,7 +272,7 @@ public class ControllerUsuario implements Constantes{
 								}
 							}
 						}else {
-							JOptionPane.showMessageDialog(null, "Las Contrase√±as ingresadas no coinciden");
+						JOptionPane.showMessageDialog(null, "Las ContraseÒas ingresadas no coinciden");
 						}
 
 					}
@@ -301,7 +301,7 @@ public class ControllerUsuario implements Constantes{
 				listU.setVisible(false);
 
 
-				//Cambio de Contrase√±a - 
+				//Cambio de ContraseÒa - 
 				altaU.btnCambiarPass.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent e) {
@@ -310,12 +310,12 @@ public class ControllerUsuario implements Constantes{
 						JPasswordField cont = new JPasswordField();
 						JPasswordField confContr = new JPasswordField();
 						JPanel panel = new JPanel(new GridLayout(0, 1));
-						panel.add(new JLabel("Contrase√±a"));
+						panel.add(new JLabel("ContraseÒa"));
 						panel.add(cont);
-						panel.add(new JLabel("Confirmar Contrase√±a"));
+						panel.add(new JLabel("Confirmar ContraseÒa"));
 						panel.add(confContr);
 
-						int result = JOptionPane.showConfirmDialog(null, panel, "Cambio de Contrase√±a",
+						int result = JOptionPane.showConfirmDialog(null, panel, "Cambio de ContraseÒa",
 								JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 						if (result == JOptionPane.OK_OPTION ) {
 
@@ -330,7 +330,7 @@ public class ControllerUsuario implements Constantes{
 									e1.printStackTrace();
 								}
 							}else {
-								JOptionPane.showMessageDialog(null, "Las contrase√±as no coinciden");
+								JOptionPane.showMessageDialog(null, "Las contraseÒas no coinciden");
 							}
 
 						} else { 
@@ -797,7 +797,7 @@ public class ControllerUsuario implements Constantes{
 
 			try {
 				usuarioBean.actualizar(user);
-				JOptionPane.showMessageDialog(null, "Contrase√±a actualizada correctamente");
+				JOptionPane.showMessageDialog(null, "ContraseÒa actualizada correctamente");
 			} catch (ServiciosException e) {
 
 				System.out.println(e.getMessage());
@@ -830,7 +830,7 @@ public class ControllerUsuario implements Constantes{
 			}
 
 			if (correcto!=8){	// Le faltaron digitos ingresar o ingreso otro tipo de caracter
-				JOptionPane.showMessageDialog(null, "Datos no v√°lidos o faltantes en el campo Cedula", null, 1);
+				JOptionPane.showMessageDialog(null, "Datos no v·lidos o faltantes en el campo Cedula", null, 1);
 				return false;
 			} else {
 				// Caso de ingreso correcto hacemos la verificacion
@@ -841,7 +841,7 @@ public class ControllerUsuario implements Constantes{
 				if (resto == cedula[7]) {
 					System.out.println("Correcto");
 				} else {
-					JOptionPane.showMessageDialog(null,"Cedula No v√°lida: No coincide el digito verificador : "+ resto+ " --> Digito ingresado :"+cedula[7]);
+					JOptionPane.showMessageDialog(null,"Cedula No v·lida: No coincide el digito verificador : "+ resto+ " --> Digito ingresado :"+cedula[7]);
 					return false;
 				}
 
@@ -923,7 +923,7 @@ public class ControllerUsuario implements Constantes{
 		//Usuario sin n√∫meros
 
 		if(user.matches("[0-9]+")) {
-			JOptionPane.showMessageDialog(null, "El nombre de usuario no puede contener n√±meros", null, 1);
+			JOptionPane.showMessageDialog(null, "El nombre de usuario no puede contener n˙meros", null, 1);
 			return false;
 		}
 
@@ -931,7 +931,7 @@ public class ControllerUsuario implements Constantes{
 		//correo no valido
 		if(!mail.contains("@")) {
 
-			JOptionPane.showMessageDialog(null, "El correo ingresado no es v√°lido", null, 1);
+			JOptionPane.showMessageDialog(null, "El correo ingresado no es v·lido", null, 1);
 
 			return false;
 		}
@@ -947,27 +947,28 @@ public class ControllerUsuario implements Constantes{
 
 		//Minimo caracteres
 		if(pass.length() <8) {
-			JOptionPane.showMessageDialog(null, "La contrase√±a debe tener al menos 8 caracteres", null, 1);
+			JOptionPane.showMessageDialog(null, "La contraseÒa debe tener al menos 8 caracteres", null, 1);
 			return false;
 		}
 
 
 		//Contrase√±a con n√∫meros y letras
 
+		
+
 		String letras = pass.replaceAll("[*0-9]", "");
-		String numeros = pass.replaceAll("[*a-zA-Z√Ä-√ø\\u00f1\\u00d1]", "");
+		String numeros = pass.replaceAll("[*a-zA-Z¿-ˇ\u00f1\u00d1]", "");
+
+
+		if(!numeros.matches("[0-9]+") || !letras.matches("[a-zA-Z¿-ˇ\u00f1\u00d1]+")) {
+			JOptionPane.showMessageDialog(null, "La contraseÒa debe contener n˙meros y letras", null, 1);
+			return false;
+		}
 		
 		if(pass.isEmpty()) {
-			JOptionPane.showMessageDialog(null, "Debe completar el campo Contrase√±a", null, 1);
+			JOptionPane.showMessageDialog(null, "Debe completar el campo ContraseÒa", null, 1);
 			return false;
 		}
-
-		if(!numeros.matches("[0-9]+") || !letras.matches("[a-zA-Z√Ä-√ø\\u00f1\\u00d1]+")) {
-			JOptionPane.showMessageDialog(null, "La contrase√±a debe contener n√∫meros y letras", null, 1);
-
-			return false;
-		}
-
 	
 
 		return bandera;
@@ -978,7 +979,7 @@ public class ControllerUsuario implements Constantes{
 		boolean bandera = true;
 		
 		if(!tel.matches("[0-9]+")){
-			JOptionPane.showMessageDialog(null, "El tel√©fono ingresado no es v√°lido", null, 1);
+			JOptionPane.showMessageDialog(null, "El telÈfono ingresado no es v·ido", null, 1);
 			return false;
 		}
 		return bandera;

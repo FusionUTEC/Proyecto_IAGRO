@@ -239,12 +239,12 @@ public class ListadoCasilla extends JFrame implements Constantes{
 
 			//comboTipoCasilla.setModel(new DefaultComboBoxModel (ControllerCasilla.CompletarCombo()));
 			for (Casilla c: casilla) {
-				c=casillaBean.buscar(c.getNombre());
+				/*c=casillaBean.buscar(c.getNombre());
 				if(c.getNombre().equals("DEPARTAMENTO")) {
 				table.setRowSelectionAllowed(false);
 				table.setCellSelectionEnabled(false);
 				table.setColumnSelectionAllowed(false);
-				}
+				}*/
 				// String ca=Math.toIntExact(c.getTipoImput());
 				map.put(c.getIdCasilla(), c);
 
