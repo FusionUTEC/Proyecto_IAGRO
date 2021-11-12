@@ -263,7 +263,8 @@ public class ControllerEstacion implements Constantes{
 
 		List<Departamento> dptoList=obtenerDptos();
 		String [] arrayDpto= new String [dptoList.size()];
-		int i=0;
+		int i=1;
+		arrayDpto[0] = "";
 		for (Departamento d: dptoList) {
 			arrayDpto[i]=d.getNombre();
 			i++;
