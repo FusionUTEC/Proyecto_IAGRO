@@ -4,6 +4,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.naming.InitialContext;
@@ -155,16 +156,17 @@ public class ControllerRegistro implements Constantes {
 				try {
 
 					int selected = ListaR.table.getSelectedRow();
+					System.out.println("Fila seleccionada "+selected);
 
 					if(selected != (-1)) {
 						datoBean = (DatoBeanRemote)InitialContext.doLookup(RUTA_DatoBean);
 						regBean = (RegistroBeanRemote)InitialContext.doLookup(RUTA_RegistroBean);
 
 						String id = ListaR.modelo.getValueAt(selected,0).toString();
+						System.out.println("ID registro "+id);
 						Registro r = regBean.buscar(id);
 
 						List<Dato> datos = datoBean.obtenerDatos(r);
-						System.out.println("Entré");
 						cargarVista(datos);
 
 					}
@@ -230,12 +232,16 @@ public class ControllerRegistro implements Constantes {
 			String Dep = AltaR.modelo.getValueAt(0, 4).toString().toUpperCase();
 
 			Departamento d = dptoBean.buscar(Dep);
-			//dptoBean.buscar(RUTA_CasillaBean)
 
-
+			
+			  //convert String to LocalDate
+			
+			
 			//Fecha
-			LocalDateTime fe=LocalDateTime.now();	
-			Timestamp fecha= Timestamp.valueOf(fe);
+			String date = AltaR.modelo.getValueAt(1, 4).toString();
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"); 
+			LocalDateTime dateTime = LocalDateTime.parse(date, formatter);
+			Timestamp fecha= Timestamp.valueOf(dateTime);
 
 			//Casillas
 			int filas = AltaR.modelo.getRowCount();
@@ -246,7 +252,6 @@ public class ControllerRegistro implements Constantes {
 			Usuario user = Main.User;
 
 			Registro r = new Registro();
-			//r.setDepartamento(d);
 			r.setFechaHora(fecha);
 			r.setUsuario(user);
 			r.setFormulario(form);
@@ -256,24 +261,29 @@ public class ControllerRegistro implements Constantes {
 			//Enviar registro a la base
 			if(d==null)	{
 				JOptionPane.showMessageDialog(null, "El departamento ingresado no es correcto");
-			}
+			}else {
 				r = regBean.crear(r);
 
-			//Datos de medición
-			for(int i = 0; i<filas; i++) {
+				//Datos de medición
+				for(int i = 3; i<filas; i++) {
 
-				Dato dato = new Dato();
-				dato.setRegistro(r);
+					Dato dato = new Dato();
+					dato.setRegistro(r);
 
-				Casilla c = casBean.buscar(AltaR.modelo.getValueAt(i, 0).toString());
-				dato.setCasilla(c);
+					Casilla c = casBean.buscar(AltaR.modelo.getValueAt(i, 0).toString());
+					dato.setCasilla(c);
+					System.out.println("Registré la casilla "+c.getNombre());
 
-				dato.setValor(AltaR.table.getValueAt(i, 4).toString());
+					dato.setValor(AltaR.table.getValueAt(i, 4).toString());
 
-				datoBean.crear(dato);
+					datoBean.crear(dato);
 
+					
+				}
+
+				JOptionPane.showMessageDialog(null, "Registro ingresado con éxito");
 			}
-			JOptionPane.showMessageDialog(null, "Registro ingresado con éxito");
+
 
 
 		} catch (NamingException | ServiciosException e) {}
@@ -284,10 +294,9 @@ public class ControllerRegistro implements Constantes {
 	//Para cargar plantilla
 	public static void cargarTabla() {
 
-		System.out.println("Hi");
 
 		List<Casilla> casillas = form.getCasillas();
-		System.out.println(casillas.get(0));
+
 
 		//CasillaBeanRemote casBean = (CasillaBeanRemote)InitialContext.doLookup(RUTA_CasillaBean);
 		//List<Casilla> casillas = casBean.obtenerTodos();
@@ -312,12 +321,13 @@ public class ControllerRegistro implements Constantes {
 			fila[3] = c.getUnidadMedida();
 
 			tabla.addRow(fila);
-
-			System.out.println("Hola");
-
 		}
 
 
+		moverFila("DEPARTAMENTO", 0, tabla);
+		moverFila("FECHA Y HORA", 1, tabla);
+		moverFila("USUARIO", 2, tabla);
+		moverFila("COMENTARIOS", 3, tabla);
 
 
 	}
@@ -327,6 +337,12 @@ public class ControllerRegistro implements Constantes {
 
 		VistaR = new VistaRegistro();
 		V_Visualizar_Registro();
+		try {
+			CasillaBeanRemote casBean = (CasillaBeanRemote)InitialContext.doLookup(RUTA_CasillaBean);
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		DefaultTableModel tabla = VistaR.modelo;
 
@@ -337,6 +353,20 @@ public class ControllerRegistro implements Constantes {
 		}
 
 		Object [] fila = new Object[columnNames.length];
+		System.out.println("Cantidad de datos registrados "+datos.size());
+		Registro reg = datos.get(0).getRegistro();
+		
+		String dep = reg.getDepartamento().getNombre();
+		String fecha = reg.getFechaHora().toString();
+		String user = reg.getUsuario().getNombreUsuario();
+		
+	
+		addFila("DEPARTAMENTO", dep, tabla, fila);
+		addFila("FECHA Y HORA", fecha, tabla, fila);
+		addFila("USUARIO",user, tabla, fila);
+		
+		
+	
 
 		for(Dato d: datos) {
 
@@ -349,20 +379,39 @@ public class ControllerRegistro implements Constantes {
 			fila[4] = d.getValor();
 
 			tabla.addRow(fila);
-
-			System.out.println("Hola");
-
-			VistaR.setVisible(true);
+			System.out.println("Cargué la casilla "+c.getNombre());
 
 		}
+		
+		VistaR.setVisible(true);
 
-
-
-
-
+		/*moverFila("DEPARTAMENTO", 0, tabla);
+		moverFila("FECHA Y HORA", 1, tabla);
+		moverFila("USUARIO", 2, tabla);
+		moverFila("COMENTARIOS", 3, tabla);*/
 
 	}
 
+	public static void moverFila(String nom, int pos, DefaultTableModel tabla) {
+		for(int i = 0; i < tabla.getRowCount(); i++){
+
+			if(tabla.getValueAt(i, 0).equals(nom)){
+
+				tabla.moveRow(i, i, pos);
+
+			}
+		}
+	}
+	
+	public static void addFila(String nom, String dato, DefaultTableModel tabla, Object [] fila) {
+		fila[0] = nom;
+		fila[1] = "N/A";
+		fila[2] = "N/A";
+		fila[3] = "N/A";
+		fila[4] = dato;
+		
+		tabla.addRow(fila);
+	}
 
 	public static Registro buscarR(String id) {
 

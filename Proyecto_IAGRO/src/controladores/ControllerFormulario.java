@@ -88,7 +88,7 @@ public class ControllerFormulario implements Constantes {
 						FormularioBeanRemote formBean = (FormularioBeanRemote)InitialContext.doLookup(RUTA_FormularioBean);
 
 						Formulario form = formBean.buscarForm(name);
-						form.getCasillas().get(0);
+						
 						ControllerRegistro.form = form;
 						//
 						ControllerRegistro.V_Alta_Registro();
