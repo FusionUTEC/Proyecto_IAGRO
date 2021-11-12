@@ -502,8 +502,7 @@ public class ControllerFormulario implements Constantes {
 						form.setEstado(form.getEstado().INACTIVO);
 
 						formularioBean.actualizar(form);
-						System.out.println("Se borró exitosamente el Formulario");
-
+						JOptionPane.showMessageDialog(null, "Formulario eliminado con éxito");
 						actualizarListado(listF.modelo);
 					}
 

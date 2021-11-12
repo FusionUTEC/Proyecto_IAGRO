@@ -224,7 +224,7 @@ public class AltaUsuario extends JFrame {
 		domicilio.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 		domicilio.setBorder(new MatteBorder(0, 0, 2, 0, (Color) Color.LIGHT_GRAY));
 		domicilio.setBackground(Color.LIGHT_GRAY);
-		domicilio.setBounds(590, 265, 110, 23);
+		domicilio.setBounds(590, 265, 177, 23);
 		panel.add(domicilio);
 
 		ciudad = new JTextField();
@@ -291,7 +291,7 @@ public class AltaUsuario extends JFrame {
 		btnRegistrar.setBorder(new MatteBorder(2, 2, 2, 2, (Color) azul));
 		btnRegistrar.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
 		btnRegistrar.setBackground(azul);
-		btnRegistrar.setBounds(295, 377, 110, 27);
+		btnRegistrar.setBounds(290, 377, 110, 27);
 		panel.add(btnRegistrar);
 
 		btnCambiarPass = new JButton("Cambiar Contraseña");
@@ -302,7 +302,7 @@ public class AltaUsuario extends JFrame {
 		btnCambiarPass.setBorder(new MatteBorder(2, 2, 2, 2, (Color) azul));
 		btnCambiarPass.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
 		btnCambiarPass.setBackground(verde);
-		btnCambiarPass.setBounds(413, 377, 142, 27);
+		btnCambiarPass.setBounds(403, 377, 142, 27);
 		panel.add(btnCambiarPass);
 
 
@@ -314,7 +314,7 @@ public class AltaUsuario extends JFrame {
 		btnGuardar.setBorder(new MatteBorder(2, 2, 2, 2, (Color) azul));
 		btnGuardar.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
 		btnGuardar.setBackground(azul);
-		btnGuardar.setBounds(298, 377, 118, 27);
+		btnGuardar.setBounds(290, 377, 118, 27);
 		panel.add(btnGuardar);
 
 		JPanel banner = new JPanel();

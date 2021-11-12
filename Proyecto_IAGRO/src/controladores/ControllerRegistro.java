@@ -123,6 +123,7 @@ public class ControllerRegistro implements Constantes {
 						Registro r = buscarR(id);
 						r.setEstado(Estado.INACTIVO);
 
+						JOptionPane.showMessageDialog(null, "Registro eliminado con éxito");
 						RegistroBeanRemote regBean;
 
 						try {

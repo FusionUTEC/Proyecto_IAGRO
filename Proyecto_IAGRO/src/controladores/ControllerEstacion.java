@@ -112,7 +112,6 @@ public class ControllerEstacion implements Constantes{
 									if (todoOK) {
 
 										crear(nom, Long.valueOf(dpto), Float.valueOf(latitud),Float.valueOf(longitud), Float.valueOf(humedad),Float.valueOf(calAgua),Main.User.getIdUsuario());
-										JOptionPane.showMessageDialog(null,"Estación registrada correctamente");
 										//actualizarListado(listE.modelo);
 									}
 								}
@@ -209,26 +208,30 @@ public class ControllerEstacion implements Constantes{
 						String longitud = altaE.textLongitud.getText();
 						String humedad = altaE.textHumedadRelativa.getText();
 						String calAgua = altaE.textCalidadAgua.getText();
+						int confirm = JOptionPane.showOptionDialog(null,
+								"¿Desea modificar la Estación?",
+								"Exit Confirmation", JOptionPane.YES_NO_OPTION,
+								JOptionPane.QUESTION_MESSAGE,null, null, null);							//Si el usuario elige sí se borra la fila
+						if (JOptionPane.YES_OPTION== confirm) {
 
+							try {
+								boolean todoOK=camposVacios(nom,latitud,longitud,calAgua,humedad);
 
-						try {
-							boolean todoOK=camposVacios(nom,latitud,longitud,calAgua,humedad);
-
-							if(todoOK) {
-								todoOK=validarFormatos(longitud, latitud, calAgua,humedad);
-								if (todoOK) {
-									ControllerEstacion.actualizar(nom, dpto,Float.valueOf(latitud),Float.valueOf( longitud), Float.valueOf(humedad), Float.valueOf(calAgua));
-									JOptionPane.showMessageDialog(null,"Estación actualizada correctamente");
-									actualizarListado(listE.modelo);
+								if(todoOK) {
+									todoOK=validarFormatos(longitud, latitud, calAgua,humedad);
+									if (todoOK) {
+										ControllerEstacion.actualizar(nom, dpto,Float.valueOf(latitud),Float.valueOf( longitud), Float.valueOf(humedad), Float.valueOf(calAgua));
+										actualizarListado(listE.modelo);
+									}
 								}
+
+							} catch (NamingException | ServiciosException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
 							}
-						} catch (NamingException | ServiciosException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
+
 						}
-
 					}
-
 
 				});
 
@@ -293,24 +296,35 @@ public class ControllerEstacion implements Constantes{
 		EstacionBeanRemote estacionBean = (EstacionBeanRemote)
 				InitialContext.doLookup(RUTA_EstacionBean);
 
-		Estacion estacion = new Estacion();
-		estacion.setNombre(nombre);
-		estacion.setDepartamento(dpto);
-		estacion.setLatitud(latitud);
-		estacion.setLongitud(longitud);
-		estacion.setCalidadAgua(calidadAgua);
-		estacion.setHumedadRelativa(humedadRelativa);
-		estacion.setIdInvestigador(Main.User);
-		estacion.setEstado(estacion.getEstado().ACTIVO);
+		Estacion existeEst = estacionBean.buscarEst(nombre);
+		boolean todoOK=true;
+		if(existeEst != null) {
+			JOptionPane.showMessageDialog(null, "El nombre de estación ingresada ya existe", null, 1);
+			todoOK = false;
+		}
+
+		if (todoOK) {
+			Estacion estacion = new Estacion();
+			estacion.setNombre(nombre);
+			estacion.setDepartamento(dpto);
+			estacion.setLatitud(latitud);
+			estacion.setLongitud(longitud);
+			estacion.setCalidadAgua(calidadAgua);
+			estacion.setHumedadRelativa(humedadRelativa);
+			estacion.setIdInvestigador(Main.User);
+			estacion.setEstado(estacion.getEstado().ACTIVO);
 
 
-		try {
-			estacionBean.crear(estacion);
-			System.out.println(estacion.getIdEstacion());
-			System.out.println("Se creó exitosamente la Estación");
+
+			try {
+				estacionBean.crear(estacion);
+				System.out.println(estacion.getIdEstacion());
+				JOptionPane.showMessageDialog(null,"Estación registrada correctamente");
+			
 		} catch (ServiciosException e) {
 
 			System.out.println(e.getMessage());
+		}
 		}
 		try {
 			actualizarListado(listE.modelo);
@@ -363,7 +377,7 @@ public class ControllerEstacion implements Constantes{
 				modelo.addRow(fila);
 
 			}
-			
+
 		}
 	}
 
@@ -397,6 +411,7 @@ public class ControllerEstacion implements Constantes{
 		try {
 
 			estacionBean.actualizar(estacion);
+			JOptionPane.showMessageDialog(null,"Estación actualizada correctamente");
 
 			System.out.println(estacion.getIdEstacion() + " " +estacion.getNombre());
 		} catch (ServiciosException e) {
@@ -433,7 +448,7 @@ public class ControllerEstacion implements Constantes{
 					estacion=estacion=estacionBean.buscarEst(name);
 					estacion.setEstado(estacion.getEstado().INACTIVO);
 					estacionBean.actualizar(estacion);
-					System.out.println("Se borró exitosamente la Estación");
+					JOptionPane.showMessageDialog(null, "Estación eliminada con éxito");
 
 					actualizarListado(listE.modelo);
 				}

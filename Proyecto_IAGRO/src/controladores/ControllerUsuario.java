@@ -56,6 +56,7 @@ public class ControllerUsuario implements Constantes{
 
 		altaU=new AltaUsuario();
 		altaU.setVisible(true);
+		listU.setVisible(false);
 		altaU.btnRegistrar.setVisible(true);
 		altaU.btnGuardar.setVisible(false);
 		altaU.btnCambiarPass.setVisible(false);
@@ -80,9 +81,9 @@ public class ControllerUsuario implements Constantes{
 		altaU.setVisible(true);
 		altaU.btnRegistrar.setVisible(false);
 		altaU.btnGuardar.setVisible(true);
-		altaU.btnGuardar.setBounds(250, 373, 125, 27);
+		altaU.btnGuardar.setBounds(290, 377, 125, 27);
 		altaU.btnCambiarPass.setVisible(true);
-		altaU.btnCambiarPass.setBounds(420, 373, 135, 27);
+		altaU.btnCambiarPass.setBounds(420, 377, 135, 27);
 		altaU.contrasena.enable(false);
 		altaU.confcontrasena.enable(false);
 		altaU.lblConfContrasea.enable(false);
@@ -137,8 +138,8 @@ public class ControllerUsuario implements Constantes{
 					user.setEstado(user.getEstado().INACTIVO);
 					
 					usuarioBean.actualizar(user);
-
-					System.out.println("Se borr√≥ exitosamente el usuario");
+					JOptionPane.showMessageDialog(null, "Usuario eliminado con Èxito");
+		
 
 
 					actualizarListado(listU.modelo);
@@ -206,6 +207,7 @@ public class ControllerUsuario implements Constantes{
 
 		listU=new ListadoUsuarios();
 		listU.setVisible(true);
+		
 		listU.btnEliminar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
