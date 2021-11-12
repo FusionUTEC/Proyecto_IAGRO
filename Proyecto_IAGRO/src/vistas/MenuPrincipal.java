@@ -283,9 +283,9 @@ public class MenuPrincipal extends JFrame {
 		btnsalir.setToolTipText("");
 		btnsalir.setFont(new Font("Voces", Font.BOLD, 14));
 		btnsalir.setForeground(new Color(255, 255, 255));
-		btnsalir.setBounds(724, 11, 62, 49);
+		btnsalir.setBounds(710, 11, 62, 49);
 		Image log_out = new ImageIcon(this.getClass().getResource("logout.png")).getImage();
-		btnsalir.setIcon(new ImageIcon(log_out));
+		btnsalir.setIcon(new ImageIcon("C:\\Users\\Estudio\\Desktop\\Imprimir\\Agosto\\cloud-computing (3).png"));
 		btnsalir.setBackground(Color.WHITE);
 		btnsalir.setBorder(null);
 		btnsalir.setOpaque(false);

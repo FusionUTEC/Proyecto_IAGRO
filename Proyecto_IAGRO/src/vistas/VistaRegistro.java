@@ -103,11 +103,9 @@ public class VistaRegistro extends JFrame implements Constantes {
 		modelo= new DefaultTableModel() {
 			@Override
 			public boolean isCellEditable(int row, int column) {
-				if(column == 4) {
-					return true;
-				}else {
+				
 					return false;
-				}
+				
 				
 			}
 		};
