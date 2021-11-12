@@ -13,7 +13,6 @@ import java.awt.event.*;
 
 import vistas.AltaRegistro;
 import vistas.Importar;
-import vistas.VistaRegistro;
 
 
 public class ControllerImpExp implements ActionListener  {
@@ -30,9 +29,6 @@ public class ControllerImpExp implements ActionListener  {
 		this.modelE=modelE;
 		this.vistaR.btnImportar.addActionListener(this);
 		this.vistaR.btnExportarPlant.addActionListener(this);
-	}
-	public ControllerImpExp(VistaRegistro vistaR2, ModelImpExp model) {
-		// TODO Auto-generated constructor stub
 	}
 	public void AgregarFiltro() {
 		selectArchivo.setFileFilter(new FileNameExtensionFilter("Excel (*.xls)", "xls"));
