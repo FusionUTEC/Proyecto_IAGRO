@@ -43,7 +43,6 @@ public class MenuPrincipal extends JFrame {
 	public JButton btnRegistroInv;
 	public JButton btnRegistroAdm;
 	public JButton btnRegistroAfi;
-	public JButton btnImportExport;
 	private Image reg;
 	public JButton btnCasillasAdm;
 	public JButton btnCasillasInv;
@@ -285,7 +284,7 @@ public class MenuPrincipal extends JFrame {
 		btnsalir.setFont(new Font("Voces", Font.BOLD, 14));
 		btnsalir.setForeground(new Color(255, 255, 255));
 		btnsalir.setBounds(724, 11, 62, 49);
-		Image log_out = new ImageIcon(this.getClass().getResource("exit.png")).getImage();
+		Image log_out = new ImageIcon(this.getClass().getResource("logout.png")).getImage();
 		btnsalir.setIcon(new ImageIcon(log_out));
 		btnsalir.setBackground(Color.WHITE);
 		btnsalir.setBorder(null);
@@ -300,17 +299,6 @@ public class MenuPrincipal extends JFrame {
 		monitoreo1.setBounds(221, -17, 460, 104);
 		panel_Superior.add(monitoreo1);
 		monitoreo1.setIcon(new ImageIcon(monitoreo));
-		
-		btnImportExport = new JButton("Importar/Exportar");
-		btnImportExport.setBounds(10, 11, 159, 40);
-		panel_Superior.add(btnImportExport);
-		btnImportExport.setToolTipText("Registros");
-		btnImportExport.setOpaque(false);
-		btnImportExport.setHorizontalAlignment(SwingConstants.LEFT);
-		btnImportExport.setForeground(Color.WHITE);
-		btnImportExport.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 16));
-		btnImportExport.setBorder(null);
-		btnImportExport.setBackground(Color.WHITE);
 
 	}
 

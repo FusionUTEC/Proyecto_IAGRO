@@ -1,6 +1,7 @@
 package vistas;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 
 import javax.naming.InitialContext;
@@ -117,9 +118,9 @@ public class ListadoCasilla extends JFrame implements Constantes{
 				//all cells false
 				return false;
 			}
-			
+
 		};
-	
+
 
 		// se crea la Tabla con el modelo DefaultTableModel
 		table = new JTable(modelo);
@@ -236,15 +237,9 @@ public class ListadoCasilla extends JFrame implements Constantes{
 			//ControllerCasilla.CompletarCombo();
 			List<Casilla> casilla = casillaBean.obtenerTodos();
 
-
 			//comboTipoCasilla.setModel(new DefaultComboBoxModel (ControllerCasilla.CompletarCombo()));
 			for (Casilla c: casilla) {
-				/*c=casillaBean.buscar(c.getNombre());
-				if(c.getNombre().equals("DEPARTAMENTO")) {
-				table.setRowSelectionAllowed(false);
-				table.setCellSelectionEnabled(false);
-				table.setColumnSelectionAllowed(false);
-				}*/
+				c=casillaBean.buscar(c.getNombre());
 				// String ca=Math.toIntExact(c.getTipoImput());
 				map.put(c.getIdCasilla(), c);
 
@@ -258,8 +253,6 @@ public class ListadoCasilla extends JFrame implements Constantes{
 
 					modelo.addRow(fila);
 				}
-
-
 			}
 		} catch (NamingException e1) {
 			// TODO Auto-generated catch block
