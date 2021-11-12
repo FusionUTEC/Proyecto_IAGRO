@@ -160,7 +160,7 @@ public class ListadoEstacion extends JFrame implements Constantes {
 		btnNuevo.setBorder(new MatteBorder(2, 2, 2, 2, (Color) azul));
 		btnNuevo.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
 		btnNuevo.setBackground(azul);
-		btnNuevo.setBounds(221, 370, 125, 27);
+		btnNuevo.setBounds(228, 370, 125, 27);
 		panel.add(btnNuevo);
 
 		btnVolver = new JButton("Volver");
@@ -188,7 +188,7 @@ public class ListadoEstacion extends JFrame implements Constantes {
 		btnModificar.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
 		btnModificar.setBorder(new MatteBorder(2, 2, 2, 2, (Color) verde));
 		btnModificar.setBackground(verde);
-		btnModificar.setBounds(345, 370, 90, 27);
+		btnModificar.setBounds(356, 370, 90, 27);
 		panel.add(btnModificar);
 
 
@@ -198,7 +198,7 @@ public class ListadoEstacion extends JFrame implements Constantes {
 		btnEliminar.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
 		btnEliminar.setBorderPainted(false);
 		btnEliminar.setBackground(verde);
-		btnEliminar.setBounds(456, 370, 90, 27);
+		btnEliminar.setBounds(451, 370, 90, 27);
 		panel.add(btnEliminar);
 
 		comboDpto = new JComboBox();

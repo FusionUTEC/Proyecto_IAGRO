@@ -90,7 +90,7 @@ public class ListadoFormulario extends JFrame implements Constantes{
 		//Panel Principal
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.WHITE);
-		panel.setBounds(0, 0, 790, 426);
+		panel.setBounds(0, 11, 790, 426);
 		contentPane.add(panel);
 
 
@@ -162,7 +162,7 @@ public class ListadoFormulario extends JFrame implements Constantes{
 		btnNuevo.setBorder(new MatteBorder(2, 2, 2, 2, (Color) azul));
 		btnNuevo.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
 		btnNuevo.setBackground(azul);
-		btnNuevo.setBounds(186, 369, 125, 27);
+		btnNuevo.setBounds(175, 370, 125, 27);
 		panel.add(btnNuevo);
 
 		btnVolver = new JButton("Volver");
@@ -191,7 +191,7 @@ public class ListadoFormulario extends JFrame implements Constantes{
 		btnModificar.setBorder(new MatteBorder(2, 2, 2, 2, (Color) verde));
 		btnModificar.setBackground(verde);
 
-		btnModificar.setBounds(310, 369, 90, 27);
+		btnModificar.setBounds(306, 370, 90, 27);
 
 		panel.add(btnModificar);
 
@@ -202,7 +202,7 @@ public class ListadoFormulario extends JFrame implements Constantes{
 		btnEliminar.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
 		btnEliminar.setBorderPainted(false);
 		btnEliminar.setBackground(verde);
-		btnEliminar.setBounds(396, 369, 90, 27);
+		btnEliminar.setBounds(404, 369, 90, 27);
 		panel.add(btnEliminar);
 
 
@@ -259,7 +259,7 @@ public class ListadoFormulario extends JFrame implements Constantes{
 	btnRegistro.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
 	btnRegistro.setBorderPainted(false);
 	btnRegistro.setBackground(new Color(104, 171, 196));
-	btnRegistro.setBounds(483, 369, 136, 27);
+	btnRegistro.setBounds(500, 369, 136, 27);
 	panel.add(btnRegistro);
 	
 	TableRowSorter<TableModel> filtro=new  TableRowSorter<>(modelo);

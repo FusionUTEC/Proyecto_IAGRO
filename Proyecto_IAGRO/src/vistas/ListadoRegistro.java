@@ -174,7 +174,7 @@ public class ListadoRegistro extends JFrame implements Constantes{
 		btnModificar.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
 		btnModificar.setBorder(new MatteBorder(2, 2, 2, 2, (Color) verde));
 		btnModificar.setBackground(azul);
-		btnModificar.setBounds(400, 369, 90, 27);
+		btnModificar.setBounds(271, 370, 90, 27);
 		panel.add(btnModificar);
 
 
@@ -187,7 +187,7 @@ public class ListadoRegistro extends JFrame implements Constantes{
 		btnEliminar.setBorderPainted(false);
 		btnEliminar.setBackground(verde);
 
-		btnEliminar.setBounds(487, 369, 90, 27);
+		btnEliminar.setBounds(364, 369, 90, 27);
 
 		panel.add(btnEliminar);
 
@@ -263,7 +263,7 @@ public class ListadoRegistro extends JFrame implements Constantes{
 		btnVisualizar.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
 		btnVisualizar.setBorderPainted(false);
 		btnVisualizar.setBackground(new Color(104, 171, 196));
-		btnVisualizar.setBounds(625, 368, 155, 27);
+		btnVisualizar.setBounds(456, 369, 155, 27);
 		panel.add(btnVisualizar);
 
 //////////////////****************************FILTROS********************************/////////////////7
