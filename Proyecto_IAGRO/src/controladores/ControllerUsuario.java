@@ -125,7 +125,7 @@ public class ControllerUsuario implements Constantes{
 			String userName=(String) listU.table.getValueAt(row, 3);
 			try {
 				int confirmado = JOptionPane.showOptionDialog(null,
-						"Ã±Desea dar de baja el usuario seleccionado?",
+						"¿Desea dar de baja el usuario seleccionado?",
 						"Exit Confirmation", JOptionPane.YES_NO_OPTION,
 						JOptionPane.QUESTION_MESSAGE,null, null, null);
 				//Si el usuario elige sÃ± se borra la fila
@@ -135,7 +135,7 @@ public class ControllerUsuario implements Constantes{
 					user=usuarioBean.buscarUser(userName);
 					//Setear estado a INACTIVO
 					user.setEstado(user.getEstado().INACTIVO);
-					//usuarioBean.borrar(id);
+					
 					usuarioBean.actualizar(user);
 
 					System.out.println("Se borrÃ³ exitosamente el usuario");
@@ -258,7 +258,7 @@ public class ControllerUsuario implements Constantes{
 						if (pass.equals(pass2)) {
 							int confirm = JOptionPane.showOptionDialog(null,
 
-									"Â¿Desea dar de alta el usuario?",
+									"¿Desea dar de alta el usuario?",
 									"Exit Confirmation", JOptionPane.YES_NO_OPTION,
 									JOptionPane.QUESTION_MESSAGE,null, null, null);							//Si el usuario elige sÃ± se borra la fila
 							if (JOptionPane.YES_OPTION== confirm) {
@@ -367,7 +367,7 @@ public class ControllerUsuario implements Constantes{
 
 						int confirm = JOptionPane.showOptionDialog(null,
 
-								"Â¿Desea modificar el usuario?",
+								"¿Desea modificar el usuario?",
 
 								"Exit Confirmation", JOptionPane.YES_NO_OPTION,
 								JOptionPane.QUESTION_MESSAGE,null, null, null);							//Si el usuario elige sÃ± se borra la fila
@@ -952,11 +952,12 @@ public class ControllerUsuario implements Constantes{
 		}
 
 
-		//ContraseÃ±a con nÃºmeros y letras
-
+		//Contraseña con números y letras
+//cambio git
 		
 
 		String letras = pass.replaceAll("[*0-9]", "");
+		//cambio
 		String numeros = pass.replaceAll("[*a-zA-ZÀ-ÿ\u00f1\u00d1]", "");
 
 

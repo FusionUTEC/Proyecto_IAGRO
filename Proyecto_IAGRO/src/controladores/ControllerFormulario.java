@@ -45,7 +45,8 @@ import vistas.ListadoFormulario;
 public class ControllerFormulario implements Constantes {
 
 	public static AltaFormulario altaF;
-	public static ListadoFormulario listF;
+	public static ListadoFormulario listF;	
+	//public static Usuario User;
 
 
 	//ventana Listado Formulario
@@ -54,7 +55,14 @@ public class ControllerFormulario implements Constantes {
 		listF=new ListadoFormulario();
 		listF.setVisible(true);
 		obtenerTodos();
-		
+
+		if(Main.User.getTipo().equalsIgnoreCase("AFICIONADO")){
+
+			listF.btnEliminar.setVisible(false);
+			listF.btnModificar.setVisible(false);
+			listF.btnNuevo.setVisible(false);
+			listF.btnRegistro.setBounds(310,369,136, 27);
+		}
 
 		listF.btnEliminar.addMouseListener(new MouseAdapter() {
 
@@ -68,33 +76,38 @@ public class ControllerFormulario implements Constantes {
 				}
 			}
 		});
-		
+
 		listF.btnRegistro.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				try {
-				int id = listF.table.getSelectedRow();
-				if(id != (-1)) {
-					String name = listF.modelo.getValueAt(id, 1).toString();
-					
-					FormularioBeanRemote formBean = (FormularioBeanRemote)InitialContext.doLookup(RUTA_FormularioBean);
-					
-					Formulario form = formBean.buscarForm(name);
-					form.getCasillas().get(0);
-					ControllerRegistro.form = form;
-					//
-					ControllerRegistro.V_Alta_Registro();
-				}
-					
+					int id = listF.table.getSelectedRow();
+					if(id != (-1)) {
+						String name = listF.modelo.getValueAt(id, 1).toString();
+
+						FormularioBeanRemote formBean = (FormularioBeanRemote)InitialContext.doLookup(RUTA_FormularioBean);
+
+						Formulario form = formBean.buscarForm(name);
+						form.getCasillas().get(0);
+						ControllerRegistro.form = form;
+						//
+						ControllerRegistro.V_Alta_Registro();
+					}else {
+						JOptionPane.showMessageDialog(null,"Debe seleccionar un Formulario");
+					}
+
 				} catch (NamingException e1) {}
+			
 			}
+				
+			
 		});
 
 		//Volver al Menú desde listado
 		listF.btnVolver.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				listF.setVisible(false);
+				listF.setVisible(true);
 				Main.menuP.setVisible(true);
 			}
 		});
@@ -130,8 +143,8 @@ public class ControllerFormulario implements Constantes {
 				altaF.btnRegistrar.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent e) {
-						
-						
+
+
 
 						String comentario = altaF.textResumen.getText();
 						//Guardar fecha y hora en BD
@@ -159,7 +172,6 @@ public class ControllerFormulario implements Constantes {
 										// TODO Auto-generated catch block
 										e1.printStackTrace();
 									}
-									JOptionPane.showMessageDialog(null,"Formulario registrado correctamente");
 									//actualizarListado(listE.modelo);
 
 								}
@@ -169,7 +181,7 @@ public class ControllerFormulario implements Constantes {
 								e1.printStackTrace();
 							}
 						}
-						
+
 
 					}
 				});
@@ -422,96 +434,106 @@ public class ControllerFormulario implements Constantes {
 		CasillaBeanRemote CasillaBean = (CasillaBeanRemote)
 				InitialContext.doLookup(RUTA_CasillaBean);
 
-		Formulario f = new Formulario();
-		FormularioBean.buscarForm(nombre);
-		ArrayList<Casilla> casillas = new ArrayList<>();
-		f.setComentarios(comentario);
-		f.setFechaHora(fecha);
-		f.setIdUsuario(idUser);
-		f.setNombre(nombre);
-		f.setEstado(f.getEstado().ACTIVO);
-		for (Entry<Long, Casilla> entry : altaF.map.entrySet()) {
+		boolean todoOK=true;
+		Formulario existeForm = FormularioBean.buscarForm(nombre);
 
-			Casilla c = new Casilla();
-			String nom = entry.getValue().getNombre();
-			c = CasillaBean.buscar(nom);		
-
-			casillas.add(c);
+		if(existeForm != null) {
+			JOptionPane.showMessageDialog(null, "El nombre de Formulario ingresado ya existe", null, 1);
+			todoOK= false;
 		}
 
-		f.setCasillas(casillas);
+		if(todoOK) {
+			Formulario f = new Formulario();
+			FormularioBean.buscarForm(nombre);
+			ArrayList<Casilla> casillas = new ArrayList<>();
+			f.setComentarios(comentario);
+			f.setFechaHora(fecha);
+			f.setIdUsuario(idUser);
+			f.setNombre(nombre);
+			f.setEstado(f.getEstado().ACTIVO);
+			for (Entry<Long, Casilla> entry : altaF.map.entrySet()) {
 
+				Casilla c = new Casilla();
+				String nom = entry.getValue().getNombre();
+				c = CasillaBean.buscar(nom);		
 
-		try {
-			FormularioBean.crear(f);
-
-		} catch (ServiciosException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		actualizarListado(listF.modelo);
-
-	}
-
-	//BORRAR FORMULARIO
-	public static void borrar() throws NamingException {
-
-		FormularioBeanRemote formularioBean = (FormularioBeanRemote)
-				InitialContext.doLookup(RUTA_FormularioBean);
-
-		CasillaBeanRemote CasillaBean = (CasillaBeanRemote)
-				InitialContext.doLookup(RUTA_CasillaBean);
-
-		int row = listF.table.getSelectedRow();
-
-		if( row != (-1)) {
-			String name=(String) listF.table.getValueAt(row, 1);
-			try {
-				int confirmado = JOptionPane.showOptionDialog(null,
-						"¿Desea dar de baja el Formulario seleccionado?",
-						"Exit Confirmation", JOptionPane.YES_NO_OPTION,
-						JOptionPane.QUESTION_MESSAGE,null, null, null);
-				//Si el usuario elige sí se borra la fila
-				if (JOptionPane.OK_OPTION == confirmado) {
-					Formulario form = new Formulario();
-					ArrayList <Casilla> casillas = new ArrayList<>();
-					form=formularioBean.buscarForm(name);
-					//Setear estado a INACTIVO
-					form.setEstado(form.getEstado().INACTIVO);
-
-					formularioBean.actualizar(form);
-					System.out.println("Se borró exitosamente el Formulario");
-
-					actualizarListado(listF.modelo);
-				}
-
-			} catch (NamingException e1) {
-				System.out.println("No se puede borrar el Formulario");	
-				e1.printStackTrace();
-			} catch (ServiciosException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				casillas.add(c);
 			}
+
+			f.setCasillas(casillas);
+
+
+			try {
+				FormularioBean.crear(f);
+				JOptionPane.showMessageDialog(null,"Formulario registrado correctamente");
+
+			} catch (ServiciosException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			actualizarListado(listF.modelo);
+
 		}
-		else {
-			JOptionPane.showMessageDialog(null, "Debe seleccionar un Formulario", null, 1);
+	}
+		//BORRAR FORMULARIO
+		public static void borrar() throws NamingException {
+
+			FormularioBeanRemote formularioBean = (FormularioBeanRemote)
+					InitialContext.doLookup(RUTA_FormularioBean);
+
+			CasillaBeanRemote CasillaBean = (CasillaBeanRemote)
+					InitialContext.doLookup(RUTA_CasillaBean);
+
+			int row = listF.table.getSelectedRow();
+
+			if( row != (-1)) {
+				String name=(String) listF.table.getValueAt(row, 1);
+				try {
+					int confirmado = JOptionPane.showOptionDialog(null,
+							"¿Desea dar de baja el Formulario seleccionado?",
+							"Exit Confirmation", JOptionPane.YES_NO_OPTION,
+							JOptionPane.QUESTION_MESSAGE,null, null, null);
+					//Si el usuario elige sí se borra la fila
+					if (JOptionPane.OK_OPTION == confirmado) {
+						Formulario form = new Formulario();
+						ArrayList <Casilla> casillas = new ArrayList<>();
+						form=formularioBean.buscarForm(name);
+						//Setear estado a INACTIVO
+						form.setEstado(form.getEstado().INACTIVO);
+
+						formularioBean.actualizar(form);
+						System.out.println("Se borró exitosamente el Formulario");
+
+						actualizarListado(listF.modelo);
+					}
+
+				} catch (NamingException e1) {
+					System.out.println("No se puede borrar el Formulario");	
+					e1.printStackTrace();
+				} catch (ServiciosException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "Debe seleccionar un Formulario", null, 1);
+			}
+
+		}
+		public static boolean camposVacios(String nombre) {
+
+			boolean bandera = true;
+
+			if(nombre.isEmpty()) {
+				JOptionPane.showMessageDialog(null, "Debe completar el campo Nombre", null, 1);
+				return false;
+			}
+
+
+			return bandera;
+
 		}
 
 	}
-	public static boolean camposVacios(String nombre) {
-
-		boolean bandera = true;
-
-		if(nombre.isEmpty()) {
-			JOptionPane.showMessageDialog(null, "Debe completar el campo Nombre", null, 1);
-			return false;
-		}
-
-
-		return bandera;
-
-	}
-
-}
 
 

@@ -44,12 +44,20 @@ public class ControllerRegistro implements Constantes {
 			AltaR = new AltaRegistro();
 			cargarTabla();
 			AltaR.setVisible(true);
+			ControllerFormulario.listF.setVisible(false);
+			
 			
 			AltaR.btnRegistrar.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					
+					int confirm = JOptionPane.showOptionDialog(null,
+							"¿Desea confirmar el registro?",
+							"Exit Confirmation", JOptionPane.YES_NO_OPTION,
+							JOptionPane.QUESTION_MESSAGE,null, null, null);	
+					if (JOptionPane.YES_OPTION== confirm) {
 					crear();
+					}
 				}
 			});
 			
@@ -81,7 +89,7 @@ public class ControllerRegistro implements Constantes {
 				public void mouseClicked(MouseEvent e) {
 					
 					AltaR.setVisible(false);
-					Main.menuP.setVisible(true);
+					ControllerFormulario.listF.setVisible(true);
 				}
 			});
 		} catch (Exception e) {
@@ -218,7 +226,7 @@ public class ControllerRegistro implements Constantes {
 		CasillaBeanRemote casBean = (CasillaBeanRemote)InitialContext.doLookup(RUTA_CasillaBean);
 		DatoBeanRemote datoBean = (DatoBeanRemote)InitialContext.doLookup(RUTA_DatoBean);
 		
-		String Dep = AltaR.modelo.getValueAt(3, 4).toString().toUpperCase();
+		String Dep = AltaR.modelo.getValueAt(0, 4).toString().toUpperCase();
 		
 		Departamento d = dptoBean.buscar(Dep);
 		//dptoBean.buscar(RUTA_CasillaBean)
@@ -262,6 +270,7 @@ public class ControllerRegistro implements Constantes {
 				dato.setValor(AltaR.table.getValueAt(i, 4).toString());
 					
 				datoBean.crear(dato);
+				JOptionPane.showMessageDialog(null, "Registro ingresado con éxito");
 					
 				}
 		

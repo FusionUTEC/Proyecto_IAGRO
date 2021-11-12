@@ -56,7 +56,6 @@ public class ListadoFormulario extends JFrame implements Constantes{
 	private JScrollPane scrollPane;
 	private JLabel lblNewLabel_1;
 	private JTextField filtroNombre;
-	private JTextField filtroUsuario;
 	public JComboBox comboDpto;
 	public JButton btnVolver;
 	public JButton btnNuevo;
@@ -78,7 +77,7 @@ public class ListadoFormulario extends JFrame implements Constantes{
 		Color azul=new Color (104,171,196); //color azul 104,171,196 / 68abc4
 		Color verde=new Color (166,187,95); //color verde 166,187,95 / a6bb5f 
 		setResizable(false);
-		setTitle("Usuarios");
+		setTitle("Formulario");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 806, 450);
 		contentPane = new JPanel();
@@ -143,11 +142,6 @@ public class ListadoFormulario extends JFrame implements Constantes{
 		filtroNombre.setBounds(74, 98, 123, 20);
 		panel.add(filtroNombre);
 		filtroNombre.setColumns(10);
-		
-		filtroUsuario = new JTextField();
-		filtroUsuario.setColumns(10);
-		filtroUsuario.setBounds(277, 98, 123, 20);
-		panel.add(filtroUsuario);
 
 
 		JButton lupe = new JButton("");
@@ -168,7 +162,7 @@ public class ListadoFormulario extends JFrame implements Constantes{
 		btnNuevo.setBorder(new MatteBorder(2, 2, 2, 2, (Color) azul));
 		btnNuevo.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
 		btnNuevo.setBackground(azul);
-		btnNuevo.setBounds(92, 369, 125, 27);
+		btnNuevo.setBounds(186, 369, 125, 27);
 		panel.add(btnNuevo);
 
 		btnVolver = new JButton("Volver");
@@ -197,7 +191,7 @@ public class ListadoFormulario extends JFrame implements Constantes{
 		btnModificar.setBorder(new MatteBorder(2, 2, 2, 2, (Color) verde));
 		btnModificar.setBackground(verde);
 
-		btnModificar.setBounds(343, 369, 90, 27);
+		btnModificar.setBounds(310, 369, 90, 27);
 
 		panel.add(btnModificar);
 
@@ -208,7 +202,7 @@ public class ListadoFormulario extends JFrame implements Constantes{
 		btnEliminar.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
 		btnEliminar.setBorderPainted(false);
 		btnEliminar.setBackground(verde);
-		btnEliminar.setBounds(327, 369, 90, 27);
+		btnEliminar.setBounds(396, 369, 90, 27);
 		panel.add(btnEliminar);
 
 
@@ -259,47 +253,23 @@ public class ListadoFormulario extends JFrame implements Constantes{
 
 //////////////////****************************FILTROS********************************/////////////////7
 		
-	TableRowSorter<TableModel> filtro=new  TableRowSorter<>(modelo);
-	table.setRowSorter(filtro);
-	
-	JLabel lblNewLabel_1_1 = new JLabel("Usuario");
-	lblNewLabel_1_1.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
-	lblNewLabel_1_1.setBounds(221, 99, 63, 14);
-	panel.add(lblNewLabel_1_1);
 	
 	btnRegistro = new JButton("Nuevo Registro");
 	btnRegistro.setForeground(Color.WHITE);
 	btnRegistro.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
 	btnRegistro.setBorderPainted(false);
 	btnRegistro.setBackground(new Color(104, 171, 196));
-	btnRegistro.setBounds(641, 368, 136, 27);
+	btnRegistro.setBounds(483, 369, 136, 27);
 	panel.add(btnRegistro);
 	
-
+	TableRowSorter<TableModel> filtro=new  TableRowSorter<>(modelo);
+	table.setRowSorter(filtro);
 	
 	filtroNombre.addKeyListener(new KeyAdapter() {
 		@Override
 		public void keyReleased(KeyEvent e) {
-			filtro.setRowFilter(RowFilter.regexFilter("(?i)"+filtroNombre.getText(), 0));
+			filtro.setRowFilter(RowFilter.regexFilter("(?i)"+filtroNombre.getText(), 1));
 
-
-		TableRowSorter<TableModel> filtro=new  TableRowSorter<>(modelo);
-		table.setRowSorter(filtro);
-
-		JLabel lblNewLabel_1_1 = new JLabel("Usuario");
-		lblNewLabel_1_1.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
-		lblNewLabel_1_1.setBounds(221, 99, 63, 14);
-		panel.add(lblNewLabel_1_1);
-
-
-
-		filtroNombre.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-				filtro.setRowFilter(RowFilter.regexFilter("(?i)"+filtroNombre.getText(), 1));
-
-			}
-		});
 
 	}
 });

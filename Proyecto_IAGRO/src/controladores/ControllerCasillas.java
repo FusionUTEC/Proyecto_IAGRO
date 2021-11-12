@@ -21,6 +21,7 @@ import com.entities.Casilla;
 import com.entities.Estacion;
 import com.entities.Estado;
 import com.entities.Formulario;
+import com.entities.Usuario;
 import com.exception.ServiciosException;
 import com.servicios.CasillaBeanRemote;
 import com.servicios.EstacionBeanRemote;
@@ -43,7 +44,7 @@ public class ControllerCasillas implements Constantes{
 		listC=new ListadoCasilla();
 		listC.setVisible(true);
 		obtenerTodos();
-		//obtenerCas();
+
 
 		listC.btnEliminar.addMouseListener(new MouseAdapter() {
 
@@ -103,7 +104,6 @@ public class ControllerCasillas implements Constantes{
 								if(todoOK) {
 
 									crear(nombre,desc,parametro,tipoInput,unidad);
-									JOptionPane.showMessageDialog(null,"Casilla registrada correctamente");
 									//actualizarListado(listE.modelo);
 
 								}
@@ -134,6 +134,7 @@ public class ControllerCasillas implements Constantes{
 			public void mouseClicked(MouseEvent e) {
 				try {
 					V_ModCasilla();
+
 				} catch (NamingException e2) {
 					// TODO Auto-generated catch block
 					e2.printStackTrace();
@@ -144,8 +145,10 @@ public class ControllerCasillas implements Constantes{
 
 				int row = listC.table.getSelectedRow();
 
+
 				if( row != (-1)) {
 					long id = (long) listC.table.getValueAt(row, 5);
+
 
 					HashMap<Long, Casilla> map = new HashMap<>();
 					List<Casilla> casi;
@@ -165,6 +168,7 @@ public class ControllerCasillas implements Constantes{
 
 					Casilla cas =map.get(id);
 					//Cargar datos de usuario
+
 
 					altaC.textnombre.setText(cas.getNombre());
 					altaC.textDescripcion.setText(cas.getDescripcion());
@@ -222,7 +226,7 @@ public class ControllerCasillas implements Constantes{
 						altaC.comboTipoValor.setSelectedIndex(9);
 						break;
 					}
-					
+
 					switch(unidad) {
 					case "":
 						altaC.comboUnidad.setSelectedIndex(0);
@@ -248,7 +252,7 @@ public class ControllerCasillas implements Constantes{
 					case "mg/l":
 						altaC.comboUnidad.setSelectedIndex(7);
 						break;
-							
+
 					}
 					//Guardar Cambios
 				}else {
@@ -273,7 +277,7 @@ public class ControllerCasillas implements Constantes{
 						String tipoInput = (String) altaC.comboTipoValor.getSelectedItem();
 						String unidad=(String) altaC.comboUnidad.getSelectedItem();
 
-						
+
 
 						try {
 							boolean todoOK=camposVacios(nom,parametro,tipoInput,unidad);
@@ -311,7 +315,7 @@ public class ControllerCasillas implements Constantes{
 		altaC.setVisible(true);
 		altaC.btnRegistrar.setVisible(true);
 		altaC.btnGuardar.setVisible(false);
-
+		listC.setVisible(false);
 
 		Main.menuP.setVisible(false);
 		//altaC.comboDpto.setModel(new DefaultComboBoxModel (CompletarCombo()));
@@ -340,30 +344,44 @@ public class ControllerCasillas implements Constantes{
 		CasillaBeanRemote casillaBean = (CasillaBeanRemote)
 				InitialContext.doLookup(RUTA_CasillaBean);
 
-		Casilla casilla = new Casilla();
-		casilla.setNombre(nombre);
-		casilla.setDescripcion(descripcion);
-		casilla.setParametro(parametro);
-		casilla.setTipoInput(tipoInput);
-		casilla.setUnidadMedida(unidadMedida);
-		casilla.setEstado(casilla.getEstado().ACTIVO);
+		Casilla existeCas = casillaBean.buscar(nombre);
+		boolean todoOK=true;
 
+		if(existeCas!= null) {
+			JOptionPane.showMessageDialog(null, "El nombre de la casilla ingresada ya existe", null, 1);
+			todoOK = false;
 
-		try {
-			casillaBean.crear(casilla);
-			System.out.println(casilla.getIdCasilla());
-			System.out.println("Se creó exitosamente la Casilla");
-		} catch (ServiciosException e) {
-
-			System.out.println(e.getMessage());
 		}
-		try {
-			actualizarListado(listC.modelo);
-		} catch (NamingException | ServiciosException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		if(todoOK) {
 
+
+			Casilla casilla = new Casilla();
+			casilla.setNombre(nombre);
+			casilla.setDescripcion(descripcion);
+			casilla.setParametro(parametro);
+			casilla.setTipoInput(tipoInput);
+			casilla.setUnidadMedida(unidadMedida);
+			casilla.setEstado(casilla.getEstado().ACTIVO);
+
+
+			try {
+				casillaBean.crear(casilla);
+				JOptionPane.showMessageDialog(null,"Casilla registrada correctamente");
+
+			} catch (ServiciosException e) {
+
+				System.out.println(e.getMessage());
+			}
+
+			try {
+				actualizarListado(listC.modelo);
+
+			} catch (NamingException | ServiciosException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
 	}
 
 	//ACTUALIZAR CASILLA
@@ -402,7 +420,7 @@ public class ControllerCasillas implements Constantes{
 
 		//CompletarCombo();
 		int filas = modelo.getRowCount();
-		
+
 
 		for(int i = filas-1; i>=0; i--) {
 			modelo.removeRow(i);
@@ -435,12 +453,12 @@ public class ControllerCasillas implements Constantes{
 			if  (c.getEstado().equals(Estado.ACTIVO)) {
 				modelo.addRow(fila);
 			}
-			
+
 
 		}
-		}
+	}
 
-	
+
 	//BORRAR CASILLA
 	public static void borrar() throws NamingException {
 
@@ -448,10 +466,13 @@ public class ControllerCasillas implements Constantes{
 		CasillaBeanRemote casillaBean = (CasillaBeanRemote)
 				InitialContext.doLookup(RUTA_CasillaBean);
 
+
 		int row = listC.table.getSelectedRow();
+
 
 		if( row != (-1)) {
 			String name=(String) listC.table.getValueAt(row, 0);
+
 			try {
 				int confirmado = JOptionPane.showOptionDialog(null,
 						"¿Desea dar de baja la Casilla seleccionada?",
