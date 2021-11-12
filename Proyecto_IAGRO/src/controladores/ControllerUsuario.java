@@ -499,6 +499,7 @@ public class ControllerUsuario implements Constantes{
 
 
 			case "Aficionado":
+				
 				Aficionado aficionado= new Aficionado();
 				aficionado.setApellido(ap);
 				aficionado.setNombre(nom);
@@ -506,8 +507,9 @@ public class ControllerUsuario implements Constantes{
 				aficionado.setNombreUsuario(user);
 				aficionado.setContraseña(pass);
 				aficionado.setTipo(tipo);
-				aficionado.setOcupacion(ocupacion);
 				aficionado.setEstado(aficionado.getEstado().ACTIVO);
+				
+				aficionado.setOcupacion(ocupacion);
 
 
 				try {
