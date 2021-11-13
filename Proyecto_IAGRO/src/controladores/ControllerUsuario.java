@@ -925,8 +925,10 @@ public class ControllerUsuario implements Constantes{
 
 
 		//Usuario sin nÃºmeros
+		
+		String numeros = user.replaceAll("[*a-zA-ZÀ-ÿ\u00f1\u00d1]", "");
 
-		if(user.matches("[0-9]+")) {
+		if(numeros.matches("[0-9]+")) {
 			JOptionPane.showMessageDialog(null, "El nombre de usuario no puede contener números", null, 1);
 			return false;
 		}

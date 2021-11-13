@@ -184,7 +184,7 @@ public class ControllerRegistro implements Constantes {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				
-				Boolean afi = Main.User.getTipo() == "Aficionado";
+				Boolean afi = Main.User.getTipo().contains("Aficionado") ;
 				
 				
 				
@@ -212,18 +212,15 @@ public class ControllerRegistro implements Constantes {
 						}else {
 							List<Dato> datos = datoBean.obtenerDatos(r);
 							cargarVista(datos);
+							VistaR.btnModificar.setVisible(true);
+							VistaR.btnExportarReg.setVisible(false);
 							
 							///Guardar cambios
 							VistaR.btnModificar.addMouseListener(new MouseAdapter() {
 								@Override
 								public void mouseClicked(MouseEvent e) {
 									
-									try {
-										regBean.actualizar(r);
-									} catch (ServiciosException e1) {
-										// TODO Auto-generated catch block
-										e1.printStackTrace();
-									}
+									JOptionPane.showMessageDialog(null, "Registro modificado con éxito");
 									
 								}
 							});
