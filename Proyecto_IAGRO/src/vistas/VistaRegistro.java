@@ -34,6 +34,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 
 public class VistaRegistro extends JFrame implements Constantes {
@@ -54,6 +56,7 @@ public class VistaRegistro extends JFrame implements Constantes {
 
 
 	public HashMap<Long,Formulario> map;
+	public JButton btnModificar;
 
 
 	public VistaRegistro() {
@@ -140,6 +143,16 @@ public class VistaRegistro extends JFrame implements Constantes {
 		btnVolver.setBorder(null);
 		btnVolver.setOpaque(false);
 		panel.add(btnVolver);
+		
+		btnModificar = new JButton("Guardar Cambios");
+		btnModificar.setVisible(false);
+		btnModificar.setVerticalAlignment(SwingConstants.TOP);
+		btnModificar.setForeground(Color.WHITE);
+		btnModificar.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
+		btnModificar.setBorderPainted(false);
+		btnModificar.setBackground(new Color(104, 171, 196));
+		btnModificar.setBounds(600, 351, 155, 27);
+		panel.add(btnModificar);
 		
 		btnExportarReg = new JButton("Exportar Registro");
 		btnExportarReg.setVerticalAlignment(SwingConstants.TOP);

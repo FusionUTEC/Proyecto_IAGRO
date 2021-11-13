@@ -179,6 +179,64 @@ public class ControllerRegistro implements Constantes {
 
 			}
 		});
+		
+		ListaR.btnModificar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				Boolean afi = Main.User.getTipo() == "Aficionado";
+				
+				
+				
+				DatoBeanRemote datoBean;
+				RegistroBeanRemote regBean;
+				try {
+
+					int selected = ListaR.table.getSelectedRow();
+					System.out.println("Fila seleccionada "+selected);
+
+					if(selected != (-1)) {
+						datoBean = (DatoBeanRemote)InitialContext.doLookup(RUTA_DatoBean);
+						regBean = (RegistroBeanRemote)InitialContext.doLookup(RUTA_RegistroBean);
+
+						String id = ListaR.modelo.getValueAt(selected,0).toString();
+						System.out.println("ID registro "+id);
+						Registro r = regBean.buscar(id);
+						
+						Usuario rU = r.getUsuario();
+						
+						Boolean noDueño = Main.User.getIdUsuario() != rU.getIdUsuario(); 
+						
+						if(afi && noDueño) {
+							JOptionPane.showMessageDialog(null, "No tiene permiso para modificar este registro");
+						}else {
+							List<Dato> datos = datoBean.obtenerDatos(r);
+							cargarVista(datos);
+							
+							///Guardar cambios
+							VistaR.btnModificar.addMouseListener(new MouseAdapter() {
+								@Override
+								public void mouseClicked(MouseEvent e) {
+									
+									try {
+										regBean.actualizar(r);
+									} catch (ServiciosException e1) {
+										// TODO Auto-generated catch block
+										e1.printStackTrace();
+									}
+									
+								}
+							});
+						}
+
+					}
+
+
+
+				} catch (NamingException e1) {}
+				
+			}
+		});
 
 		ListaR.btnVolver.addMouseListener(new MouseAdapter() {
 			@Override
@@ -195,6 +253,15 @@ public class ControllerRegistro implements Constantes {
 	}
 
 	public static void V_Visualizar_Registro() {
+		
+		VistaR.btnModificar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				
+				
+			}
+		});
 
 		
 		VistaR.btnExportarReg.addMouseListener(new MouseAdapter() {
