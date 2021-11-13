@@ -52,7 +52,7 @@ public class ControllerFormulario implements Constantes {
 	//ventana Listado Formulario
 	public static void  V_ListaForm () throws NamingException, ServiciosException {
 
-		
+
 		listF=new ListadoFormulario();
 		listF.setVisible(true);
 		obtenerTodos();
@@ -89,7 +89,7 @@ public class ControllerFormulario implements Constantes {
 						FormularioBeanRemote formBean = (FormularioBeanRemote)InitialContext.doLookup(RUTA_FormularioBean);
 
 						Formulario form = formBean.buscarForm(name);
-						
+
 						ControllerRegistro.form = form;
 						//
 						ControllerRegistro.V_Alta_Registro();
@@ -98,10 +98,10 @@ public class ControllerFormulario implements Constantes {
 					}
 
 				} catch (NamingException e1) {}
-			
+
 			}
-				
-			
+
+
 		});
 
 		//Volver al Menú desde listado
@@ -274,27 +274,31 @@ public class ControllerFormulario implements Constantes {
 						LocalDateTime fe=LocalDateTime.now();	
 						String nombre=altaF.nombre.getText();
 						Timestamp fecha= Timestamp.valueOf(fe);			
+						int confirm = JOptionPane.showOptionDialog(null,
+								"¿Desea modificar el Formulario?",
+								"Exit Confirmation", JOptionPane.YES_NO_OPTION,
+								JOptionPane.QUESTION_MESSAGE,null, null, null);							//Si el usuario elige sí se borra la fila
+						if (JOptionPane.YES_OPTION== confirm) {
+							try {
+								boolean todoOK=camposVacios(nom);
 
-						try {
-							boolean todoOK=camposVacios(nom);
+								if(todoOK) {
 
-							if(todoOK) {
+									try {
+										ControllerFormulario.actualizar(res,fecha,Main.User.getIdUsuario(),nom);
+									} catch (ServiciosException e1) {
+										// TODO Auto-generated catch block
+										e1.printStackTrace();
+									}
+									JOptionPane.showMessageDialog(null,"Formulario actualizado correctamente");
+									actualizarListado(listF.modelo);
 
-								try {
-									ControllerFormulario.actualizar(res,fecha,Main.User.getIdUsuario(),nom);
-								} catch (ServiciosException e1) {
-									// TODO Auto-generated catch block
-									e1.printStackTrace();
 								}
-								JOptionPane.showMessageDialog(null,"Formulario actualizado correctamente");
-								actualizarListado(listF.modelo);
-
+							} catch (NamingException | ServiciosException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
 							}
-						} catch (NamingException | ServiciosException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
 						}
-
 					}
 
 
@@ -476,64 +480,64 @@ public class ControllerFormulario implements Constantes {
 
 		}
 	}
-		//BORRAR FORMULARIO
-		public static void borrar() throws NamingException {
+	//BORRAR FORMULARIO
+	public static void borrar() throws NamingException {
 
-			FormularioBeanRemote formularioBean = (FormularioBeanRemote)
-					InitialContext.doLookup(RUTA_FormularioBean);
+		FormularioBeanRemote formularioBean = (FormularioBeanRemote)
+				InitialContext.doLookup(RUTA_FormularioBean);
 
-			CasillaBeanRemote CasillaBean = (CasillaBeanRemote)
-					InitialContext.doLookup(RUTA_CasillaBean);
+		CasillaBeanRemote CasillaBean = (CasillaBeanRemote)
+				InitialContext.doLookup(RUTA_CasillaBean);
 
-			int row = listF.table.getSelectedRow();
+		int row = listF.table.getSelectedRow();
 
-			if( row != (-1)) {
-				String name=(String) listF.table.getValueAt(row, 1);
-				try {
-					int confirmado = JOptionPane.showOptionDialog(null,
-							"¿Desea dar de baja el Formulario seleccionado?",
-							"Exit Confirmation", JOptionPane.YES_NO_OPTION,
-							JOptionPane.QUESTION_MESSAGE,null, null, null);
-					//Si el usuario elige sí se borra la fila
-					if (JOptionPane.OK_OPTION == confirmado) {
-						Formulario form = new Formulario();
-						ArrayList <Casilla> casillas = new ArrayList<>();
-						form=formularioBean.buscarForm(name);
-						//Setear estado a INACTIVO
-						form.setEstado(form.getEstado().INACTIVO);
+		if( row != (-1)) {
+			String name=(String) listF.table.getValueAt(row, 1);
+			try {
+				int confirmado = JOptionPane.showOptionDialog(null,
+						"¿Desea dar de baja el Formulario seleccionado?",
+						"Exit Confirmation", JOptionPane.YES_NO_OPTION,
+						JOptionPane.QUESTION_MESSAGE,null, null, null);
+				//Si el usuario elige sí se borra la fila
+				if (JOptionPane.OK_OPTION == confirmado) {
+					Formulario form = new Formulario();
+					ArrayList <Casilla> casillas = new ArrayList<>();
+					form=formularioBean.buscarForm(name);
+					//Setear estado a INACTIVO
+					form.setEstado(form.getEstado().INACTIVO);
 
-						formularioBean.actualizar(form);
-						JOptionPane.showMessageDialog(null, "Formulario eliminado con éxito");
-						actualizarListado(listF.modelo);
-					}
-
-				} catch (NamingException e1) {
-					System.out.println("No se puede borrar el Formulario");	
-					e1.printStackTrace();
-				} catch (ServiciosException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					formularioBean.actualizar(form);
+					JOptionPane.showMessageDialog(null, "Formulario eliminado con éxito");
+					actualizarListado(listF.modelo);
 				}
-			}
-			else {
-				JOptionPane.showMessageDialog(null, "Debe seleccionar un Formulario", null, 1);
-			}
 
+			} catch (NamingException e1) {
+				System.out.println("No se puede borrar el Formulario");	
+				e1.printStackTrace();
+			} catch (ServiciosException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
-		public static boolean camposVacios(String nombre) {
-
-			boolean bandera = true;
-
-			if(nombre.isEmpty()) {
-				JOptionPane.showMessageDialog(null, "Debe completar el campo Nombre", null, 1);
-				return false;
-			}
-
-
-			return bandera;
-
+		else {
+			JOptionPane.showMessageDialog(null, "Debe seleccionar un Formulario", null, 1);
 		}
 
 	}
+	public static boolean camposVacios(String nombre) {
+
+		boolean bandera = true;
+
+		if(nombre.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Debe completar el campo Nombre", null, 1);
+			return false;
+		}
+
+
+		return bandera;
+
+	}
+
+}
 
 

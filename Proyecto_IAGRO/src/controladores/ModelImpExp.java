@@ -104,7 +104,7 @@ public class ModelImpExp  {
 				}
 
 			}
-			respuesta="Exportación exitosa";
+			respuesta="Exportación realizada con éxito";
 
 		}catch (Exception e) {
 

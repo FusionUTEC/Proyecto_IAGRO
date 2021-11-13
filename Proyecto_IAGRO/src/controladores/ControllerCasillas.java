@@ -278,22 +278,27 @@ public class ControllerCasillas implements Constantes{
 						String unidad=(String) altaC.comboUnidad.getSelectedItem();
 
 
+						int confirm = JOptionPane.showOptionDialog(null,
+								"¿Desea modificar la Casilla?",
+								"Exit Confirmation", JOptionPane.YES_NO_OPTION,
+								JOptionPane.QUESTION_MESSAGE,null, null, null);							//Si el usuario elige sí se borra la fila
+						if (JOptionPane.YES_OPTION== confirm) {
+							try {
+								boolean todoOK=camposVacios(nom,parametro,tipoInput,unidad);
 
-						try {
-							boolean todoOK=camposVacios(nom,parametro,tipoInput,unidad);
-
-							if(todoOK) {
-								if (todoOK) {
-									actualizar(nom,desc,parametro,tipoInput,unidad);
-									JOptionPane.showMessageDialog(null,"Estación actualizada correctamente");
-									actualizarListado(listC.modelo);
+								if(todoOK) {
+									if (todoOK) {
+										actualizar(nom,desc,parametro,tipoInput,unidad);
+										JOptionPane.showMessageDialog(null,"Casilla actualizada correctamente");
+										actualizarListado(listC.modelo);
+									}
 								}
-							}
-						} catch (NamingException | ServiciosException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
 
+							} catch (NamingException | ServiciosException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+						}
 					}
 
 
@@ -487,7 +492,7 @@ public class ControllerCasillas implements Constantes{
 					cas.setEstado(cas.getEstado().INACTIVO);
 
 					casillaBean.actualizar(cas);
-					JOptionPane.showMessageDialog(null, "Se borró exitosamente la Casilla seleccionado");
+					JOptionPane.showMessageDialog(null, "Se borró exitosamente la Casilla seleccionada");
 
 					actualizarListado(listC.modelo);
 				}
