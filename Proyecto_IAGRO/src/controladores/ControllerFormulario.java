@@ -52,6 +52,7 @@ public class ControllerFormulario implements Constantes {
 	//ventana Listado Formulario
 	public static void  V_ListaForm () throws NamingException, ServiciosException {
 
+		
 		listF=new ListadoFormulario();
 		listF.setVisible(true);
 		obtenerTodos();
@@ -107,7 +108,7 @@ public class ControllerFormulario implements Constantes {
 		listF.btnVolver.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				listF.setVisible(true);
+				listF.setVisible(false);
 				Main.menuP.setVisible(true);
 			}
 		});
@@ -385,7 +386,7 @@ public class ControllerFormulario implements Constantes {
 		altaF.btnGuardar.setVisible(false);
 		altaF.cargarCasillas();
 		listF.setVisible(false);
-		Main.menuP.setVisible(false);
+		//Main.menuP.setVisible(false);
 		//altaE.comboDpto.setModel(new DefaultComboBoxModel (CompletarCombo()));
 
 	}
@@ -502,8 +503,7 @@ public class ControllerFormulario implements Constantes {
 						form.setEstado(form.getEstado().INACTIVO);
 
 						formularioBean.actualizar(form);
-						System.out.println("Se borró exitosamente el Formulario");
-
+						JOptionPane.showMessageDialog(null, "Formulario eliminado con éxito");
 						actualizarListado(listF.modelo);
 					}
 

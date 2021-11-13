@@ -67,7 +67,7 @@ public class Main implements Constantes	{
 				try {
 					loginUsuario(nombre,contras);
 				} catch (NamingException e1) {
-					 
+					// TODO Auto-generated catch block
 					e1.printStackTrace();
 					JOptionPane.showMessageDialog(null, "Datos ingresados no válidos");
 				}
@@ -124,7 +124,7 @@ public class Main implements Constantes	{
 					menuP.setVisible(false);
 
 				} catch (NamingException e1) {
-					 
+					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -138,7 +138,7 @@ public class Main implements Constantes	{
 					ControllerEstacion.V_ListaEst();
 					menuP.setVisible(false);
 				} catch (NamingException | ServiciosException e1) {
-					 
+					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -152,7 +152,7 @@ public class Main implements Constantes	{
 					ControllerEstacion.V_ListaEst();
 					menuP.setVisible(false);
 				} catch (NamingException | ServiciosException e1) {
-					 
+					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -166,7 +166,7 @@ public class Main implements Constantes	{
 							ControllerRegistro.V_Listado_Registro();
 							menuP.setVisible(false);
 						} catch (Exception e1) {
-							 
+							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
 					}
@@ -180,7 +180,7 @@ public class Main implements Constantes	{
 							ControllerRegistro.V_Listado_Registro();
 							menuP.setVisible(false);
 						} catch (Exception e1) {
-							 
+							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
 					}
@@ -194,7 +194,7 @@ public class Main implements Constantes	{
 							ControllerRegistro.V_Listado_Registro();
 							menuP.setVisible(false);
 						} catch (Exception e1) {
-							 
+							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
 					}
@@ -212,7 +212,7 @@ public class Main implements Constantes	{
 					try {
 						V_login();
 					} catch (NamingException e1) {
-						 
+						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 				}
@@ -226,7 +226,7 @@ public class Main implements Constantes	{
 					ControllerFormulario.V_ListaForm();
 					menuP.setVisible(false);
 				} catch (NamingException | ServiciosException e1) {
-					 
+					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -239,7 +239,7 @@ public class Main implements Constantes	{
 					menuP.setVisible(false);
 					
 				} catch (NamingException | ServiciosException e1) {
-					 
+					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -251,7 +251,7 @@ public class Main implements Constantes	{
 					ControllerFormulario.V_ListaForm();
 					menuP.setVisible(false);
 				} catch (NamingException | ServiciosException e1) {
-					 
+					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -264,7 +264,7 @@ public class Main implements Constantes	{
 					ControllerCasillas.V_ListaCasilla();
 					menuP.setVisible(false);
 				} catch (NamingException | ServiciosException e1) {
-					 
+					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -276,7 +276,7 @@ public class Main implements Constantes	{
 					ControllerCasillas.V_ListaCasilla();
 					menuP.setVisible(false);
 				} catch (NamingException | ServiciosException e1) {
-					 
+					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
