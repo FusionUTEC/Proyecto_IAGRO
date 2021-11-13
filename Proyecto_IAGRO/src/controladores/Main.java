@@ -124,7 +124,7 @@ public class Main implements Constantes	{
 					menuP.setVisible(false);
 
 				} catch (NamingException e1) {
-					// TODO Auto-generated catch block
+					// TODO Auto-generated catch blockC
 					e1.printStackTrace();
 				}
 			}

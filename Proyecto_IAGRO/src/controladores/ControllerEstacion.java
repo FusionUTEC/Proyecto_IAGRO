@@ -262,7 +262,7 @@ public class ControllerEstacion implements Constantes{
 	public static String [] CompletarCombo () throws NamingException, ServiciosException {
 
 		List<Departamento> dptoList=obtenerDptos();
-		String [] arrayDpto= new String [dptoList.size()];
+		String [] arrayDpto= new String [dptoList.size()+1];
 		int i=1;
 		arrayDpto[0] = "";
 		for (Departamento d: dptoList) {

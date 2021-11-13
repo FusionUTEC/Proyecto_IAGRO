@@ -196,6 +196,7 @@ public class ControllerRegistro implements Constantes {
 
 	public static void V_Visualizar_Registro() {
 
+		
 		VistaR.btnExportarReg.addMouseListener(new MouseAdapter() {
 
 			@Override
@@ -338,6 +339,8 @@ public class ControllerRegistro implements Constantes {
 
 		VistaR = new VistaRegistro();
 		V_Visualizar_Registro();
+		ListaR.setVisible(false);
+
 		try {
 			CasillaBeanRemote casBean = (CasillaBeanRemote)InitialContext.doLookup(RUTA_CasillaBean);
 		} catch (NamingException e) {
