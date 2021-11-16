@@ -226,6 +226,7 @@ public class ControllerUsuario implements Constantes{
 			public void mouseClicked(MouseEvent e) {
 				listU.setVisible(false);
 				Main.menuP.setVisible(true);
+				listU.setVisible(false);
 			}
 		});
 
