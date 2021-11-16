@@ -36,6 +36,26 @@ public class Main implements Constantes	{
 
 		V_login();
 		menuP=new MenuPrincipal();
+		
+		menuP.btnsalir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int confirm = JOptionPane.showOptionDialog(null,
+						"¿Seguro que desea salir del sistema?",
+						"Exit Confirmation", JOptionPane.YES_NO_OPTION,
+						JOptionPane.QUESTION_MESSAGE,null, null, null);							//Si el usuario elige sí se borra la fila
+				if (JOptionPane.YES_OPTION== confirm) {
+					User = null;
+					menuP.dispose();
+					menuP.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+					try {
+						V_login();
+					} catch (NamingException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
 
 	}
 
@@ -199,25 +219,7 @@ public class Main implements Constantes	{
 						}
 					}
 				});
-		menuP.btnsalir.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int confirm = JOptionPane.showOptionDialog(null,
-						"¿Seguro que desea salir del sistema?",
-						"Exit Confirmation", JOptionPane.YES_NO_OPTION,
-						JOptionPane.QUESTION_MESSAGE,null, null, null);							//Si el usuario elige sí se borra la fila
-				if (JOptionPane.YES_OPTION== confirm) {
-					User = null;
-					menuP.dispose();
-					menuP.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-					try {
-						V_login();
-					} catch (NamingException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-				}
-			}
-		});
+
 		//FORMULARIO ADMIN , INVE AFI
 		menuP.btnFormularioAdm.addMouseListener(new MouseAdapter() {
 			@Override
