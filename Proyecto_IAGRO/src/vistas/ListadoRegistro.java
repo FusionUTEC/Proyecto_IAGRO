@@ -6,44 +6,49 @@ import java.awt.Dimension;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.swing.*;
+import javax.swing.RowFilter.ComparisonType;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import javax.swing.text.DateFormatter;
 
 import com.entities.Departamento;
 import com.entities.Estado;
-import com.entities.Formulario;
 import com.entities.Registro;
-import com.entities.Usuario;
-import com.exception.ServiciosException;
 import com.servicios.DepartamentoBeanRemote;
-import com.servicios.EstacionBeanRemote;
 import com.servicios.RegistroBeanRemote;
-import com.servicios.RegistroBeanRemote;
-import com.servicios.UsuarioBeanRemote;
 
 import controladores.Constantes;
-import controladores.ControllerFormulario;
-import controladores.Main;
+
 
 import java.awt.Font;
 import java.awt.Image;
-import java.awt.Rectangle;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.border.MatteBorder;
 import java.awt.Cursor;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.io.Serializable;
+
+
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.Period;
+import java.time.ZoneId;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import com.toedter.components.JSpinField;
+import com.toedter.calendar.JDateChooser;
+import com.toedter.components.JLocaleChooser;
 
 public class ListadoRegistro extends JFrame implements Constantes{
 
@@ -63,11 +68,13 @@ public class ListadoRegistro extends JFrame implements Constantes{
 	private JLabel lblDep;
 	public JComboBox comboDept;
 	public JButton btnVolver;
+	public JDateChooser calendar1;
+	public JButton btnFiltrar;
 
 	public JButton btnModificar;
 
 	public JButton btnEliminar;
-	
+
 	public JButton btnVisualizar;
 
 	public HashMap<Long,Registro> map;
@@ -140,12 +147,12 @@ public class ListadoRegistro extends JFrame implements Constantes{
 
 		lblDep = new JLabel("Departamento");
 		lblDep.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
-		lblDep.setBounds(10, 83, 90, 25);
+		lblDep.setBounds(10, 83, 115, 25);
 		panel.add(lblDep);
 
 
 
-	
+
 
 
 		btnVolver = new JButton("Volver");
@@ -180,7 +187,7 @@ public class ListadoRegistro extends JFrame implements Constantes{
 
 
 		btnEliminar = new JButton("Eliminar");
-		
+
 		btnEliminar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnEliminar.setForeground(Color.WHITE);
 		btnEliminar.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
@@ -222,7 +229,7 @@ public class ListadoRegistro extends JFrame implements Constantes{
 				fila[3]=f.getUsuario().getNombre() + " " + f.getUsuario().getApellido();
 				fila[4]=f.getFechaHora();
 				if  (f.getEstado().equals(Estado.ACTIVO)) {
-					
+
 					modelo.addRow(fila);
 
 				}
@@ -232,32 +239,32 @@ public class ListadoRegistro extends JFrame implements Constantes{
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
+
 		DepartamentoBeanRemote depBean;
 		try {
 			depBean = (DepartamentoBeanRemote)
 					InitialContext.doLookup(RUTA_DepartamentoBean);
-			
+
 			comboDept = new JComboBox();
-			
-			comboDept.setBounds(110, 86, 187, 22);
+
+			comboDept.setBounds(135, 86, 187, 22);
 			panel.add(comboDept);
-			
+
 			List<Departamento> dptoList= depBean.obtenerTodos();
 			comboDept.addItem("");
 			for (Departamento d: dptoList) {
-				
+
 				String nom = d.getNombre();
-				
+
 				comboDept.addItem(nom);
 
 			}	
 
 		} catch (NamingException e) {}
-		
-			
-			
-		
+
+
+
+
 		btnVisualizar = new JButton("Visualizar Registro");
 		btnVisualizar.setForeground(Color.WHITE);
 		btnVisualizar.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
@@ -266,29 +273,71 @@ public class ListadoRegistro extends JFrame implements Constantes{
 		btnVisualizar.setBounds(456, 369, 155, 27);
 		panel.add(btnVisualizar);
 
-//////////////////****************************FILTROS********************************/////////////////7
-		
-	TableRowSorter<TableModel> filtro=new  TableRowSorter<>(modelo);
-	table.setRowSorter(filtro);
+		//////////////////****************************FILTROS********************************/////////////////7
 
-	
-	comboDept.addItemListener(new ItemListener() {
-		public void itemStateChanged(ItemEvent e) {
+		TableRowSorter<TableModel> filtro=new  TableRowSorter<>(modelo);
+		table.setRowSorter(filtro);
+		calendar1 = new JDateChooser();
 
-			String selected = comboDept.getSelectedItem().toString();
-			if(selected != "") {
-				filtro.setRowFilter(RowFilter.regexFilter(selected, 2));
+		calendar1.setBounds(484, 86, 168, 20);
+		panel.add(calendar1);
+
+		JLabel lblFecha = new JLabel("Fecha");
+		lblFecha.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
+		lblFecha.setBounds(416, 86, 58, 25);
+		panel.add(lblFecha);
+
+		btnFiltrar = new JButton("Filtrar");
+		btnFiltrar.setVerticalAlignment(SwingConstants.TOP);
+		btnFiltrar.setForeground(Color.WHITE);
+		btnFiltrar.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
+		btnFiltrar.setBorderPainted(false);
+		btnFiltrar.setBackground(new Color(104, 171, 196));
+		btnFiltrar.setBounds(684, 81, 76, 27);
+		panel.add(btnFiltrar);
+
+
+		comboDept.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+
+				String selected = comboDept.getSelectedItem().toString();
+				if(selected != "") {
+					filtro.setRowFilter(RowFilter.regexFilter(selected, 2));
+
+				}
+				else {
+					filtro.setRowFilter(null);
+				}
+
+			}
+		});
+
+		btnFiltrar.addMouseListener(new MouseAdapter() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
 			
-			}
-			else {
-				filtro.setRowFilter(null);
+				int dia=calendar1.getCalendar().get(Calendar.DAY_OF_MONTH);
+				int mes=calendar1.getCalendar().get(Calendar.MONTH);
+				int año=calendar1.getCalendar().get(Calendar.YEAR);
+				Date fecha3=new Date((año-1900),mes,dia);
+			
+				SimpleDateFormat formato=new SimpleDateFormat("yyyy-MM-dd");
+				String fecha5=formato.format(fecha3);
+				
+				
+				if(	fecha5!=" " ) {
+					filtro.setRowFilter(RowFilter.regexFilter(fecha5,4));
+
+				}
+
 			}
 
-		}
-	});
-	
-	
-	
+		});
+
+
+
+
 
 	}
 }
