@@ -2,6 +2,8 @@ package controladores;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -13,6 +15,7 @@ import java.util.List;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
@@ -108,6 +111,28 @@ public class ControllerRegistro implements Constantes {
 
 		ListaR = new ListadoRegistro();
 		ListaR.setVisible(true);
+		
+		ListaR.calendar1.addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent evt) {
+				
+				if(ListaR.calendar1.getCalendar() != null) {
+					int dia=ListaR.calendar1.getCalendar().get(Calendar.DAY_OF_MONTH);
+					int mes=ListaR.calendar1.getCalendar().get(Calendar.MONTH)+1;
+					int año=ListaR.calendar1.getCalendar().get(Calendar.YEAR);
+				
+					//SimpleDateFormat formato=new SimpleDateFormat("dd-MM-yyyy HH:mm");
+					String fecha5= corregir(dia)+"-"+corregir(mes)+"-"+año;
+					
+					
+					if(	fecha5!=" " ) {
+						ListaR.filtro.setRowFilter(RowFilter.regexFilter(fecha5,4));
+
+					}
+				}
+				
+				
+			}
+		});
 
 		ListaR.btnEliminar.addMouseListener(new MouseAdapter() {
 			@Override

@@ -51,6 +51,8 @@ import java.awt.event.MouseEvent;
 import com.toedter.components.JSpinField;
 import com.toedter.calendar.JDateChooser;
 import com.toedter.components.JLocaleChooser;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
 
 public class ListadoRegistro extends JFrame implements Constantes{
 
@@ -72,7 +74,7 @@ public class ListadoRegistro extends JFrame implements Constantes{
 	public JButton btnVolver;
 	public JDateChooser calendar1;
 	public JButton btnFiltrar;
-
+	public TableRowSorter<TableModel> filtro;
 	public JButton btnModificar;
 
 	public JButton btnEliminar;
@@ -149,7 +151,7 @@ public class ListadoRegistro extends JFrame implements Constantes{
 
 		lblDep = new JLabel("Departamento");
 		lblDep.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
-		lblDep.setBounds(10, 83, 115, 25);
+		lblDep.setBounds(10, 88, 115, 25);
 		panel.add(lblDep);
 
 
@@ -182,8 +184,8 @@ public class ListadoRegistro extends JFrame implements Constantes{
 		btnModificar.setForeground(Color.WHITE);
 		btnModificar.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
 		btnModificar.setBorder(new MatteBorder(2, 2, 2, 2, (Color) verde));
-		btnModificar.setBackground(azul);
-		btnModificar.setBounds(271, 370, 90, 27);
+		btnModificar.setBackground(verde);
+		btnModificar.setBounds(220, 369, 90, 27);
 		panel.add(btnModificar);
 
 
@@ -196,7 +198,7 @@ public class ListadoRegistro extends JFrame implements Constantes{
 		btnEliminar.setBorderPainted(false);
 		btnEliminar.setBackground(verde);
 
-		btnEliminar.setBounds(364, 369, 90, 27);
+		btnEliminar.setBounds(479, 369, 90, 27);
 
 		panel.add(btnEliminar);
 
@@ -260,7 +262,7 @@ public class ListadoRegistro extends JFrame implements Constantes{
 
 			comboDept = new JComboBox();
 
-			comboDept.setBounds(135, 86, 187, 22);
+			comboDept.setBounds(118, 91, 204, 22);
 			panel.add(comboDept);
 
 			List<Departamento> dptoList= depBean.obtenerTodos();
@@ -282,31 +284,32 @@ public class ListadoRegistro extends JFrame implements Constantes{
 		btnVisualizar.setForeground(Color.WHITE);
 		btnVisualizar.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
 		btnVisualizar.setBorderPainted(false);
-		btnVisualizar.setBackground(new Color(104, 171, 196));
-		btnVisualizar.setBounds(456, 369, 155, 27);
+		btnVisualizar.setBackground(azul);
+		btnVisualizar.setBounds(320, 369, 149, 27);
 		panel.add(btnVisualizar);
 
 		//////////////////****************************FILTROS********************************/////////////////7
 
-		TableRowSorter<TableModel> filtro=new  TableRowSorter<>(modelo);
+		filtro=new  TableRowSorter<>(modelo);
 		table.setRowSorter(filtro);
 		calendar1 = new JDateChooser();
+		
+		
 
-		calendar1.setBounds(484, 86, 168, 20);
+		calendar1.setBounds(414, 91, 168, 22);
 		panel.add(calendar1);
 
 		JLabel lblFecha = new JLabel("Fecha");
 		lblFecha.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
-		lblFecha.setBounds(416, 86, 58, 25);
+		lblFecha.setBounds(357, 88, 58, 22);
 		panel.add(lblFecha);
 
-		btnFiltrar = new JButton("Filtrar");
-		btnFiltrar.setVerticalAlignment(SwingConstants.TOP);
+		btnFiltrar = new JButton("Restablecer Filtros");
 		btnFiltrar.setForeground(Color.WHITE);
 		btnFiltrar.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
 		btnFiltrar.setBorderPainted(false);
 		btnFiltrar.setBackground(new Color(104, 171, 196));
-		btnFiltrar.setBounds(684, 81, 76, 27);
+		btnFiltrar.setBounds(611, 91, 169, 22);
 		panel.add(btnFiltrar);
 
 
@@ -330,23 +333,14 @@ public class ListadoRegistro extends JFrame implements Constantes{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 			
-				int dia=calendar1.getCalendar().get(Calendar.DAY_OF_MONTH);
-				int mes=calendar1.getCalendar().get(Calendar.MONTH)+1;
-				int año=calendar1.getCalendar().get(Calendar.YEAR);
-				Date fecha3=new Date((año-1900),mes,dia);
-			
-				//SimpleDateFormat formato=new SimpleDateFormat("dd-MM-yyyy HH:mm");
-				String fecha5= corregir(dia)+"-"+corregir(mes)+"-"+año;
-				
-				
-				if(	fecha5!=" " ) {
-					filtro.setRowFilter(RowFilter.regexFilter(fecha5,4));
-
-				}
-
+				calendar1.setCalendar(null);
+				filtro.setRowFilter(null);
+				comboDept.setSelectedIndex(0);
 			}
 
 		});
+		
+	
 
 
 
