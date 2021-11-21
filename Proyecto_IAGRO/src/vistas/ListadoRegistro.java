@@ -30,6 +30,9 @@ import controladores.Main;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Rectangle;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.border.MatteBorder;
@@ -220,7 +223,18 @@ public class ListadoRegistro extends JFrame implements Constantes{
 				fila[1]=f.getFormulario().getNombre();
 				fila[2]=f.getDepartamento().getNombre();
 				fila[3]=f.getUsuario().getNombre() + " " + f.getUsuario().getApellido();
-				fila[4]=f.getFechaHora();
+				
+				Calendar calendar = GregorianCalendar.getInstance(); 
+				Date fecha = f.getFechaHora();
+				calendar.setTime(f.getFechaHora());
+				
+				int dia = calendar.get(Calendar.DAY_OF_MONTH);
+				int mes = calendar.get(Calendar.MONTH)+1;
+				int year = calendar.get(Calendar.YEAR); 
+				int horas = calendar.get(Calendar.HOUR_OF_DAY); 
+				int min = calendar.get(Calendar.MINUTE);
+			
+				fila[4]= corregir(dia)+"-"+corregir(mes)+"-"+year+" "+corregir(horas)+":"+corregir(min);
 				if  (f.getEstado().equals(Estado.ACTIVO)) {
 					
 					modelo.addRow(fila);
@@ -290,6 +304,17 @@ public class ListadoRegistro extends JFrame implements Constantes{
 	
 	
 
+	}
+	
+	public static String corregir(int v) {
+		String dato;
+		if(v < 10) {
+			dato = "0" + v;
+		}else {
+			dato = v+"";
+		}
+		
+		return dato;
 	}
 }
 

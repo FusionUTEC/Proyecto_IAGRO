@@ -53,7 +53,7 @@ public class VistaRegistro extends JFrame implements Constantes {
 	private JScrollPane scrollPane;
 	public JButton btnVolver;
 	public JButton btnExportarReg;
-
+	public boolean edit;
 
 	public HashMap<Long,Formulario> map;
 	public JButton btnModificar;
@@ -106,8 +106,18 @@ public class VistaRegistro extends JFrame implements Constantes {
 		modelo= new DefaultTableModel() {
 			@Override
 			public boolean isCellEditable(int row, int column) {
+					
+					//Bloquear siempre el usuario
+					if(row == 2) {
+						return false;
+					}
 				
-					return false;
+					if(edit && column == 4) {
+						return true;
+					}else {
+						return false;
+					}
+					
 				
 				
 			}

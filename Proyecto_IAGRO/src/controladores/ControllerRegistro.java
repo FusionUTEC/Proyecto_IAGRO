@@ -5,6 +5,9 @@ import java.awt.event.MouseEvent;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.naming.InitialContext;
@@ -38,6 +41,7 @@ public class ControllerRegistro implements Constantes {
 	public static AltaRegistro AltaR;
 	public static VistaRegistro VistaR;
 	public static Formulario form;
+	public static Registro reg;
 
 	public static void V_Alta_Registro()  {
 
@@ -164,11 +168,11 @@ public class ControllerRegistro implements Constantes {
 						regBean = (RegistroBeanRemote)InitialContext.doLookup(RUTA_RegistroBean);
 
 						String id = ListaR.modelo.getValueAt(selected,0).toString();
-						System.out.println("ID registro "+id);
 						Registro r = regBean.buscar(id);
 
 						List<Dato> datos = datoBean.obtenerDatos(r);
 						cargarVista(datos);
+
 
 					}
 
@@ -179,16 +183,17 @@ public class ControllerRegistro implements Constantes {
 
 			}
 		});
-		
+
 		ListaR.btnModificar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
+
 				Boolean afi = Main.User.getTipo().contains("Aficionado") ;
-				
-				
-				
+
+
+				DepartamentoBeanRemote deptoBean;
 				DatoBeanRemote datoBean;
+				CasillaBeanRemote casBean;
 				RegistroBeanRemote regBean;
 				try {
 
@@ -198,15 +203,17 @@ public class ControllerRegistro implements Constantes {
 					if(selected != (-1)) {
 						datoBean = (DatoBeanRemote)InitialContext.doLookup(RUTA_DatoBean);
 						regBean = (RegistroBeanRemote)InitialContext.doLookup(RUTA_RegistroBean);
+						deptoBean = (DepartamentoBeanRemote)InitialContext.doLookup(RUTA_DepartamentoBean);
+						casBean = (CasillaBeanRemote)InitialContext.doLookup(RUTA_CasillaBean);
 
 						String id = ListaR.modelo.getValueAt(selected,0).toString();
 						System.out.println("ID registro "+id);
 						Registro r = regBean.buscar(id);
-						
+
 						Usuario rU = r.getUsuario();
-						
+
 						Boolean noDueño = Main.User.getIdUsuario() != rU.getIdUsuario(); 
-						
+
 						if(afi && noDueño) {
 							JOptionPane.showMessageDialog(null, "No tiene permiso para modificar este registro");
 						}else {
@@ -214,14 +221,57 @@ public class ControllerRegistro implements Constantes {
 							cargarVista(datos);
 							VistaR.btnModificar.setVisible(true);
 							VistaR.btnExportarReg.setVisible(false);
-							
+							VistaR.edit = true;
+
+							reg = r;
+
 							///Guardar cambios
 							VistaR.btnModificar.addMouseListener(new MouseAdapter() {
 								@Override
 								public void mouseClicked(MouseEvent e) {
-									
-									JOptionPane.showMessageDialog(null, "Registro modificado con éxito");
-									
+
+									int confirm = JOptionPane.showOptionDialog(null,
+											"¿Desea guardar los cambios?",
+											"Exit Confirmation", JOptionPane.YES_NO_OPTION,
+											JOptionPane.QUESTION_MESSAGE,null, null, null);	
+									if (JOptionPane.YES_OPTION== confirm) {
+										int tope = VistaR.modelo.getRowCount();
+
+										for(int i = 0; i<tope ; i++) {
+											String dato = VistaR.modelo.getValueAt(i, 0).toString();
+											String valor = VistaR.modelo.getValueAt(i, 4).toString();
+
+											switch(dato) {
+
+											case "USUARIO":
+												break;
+
+											case "FECHA Y HORA":
+												DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"); 
+												LocalDateTime dateTime = LocalDateTime.parse(valor, formatter);
+												Timestamp fecha= Timestamp.valueOf(dateTime);
+												r.setFechaHora(fecha);
+												break;
+
+											case "DEPARTAMENTO":
+												System.out.println(dato);
+												Departamento d = deptoBean.buscar(valor.toUpperCase());
+												r.setDepartamento(d);
+												break;
+
+											default:
+												Casilla c = casBean.buscar(dato);
+												datoBean.actualizar(r, c, valor);
+												break;
+											}
+										}
+
+										try {regBean.actualizar(r);
+										JOptionPane.showMessageDialog(null, "Registro modificado con éxito");
+										} catch (ServiciosException e1) {}
+									}
+
+
 								}
 							});
 						}
@@ -231,7 +281,7 @@ public class ControllerRegistro implements Constantes {
 
 
 				} catch (NamingException e1) {}
-				
+
 			}
 		});
 
@@ -250,17 +300,9 @@ public class ControllerRegistro implements Constantes {
 	}
 
 	public static void V_Visualizar_Registro() {
-		
-		VistaR.btnModificar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				
-				
-				
-			}
-		});
 
-		
+
+
 		VistaR.btnExportarReg.addMouseListener(new MouseAdapter() {
 
 			@Override
@@ -299,10 +341,10 @@ public class ControllerRegistro implements Constantes {
 
 			Departamento d = dptoBean.buscar(Dep);
 
-			
-			  //convert String to LocalDate
-			
-			
+
+			//convert String to LocalDate
+
+
 			//Fecha
 			String date = AltaR.modelo.getValueAt(1, 4).toString();
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"); 
@@ -344,7 +386,7 @@ public class ControllerRegistro implements Constantes {
 
 					datoBean.crear(dato);
 
-					
+
 				}
 
 				JOptionPane.showMessageDialog(null, "Registro ingresado con éxito");
@@ -402,6 +444,7 @@ public class ControllerRegistro implements Constantes {
 	public static void cargarVista(List<Dato> datos) {
 
 		VistaR = new VistaRegistro();
+		VistaR.edit = false;
 		V_Visualizar_Registro();
 		ListaR.setVisible(false);
 
@@ -423,18 +466,30 @@ public class ControllerRegistro implements Constantes {
 		Object [] fila = new Object[columnNames.length];
 		System.out.println("Cantidad de datos registrados "+datos.size());
 		Registro reg = datos.get(0).getRegistro();
-		
+
 		String dep = reg.getDepartamento().getNombre();
-		String fecha = reg.getFechaHora().toString();
+		
+		Calendar calendar = GregorianCalendar.getInstance(); 
+		Date fecha = reg.getFechaHora();
+		calendar.setTime(fecha);
+		int dia = calendar.get(Calendar.DAY_OF_MONTH);
+		int mes = calendar.get(Calendar.MONTH)+1;
+		int year = calendar.get(Calendar.YEAR); 
+		int horas = calendar.get(Calendar.HOUR_OF_DAY); 
+		int min = calendar.get(Calendar.MINUTE);
+		
+		String date = corregir(dia)+"-"+corregir(mes)+"-"+year+" "+corregir(horas)+":"+corregir(min);
+		
+	
 		String user = reg.getUsuario().getNombreUsuario();
-		
-	
+
+
 		addFila("DEPARTAMENTO", dep, tabla, fila);
-		addFila("FECHA Y HORA", fecha, tabla, fila);
+		addFila("FECHA Y HORA", date, tabla, fila);
 		addFila("USUARIO",user, tabla, fila);
-		
-		
-	
+
+
+
 
 		for(Dato d: datos) {
 
@@ -450,7 +505,7 @@ public class ControllerRegistro implements Constantes {
 			System.out.println("Cargué la casilla "+c.getNombre());
 
 		}
-		
+
 		VistaR.setVisible(true);
 
 		/*moverFila("DEPARTAMENTO", 0, tabla);
@@ -470,14 +525,14 @@ public class ControllerRegistro implements Constantes {
 			}
 		}
 	}
-	
+
 	public static void addFila(String nom, String dato, DefaultTableModel tabla, Object [] fila) {
 		fila[0] = nom;
 		fila[1] = "N/A";
 		fila[2] = "N/A";
 		fila[3] = "N/A";
 		fila[4] = dato;
-		
+
 		tabla.addRow(fila);
 	}
 
@@ -507,6 +562,17 @@ public class ControllerRegistro implements Constantes {
 			return null;
 		}	
 
+	}
+	
+	public static String corregir(int v) {
+		String dato;
+		if(v < 10) {
+			dato = "0" + v;
+		}else {
+			dato = v+"";
+		}
+		
+		return dato;
 	}
 
 }
