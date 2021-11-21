@@ -53,6 +53,8 @@ public class ControllerRegistro implements Constantes {
 			cargarTabla();
 			AltaR.setVisible(true);
 			ControllerFormulario.listF.setVisible(false);
+			
+			AltaR.modelo.setValueAt(Main.User.getNombreUsuario(), 2, 4);
 
 
 			AltaR.btnRegistrar.addMouseListener(new MouseAdapter() {
