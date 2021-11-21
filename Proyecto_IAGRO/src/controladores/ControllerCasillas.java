@@ -467,9 +467,13 @@ public class ControllerCasillas implements Constantes{
 	//BORRAR CASILLA
 	public static void borrar() throws NamingException {
 
-
+		FormularioBeanRemote formBean = (FormularioBeanRemote)
+				InitialContext.doLookup(RUTA_FormularioBean);
+		
+	
 		CasillaBeanRemote casillaBean = (CasillaBeanRemote)
 				InitialContext.doLookup(RUTA_CasillaBean);
+		
 
 
 		int row = listC.table.getSelectedRow();
@@ -477,33 +481,42 @@ public class ControllerCasillas implements Constantes{
 
 		if( row != (-1)) {
 			String name=(String) listC.table.getValueAt(row, 0);
+			
+			
+			Formulario f = formBean.casillaActiva(name);
+			
+			if(f == null) {
+				try {
+					int confirmado = JOptionPane.showOptionDialog(null,
+							"¿Desea dar de baja la Casilla seleccionada?",
+							"Exit Confirmation", JOptionPane.YES_NO_OPTION,
+							JOptionPane.QUESTION_MESSAGE,null, null, null);
+					//Si el usuario elige sí se borra la fila
+					if (JOptionPane.OK_OPTION == confirmado) {
+						Casilla cas = new  Casilla();
+						//ArrayList <Casilla> casillas = new ArrayList<>();
+						cas=casillaBean.buscar(name);
+						//Setear estado a INACTIVO
+						cas.setEstado(cas.getEstado().INACTIVO);
 
-			try {
-				int confirmado = JOptionPane.showOptionDialog(null,
-						"¿Desea dar de baja la Casilla seleccionada?",
-						"Exit Confirmation", JOptionPane.YES_NO_OPTION,
-						JOptionPane.QUESTION_MESSAGE,null, null, null);
-				//Si el usuario elige sí se borra la fila
-				if (JOptionPane.OK_OPTION == confirmado) {
-					Casilla cas = new  Casilla();
-					//ArrayList <Casilla> casillas = new ArrayList<>();
-					cas=casillaBean.buscar(name);
-					//Setear estado a INACTIVO
-					cas.setEstado(cas.getEstado().INACTIVO);
+						casillaBean.actualizar(cas);
+						JOptionPane.showMessageDialog(null, "Se borró exitosamente la Casilla seleccionada");
 
-					casillaBean.actualizar(cas);
-					JOptionPane.showMessageDialog(null, "Se borró exitosamente la Casilla seleccionada");
+						actualizarListado(listC.modelo);
+					}
 
-					actualizarListado(listC.modelo);
+				} catch (NamingException e1) {
+					System.out.println("No se puede borrar la Casilla");	
+					e1.printStackTrace();
+				} catch (ServiciosException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
-
-			} catch (NamingException e1) {
-				System.out.println("No se puede borrar la Casilla");	
-				e1.printStackTrace();
-			} catch (ServiciosException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+			}else {
+				JOptionPane.showMessageDialog(null, "Esta casilla está asociada a un formulario");
 			}
+
+			
 		}
 		else {
 			JOptionPane.showMessageDialog(null, "Debe seleccionar una Casilla", null, 1);
