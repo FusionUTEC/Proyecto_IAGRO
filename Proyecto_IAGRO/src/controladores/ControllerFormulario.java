@@ -38,6 +38,7 @@ import com.servicios.CasillaBean;
 import com.servicios.CasillaBeanRemote;
 
 import com.servicios.FormularioBeanRemote;
+import com.servicios.UsuarioBeanRemote;
 
 import vistas.AltaFormulario;
 import vistas.ListadoFormulario;
@@ -422,7 +423,13 @@ public class ControllerFormulario implements Constantes {
 			fila[1]=f.getNombre();
 			fila[2]=f.getComentarios();
 			fila[3]=f.getFechaHora();
-			fila[4]=f.getIdUsuario();
+			
+			Long id_user = f.getIdUsuario();
+			UsuarioBeanRemote UserBean = (UsuarioBeanRemote)
+					InitialContext.doLookup(RUTA_UsuarioBean);
+			
+			
+			fila[4]=UserBean.buscarUser(id_user).getNombreUsuario();
 			fila[5]=f.getCasillas().size();
 			if  (f.getEstado().equals(Estado.ACTIVO)) {
 				modelo.addRow(fila);
