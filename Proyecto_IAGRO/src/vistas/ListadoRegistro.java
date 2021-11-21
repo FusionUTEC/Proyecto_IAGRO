@@ -41,7 +41,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Period;
-import java.time.ZoneId;
+
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
 import java.awt.event.ItemListener;
@@ -331,12 +331,12 @@ public class ListadoRegistro extends JFrame implements Constantes{
 			public void mouseClicked(MouseEvent e) {
 			
 				int dia=calendar1.getCalendar().get(Calendar.DAY_OF_MONTH);
-				int mes=calendar1.getCalendar().get(Calendar.MONTH);
-				int aï¿½o=calendar1.getCalendar().get(Calendar.YEAR);
-				Date fecha3=new Date((aï¿½o-1900),mes,dia);
+				int mes=calendar1.getCalendar().get(Calendar.MONTH)+1;
+				int año=calendar1.getCalendar().get(Calendar.YEAR);
+				Date fecha3=new Date((año-1900),mes,dia);
 			
-				SimpleDateFormat formato=new SimpleDateFormat("yyyy-MM-dd");
-				String fecha5=formato.format(fecha3);
+				//SimpleDateFormat formato=new SimpleDateFormat("dd-MM-yyyy HH:mm");
+				String fecha5= corregir(dia)+"-"+corregir(mes)+"-"+año;
 				
 				
 				if(	fecha5!=" " ) {
