@@ -153,13 +153,13 @@ public class ControllerRegistro implements Constantes {
 						Registro r = buscarR(id);
 						r.setEstado(Estado.INACTIVO);
 
-						JOptionPane.showMessageDialog(null, "Registro eliminado con éxito");
 						RegistroBeanRemote regBean;
 
 						try {
 							regBean = (RegistroBeanRemote)InitialContext.doLookup(RUTA_RegistroBean);
 							regBean.actualizar(r);
 							JOptionPane.showMessageDialog(null,"Registro eliminado correctamente");
+							V_Listado_Registro();
 						} catch (NamingException | ServiciosException e1) {}
 
 					}
