@@ -231,7 +231,7 @@ public class ControllerRegistro implements Constantes {
 						deptoBean = (DepartamentoBeanRemote)InitialContext.doLookup(RUTA_DepartamentoBean);
 						casBean = (CasillaBeanRemote)InitialContext.doLookup(RUTA_CasillaBean);
 
-						String id = ListaR.modelo.getValueAt(selected,0).toString();
+						String id = ListaR.table.getValueAt(selected,0).toString();
 						System.out.println("ID registro "+id);
 						Registro r = regBean.buscar(id);
 
