@@ -34,7 +34,8 @@ import java.util.List;
 import javax.swing.border.MatteBorder;
 import java.awt.Cursor;
 import java.awt.event.ActionListener;
-import java.text.ParseException;
+
+
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -73,13 +74,7 @@ public class ListadoRegistro extends JFrame implements Constantes{
 	public JButton btnVolver;
 	public JDateChooser calendar1;
 	public JButton btnFiltrar;
-<<<<<<< Updated upstream
 	public TableRowSorter<TableModel> filtro;
-=======
-	public JDateChooser calendar2;
-	public TableRowSorter<TableModel> filtro;
-	public TableRowSorter<TableModel> filtro2;
->>>>>>> Stashed changes
 	public JButton btnModificar;
 
 	public JButton btnEliminar;
@@ -296,30 +291,17 @@ public class ListadoRegistro extends JFrame implements Constantes{
 		//////////////////****************************FILTROS********************************/////////////////7
 
 		filtro=new  TableRowSorter<>(modelo);
-<<<<<<< Updated upstream
-=======
-		filtro2=new  TableRowSorter<>(modelo);
->>>>>>> Stashed changes
 		table.setRowSorter(filtro);
-		table.setRowSorter(filtro2);
 		calendar1 = new JDateChooser();
 		
 		
 
-<<<<<<< Updated upstream
 		calendar1.setBounds(414, 91, 168, 22);
-=======
-		calendar1.setBounds(398, 86, 115, 20);
->>>>>>> Stashed changes
 		panel.add(calendar1);
 
 		JLabel lblFecha = new JLabel("Fecha");
 		lblFecha.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
-<<<<<<< Updated upstream
 		lblFecha.setBounds(357, 88, 58, 22);
-=======
-		lblFecha.setBounds(353, 83, 58, 25);
->>>>>>> Stashed changes
 		panel.add(lblFecha);
 
 		btnFiltrar = new JButton("Restablecer Filtros");
@@ -330,12 +312,8 @@ public class ListadoRegistro extends JFrame implements Constantes{
 		btnFiltrar.setBounds(611, 91, 169, 22);
 		panel.add(btnFiltrar);
 
-		calendar2= new JDateChooser();
-		calendar2.setBounds(559, 86, 115, 20);
-		panel.add(calendar2);
 
-
-		/*comboDept.addItemListener(new ItemListener() {
+		comboDept.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 
 				String selected = comboDept.getSelectedItem().toString();
@@ -348,13 +326,12 @@ public class ListadoRegistro extends JFrame implements Constantes{
 				}
 
 			}
-	});*/
+		});
 
 		btnFiltrar.addMouseListener(new MouseAdapter() {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-<<<<<<< Updated upstream
 			
 				calendar1.setCalendar(null);
 				filtro.setRowFilter(null);
@@ -364,75 +341,12 @@ public class ListadoRegistro extends JFrame implements Constantes{
 		});
 		
 	
-=======
-
-				//calendario 1
-				int dia=calendar1.getCalendar().get(Calendar.DAY_OF_MONTH);
-				int mes=calendar1.getCalendar().get(Calendar.MONTH);
-				int año=calendar1.getCalendar().get(Calendar.YEAR);
-				Date fecha1=new Date((año-1900),mes,dia);
-
-				//calendario 2
-				int dia2=calendar1.getCalendar().get(Calendar.DAY_OF_MONTH);
-				int mes2=calendar1.getCalendar().get(Calendar.MONTH);
-				int año2=calendar1.getCalendar().get(Calendar.YEAR);
-				Date fecha2=new Date((año2-1900),mes2,dia2);
-
-				//pasada a String de calendario 1
-				String d=String.valueOf(dia);
-				String m=String.valueOf(mes+1);
-				String a=String.valueOf(año);
-				String f=a+"-"+m+"-"+d;
-
-				//pasada a String de calendario 2
-				String d2=String.valueOf(dia2);
-				String m2=String.valueOf(mes2+1);
-				String a2=String.valueOf(año2);
-				String f2=a2+"-"+m2+"-"+d2;
-
-				SimpleDateFormat formato=new SimpleDateFormat("yyyy-MM-dd");
-				String fecha5=formato.format(fecha2);
-				String selected = comboDept.getSelectedItem().toString();
-
-
-				if(dia<10) {
-					int p=0;
-					String cero= String.valueOf(p);
-					String di1=cero.concat(d);
-					String f1=a+"-"+m+"-"+di1;
-					String di2=cero.concat(d2);
-					String f2_1=a2+"-"+m2+"-"+di2;
-
-					try {
-						//formato a DATE de calendario 1
-						Date f3=formato.parse(f1);
-						//formato a DATE de calendario 1
-						Date f4=formato.parse(f2_1);
-						System.out.println(f3);
-						System.out.println(f4);
-						//AGREGAR TODOS LOS FILTROS
-						filtro.setRowFilter(RowFilter.dateFilter(ComparisonType.AFTER, f3, 4));
-						filtro2.setRowFilter(RowFilter.dateFilter(ComparisonType.BEFORE, f4, 4));
-
-						
-
-					} catch (ParseException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-				}
-
-
-			}
->>>>>>> Stashed changes
 
 
 
 
-		});
 
 	}
-<<<<<<< Updated upstream
 	
 	public static String corregir(int v) {
 		String dato;
@@ -444,11 +358,5 @@ public class ListadoRegistro extends JFrame implements Constantes{
 		
 		return dato;
 	}
-=======
-
->>>>>>> Stashed changes
 }
-
-
-
 
