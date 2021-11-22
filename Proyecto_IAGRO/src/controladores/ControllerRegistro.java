@@ -7,9 +7,13 @@ import java.beans.PropertyChangeListener;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+<<<<<<< Updated upstream
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+=======
+import java.util.ArrayList;
+>>>>>>> Stashed changes
 import java.util.List;
 
 import javax.naming.InitialContext;
@@ -591,6 +595,7 @@ public class ControllerRegistro implements Constantes {
 
 	}
 	
+<<<<<<< Updated upstream
 	public static String corregir(int v) {
 		String dato;
 		if(v < 10) {
@@ -601,6 +606,9 @@ public class ControllerRegistro implements Constantes {
 		
 		return dato;
 	}
+=======
+
+>>>>>>> Stashed changes
 
 }
 
