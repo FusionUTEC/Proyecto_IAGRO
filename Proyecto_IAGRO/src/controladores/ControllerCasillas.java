@@ -415,6 +415,7 @@ public class ControllerCasillas implements Constantes{
 		CasillaBeanRemote casillaBean = (CasillaBeanRemote)
 				InitialContext.doLookup(RUTA_CasillaBean);
 
+
 		List<Casilla> list = casillaBean.obtenerTodos();
 		return list;
 	}
@@ -475,12 +476,15 @@ public class ControllerCasillas implements Constantes{
 				InitialContext.doLookup(RUTA_CasillaBean);
 		
 
+		FormularioBeanRemote formBean = (FormularioBeanRemote)
+				InitialContext.doLookup(RUTA_FormularioBean);
 
 		int row = listC.table.getSelectedRow();
 
 
 		if( row != (-1)) {
 			String name=(String) listC.table.getValueAt(row, 0);
+<<<<<<< Updated upstream
 			
 			
 			Formulario f = formBean.casillaActiva(name);
@@ -517,6 +521,43 @@ public class ControllerCasillas implements Constantes{
 			}
 
 			
+=======
+			Long id=(Long) listC.table.getValueAt(row, 5);
+
+			try {
+				int confirmado = JOptionPane.showOptionDialog(null,
+						"¿Desea dar de baja la Casilla seleccionada?",
+						"Exit Confirmation", JOptionPane.YES_NO_OPTION,
+						JOptionPane.QUESTION_MESSAGE,null, null, null);
+				//Si el usuario elige sí se borra la fila
+
+				if (JOptionPane.OK_OPTION == confirmado) {
+					Casilla cas = new  Casilla();
+					//ArrayList <Casilla> casillas = new ArrayList<>();
+
+					cas=formBean.buscarCasForm(id);
+					//Setear estado a INACTIVO
+					/*if(cas.getFormularios()!=null) {
+							JOptionPane.showMessageDialog(null, "No es posible borrar esta casilla");
+						}else {*/
+					cas=casillaBean.buscar(name);
+					cas.setEstado(cas.getEstado().INACTIVO);
+
+					casillaBean.actualizar(cas);
+					JOptionPane.showMessageDialog(null, "Se borró exitosamente la Casilla seleccionada");
+
+					actualizarListado(listC.modelo);
+				}
+			
+
+		} catch (NamingException e1) {
+			System.out.println("No se puede borrar la Casilla");	
+			e1.printStackTrace();
+		} catch (ServiciosException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+>>>>>>> Stashed changes
 		}
 		else {
 			JOptionPane.showMessageDialog(null, "Debe seleccionar una Casilla", null, 1);
@@ -528,21 +569,25 @@ public class ControllerCasillas implements Constantes{
 
 		boolean bandera = true;
 
-		if(nombre.isEmpty()) {
+		//if(nombre.isEmpty()) {
+		if(nombre.isBlank()) {
 			JOptionPane.showMessageDialog(null, "Debe completar el campo Nombre", null, 1);
 			return false;
 		}
 
-		if(parametro.isEmpty()) {
+		//if(parametro.isEmpty()) {
+			if(parametro.isBlank()) {
 			JOptionPane.showMessageDialog(null, "Debe completar el campo Parametro", null, 1);
 			return false;
 		}
-		if(tipo.isEmpty()) {
+		//if(tipo.isEmpty()) {
+			if(tipo.isBlank()) {
 			JOptionPane.showMessageDialog(null, "Debe completar el campo Tipo Input", null, 1);
 			return false;
 		}
 
-		if(unidad.isEmpty()) {
+		//if(unidad.isEmpty()) {
+			if(unidad.isBlank()) {
 			JOptionPane.showMessageDialog(null, "Debe completar el campo Unidad", null, 1);
 			return false;
 		}

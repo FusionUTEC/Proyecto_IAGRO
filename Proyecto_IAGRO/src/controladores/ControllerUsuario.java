@@ -881,28 +881,33 @@ public class ControllerUsuario implements Constantes{
 
 		if(tipo != "Aficionado") {
 
-			if(domicilio.isEmpty()) {
+		//	if(domicilio.isEmpty()) {
+			if(domicilio.isBlank()) {
 				JOptionPane.showMessageDialog(null, "Debe completar el campo Domicilio", null, 1);
 				return false;
 			}
 
-			if(ciudad.isEmpty()) {
+			//if(ciudad.isEmpty()) {
+			if(ciudad.isBlank()) {
 				JOptionPane.showMessageDialog(null, "Debe completar el campo Ciudad", null, 1);
 				return false;
 			}
 
-			if(documento.isEmpty()) {
+			//if(documento.isEmpty()) {
+			if(documento.isBlank()) {
 				JOptionPane.showMessageDialog(null, "Debe completar el campo Cedula", null, 1);
 				return false;
 			}
 
-			if(telefono.isEmpty()) {
+			//if(telefono.isEmpty()) {
+			if(telefono.isBlank()) {
 				JOptionPane.showMessageDialog(null, "Debe completar el campo Telefono", null, 1);
 				return false;
 			}
 
 		}else {
-			if(ocupacion.isEmpty()) {
+			//if(ocupacion.isEmpty()) {
+			if(ocupacion.isBlank()) {
 				JOptionPane.showMessageDialog(null, "Debe completar el campo Ocupacion", null, 1);
 				return false;
 			}
@@ -972,6 +977,12 @@ public class ControllerUsuario implements Constantes{
 			JOptionPane.showMessageDialog(null, "La contraseña debe contener números y letras", null, 1);
 			return false;
 		}
+		
+		if(pass.isBlank()) {
+			JOptionPane.showMessageDialog(null, "El campo contraseña no puede estar vacío", null, 1);
+			return false;
+		}
+	
 		
 		if(pass.isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Debe completar el campo Contraseña", null, 1);
