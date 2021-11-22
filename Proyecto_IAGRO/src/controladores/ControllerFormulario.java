@@ -534,11 +534,6 @@ public class ControllerFormulario implements Constantes {
 	public static boolean camposVacios(String nombre) {
 
 		boolean bandera = true;
-		
-		if(nombre.isBlank()) {
-			JOptionPane.showMessageDialog(null, "El campo Nombre no puede estar vacío", null, 1);
-			return false;
-		}
 
 		if(nombre.isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Debe completar el campo Nombre", null, 1);
