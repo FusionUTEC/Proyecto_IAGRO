@@ -266,7 +266,7 @@ public class ListadoFormulario extends JFrame implements Constantes{
 	filtroUsuario.addKeyListener(new KeyAdapter() {
 		@Override
 		public void keyReleased(KeyEvent e) {
-			filtro.setRowFilter(RowFilter.regexFilter("(?i)"+filtroNombre.getText(), 4));
+			filtro.setRowFilter(RowFilter.regexFilter("(?i)"+filtroUsuario.getText(), 4));
 		}
 	});
 	filtroUsuario.setColumns(10);
