@@ -861,20 +861,20 @@ public class ControllerUsuario implements Constantes{
 
 		boolean bandera = true;
 
-		if(nom.isEmpty()) {
+		if(nom.isBlank()) {
 			JOptionPane.showMessageDialog(null, "Debe completar el campo Nombre", null, 1);
 			return false;
 		}
-		if(ap.isEmpty()) {
+		if(ap.isBlank()) {
 			JOptionPane.showMessageDialog(null, "Debe completar el campo Apellido", null, 1);
 			return false;
 		}
 
-		if(mail.isEmpty()) {
+		if(mail.isBlank()) {
 			JOptionPane.showMessageDialog(null, "Debe completar el campo Correo", null, 1);
 			return false;
 		}
-		if(user.isEmpty()) {
+		if(user.isBlank()) {
 			JOptionPane.showMessageDialog(null, "Debe completar el campo Nombre de Usuario", null, 1);
 			return false;
 		}
