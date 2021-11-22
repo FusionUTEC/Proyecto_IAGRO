@@ -44,8 +44,7 @@ public class ListadoUsuarios extends JFrame implements Constantes{
 	private JLabel lblNewLabel;
 	public JTable table;
 	public DefaultTableModel modelo;
-	private JTable table_1;
-	private JTable table_2;
+
 	private JScrollPane scrollPane;
 	private JLabel lblNewLabel_1;
 	private JTextField filtroNombre;
@@ -159,18 +158,8 @@ public class ListadoUsuarios extends JFrame implements Constantes{
 
 		JComboBox comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Rol", "Administrador", "Investigador", "Aficionado"}));
-		comboBox.setBounds(604, 97, 135, 22);
+		comboBox.setBounds(604, 97, 176, 22);
 		panel.add(comboBox);
-
-		JButton lupe = new JButton("");
-		lupe.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		lupe.setBorderPainted(false);
-		lupe.setBorder(new MatteBorder(0, 0, 0, 0, (Color) new Color(0, 0, 0)));
-		lupe.setBackground(Color.WHITE);
-		lupe.setIcon(new ImageIcon("C:\\Users\\Estudio\\Desktop\\Imprimir\\Agosto\\lupa.png"));
-		lupe.setBounds(749, 97, 28, 23);
-		lupe.setOpaque(false);
-		panel.add(lupe);
 
 		btnNuevo = new JButton("Nuevo Usuario");
 		btnNuevo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -180,7 +169,7 @@ public class ListadoUsuarios extends JFrame implements Constantes{
 		btnNuevo.setBorder(new MatteBorder(2, 2, 2, 2, (Color) azul));
 		btnNuevo.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
 		btnNuevo.setBackground(azul);
-		btnNuevo.setBounds(209, 370, 125, 27);
+		btnNuevo.setBounds(332, 370, 125, 27);
 		panel.add(btnNuevo);
 
 		btnVolver = new JButton("Volver");
@@ -208,7 +197,7 @@ public class ListadoUsuarios extends JFrame implements Constantes{
 		btnModificar.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
 		btnModificar.setBorder(new MatteBorder(2, 2, 2, 2, (Color) verde));
 		btnModificar.setBackground(verde);
-		btnModificar.setBounds(338, 370, 90, 27);
+		btnModificar.setBounds(232, 370, 90, 27);
 		panel.add(btnModificar);
 
 
@@ -218,7 +207,7 @@ public class ListadoUsuarios extends JFrame implements Constantes{
 		btnEliminar.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
 		btnEliminar.setBorderPainted(false);
 		btnEliminar.setBackground(verde);
-		btnEliminar.setBounds(434, 369, 90, 27);
+		btnEliminar.setBounds(467, 369, 90, 27);
 		panel.add(btnEliminar);
 
 

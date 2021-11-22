@@ -71,7 +71,7 @@ public class ListadoEstacion extends JFrame implements Constantes {
 		Color azul=new Color (104,171,196); //color azul 104,171,196 / 68abc4
 		Color verde=new Color (166,187,95); //color verde 166,187,95 / a6bb5f 
 		setResizable(false);
-		setTitle("Usuarios");
+		setTitle("Estaciones");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 806, 450);
 		contentPane = new JPanel();
@@ -141,16 +141,6 @@ public class ListadoEstacion extends JFrame implements Constantes {
 		lblNewLabel_1_1.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
 		lblNewLabel_1_1.setBounds(219, 96, 104, 20);
 		panel.add(lblNewLabel_1_1);
-
-		JButton lupe = new JButton("");
-		lupe.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		lupe.setBorderPainted(false);
-		lupe.setBorder(new MatteBorder(0, 0, 0, 0, (Color) new Color(0, 0, 0)));
-		lupe.setBackground(Color.WHITE);
-		lupe.setIcon(new ImageIcon("C:\\Users\\Estudio\\Desktop\\Imprimir\\Agosto\\lupa.png"));
-		lupe.setBounds(749, 97, 28, 23);
-		lupe.setOpaque(false);
-		panel.add(lupe);
 
 		btnNuevo = new JButton("Nueva Estaci\u00F3n");
 		btnNuevo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));

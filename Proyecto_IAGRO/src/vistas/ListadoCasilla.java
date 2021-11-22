@@ -52,8 +52,6 @@ public class ListadoCasilla extends JFrame implements Constantes{
 	private JLabel lblNewLabel;
 	public JTable table;
 	public DefaultTableModel modelo;
-	private JTable table_1;
-	private JTable table_2;
 	private JScrollPane scrollPane;
 	private JLabel lblNewLabel_1;
 	private JTextField filtroNombre;
@@ -148,16 +146,6 @@ public class ListadoCasilla extends JFrame implements Constantes{
 		lblNewLabel_1_1.setBounds(219, 96, 104, 20);
 		panel.add(lblNewLabel_1_1);
 
-		JButton lupe = new JButton("");
-		lupe.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		lupe.setBorderPainted(false);
-		lupe.setBorder(new MatteBorder(0, 0, 0, 0, (Color) new Color(0, 0, 0)));
-		lupe.setBackground(Color.WHITE);
-		lupe.setIcon(new ImageIcon("C:\\Users\\Estudio\\Desktop\\Imprimir\\Agosto\\lupa.png"));
-		lupe.setBounds(749, 97, 28, 23);
-		lupe.setOpaque(false);
-		panel.add(lupe);
-
 		btnNuevo = new JButton("Nueva Casilla");
 		btnNuevo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -218,7 +206,7 @@ public class ListadoCasilla extends JFrame implements Constantes{
 		this.setVisible(true);
 
 		//crea un array que contiene los nombre de las columnas
-		final String[] columnNames = {"Nombre","Descripción","Parametro", "Tipo Input", "Unidad de Medida", "Identificador"};
+		final String[] columnNames = {"Nombre","Descripción","Parametro", "Tipo de Dato", "Unidad de Medida", "Identificador"};
 		// insertamos las columnas
 		for(int column = 0; column < columnNames.length; column++){
 			//agrega las columnas a la tabla
