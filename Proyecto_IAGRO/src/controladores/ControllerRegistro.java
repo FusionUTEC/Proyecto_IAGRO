@@ -7,6 +7,7 @@ import java.beans.PropertyChangeListener;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -263,7 +264,7 @@ public class ControllerRegistro implements Constantes {
 											JOptionPane.QUESTION_MESSAGE,null, null, null);	
 									if (JOptionPane.YES_OPTION== confirm) {
 										int tope = VistaR.modelo.getRowCount();
-
+										try {
 										for(int i = 0; i<tope ; i++) {
 											String dato = VistaR.modelo.getValueAt(i, 0).toString();
 											String valor = VistaR.modelo.getValueAt(i, 4).toString();
@@ -281,7 +282,6 @@ public class ControllerRegistro implements Constantes {
 												break;
 
 											case "DEPARTAMENTO":
-												System.out.println(dato);
 												Departamento d = deptoBean.buscar(valor.toUpperCase());
 												r.setDepartamento(d);
 												break;
@@ -293,9 +293,17 @@ public class ControllerRegistro implements Constantes {
 											}
 										}
 
-										try {regBean.actualizar(r);
-										JOptionPane.showMessageDialog(null, "Registro modificado con éxito");
+										if(r.getDepartamento()!= null) {
+											regBean.actualizar(r);
+											JOptionPane.showMessageDialog(null, "Registro modificado con éxito");
+										}else {
+											JOptionPane.showMessageDialog(null, "No existe el departamento ingresado");
+										}
+										
 										} catch (ServiciosException e1) {}
+										catch(DateTimeParseException e2) {
+											JOptionPane.showMessageDialog(null, "Formato de fecha no valido");
+										}
 									}
 
 
@@ -308,6 +316,7 @@ public class ControllerRegistro implements Constantes {
 
 
 				} catch (NamingException e1) {}
+				  
 
 			}
 		});
@@ -422,6 +431,9 @@ public class ControllerRegistro implements Constantes {
 
 
 		} catch (NamingException | ServiciosException e) {}
+		catch(DateTimeParseException e) {
+			JOptionPane.showMessageDialog(null, "Formato de fecha no valido");
+		}
 
 
 	}
