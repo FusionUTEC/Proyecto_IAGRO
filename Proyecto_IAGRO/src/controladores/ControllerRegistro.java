@@ -326,8 +326,8 @@ public class ControllerRegistro implements Constantes {
 			public void mouseClicked(MouseEvent e) {
 
 				ListaR.setVisible(false);
-				//Main.menuP.setVisible(true);
-				V_Listado_Registro();
+				Main.menuP.setVisible(true);
+			
 			}
 		});
 
