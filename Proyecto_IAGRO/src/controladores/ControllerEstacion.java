@@ -249,6 +249,7 @@ public class ControllerEstacion implements Constantes{
 		altaE=new AltaEstacion();
 
 		altaE.setVisible(true);
+		listE.setVisible(false);
 		altaE.btnRegistrar.setVisible(true);
 		altaE.btnGuardar.setVisible(false);
 
