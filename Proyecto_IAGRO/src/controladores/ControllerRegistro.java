@@ -11,12 +11,10 @@ import java.time.format.DateTimeParseException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
@@ -53,11 +51,10 @@ public class ControllerRegistro implements Constantes {
 
 		try {
 			AltaR = new AltaRegistro();
-			ListaR.setVisible(false);
 			cargarTabla();
 			AltaR.setVisible(true);
 			ControllerFormulario.listF.setVisible(false);
-
+			
 			AltaR.modelo.setValueAt(Main.User.getNombreUsuario(), 2, 4);
 
 
@@ -103,8 +100,7 @@ public class ControllerRegistro implements Constantes {
 				public void mouseClicked(MouseEvent e) {
 
 					AltaR.setVisible(false);
-					ListaR.setVisible(true);
-					//ControllerFormulario.listF.setVisible(true);
+					ControllerFormulario.listF.setVisible(true);
 				}
 			});
 		} catch (Exception e) {
@@ -118,26 +114,26 @@ public class ControllerRegistro implements Constantes {
 
 		ListaR = new ListadoRegistro();
 		ListaR.setVisible(true);
-
+		
 		ListaR.calendar1.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
-
+				
 				if(ListaR.calendar1.getCalendar() != null) {
 					int dia=ListaR.calendar1.getCalendar().get(Calendar.DAY_OF_MONTH);
 					int mes=ListaR.calendar1.getCalendar().get(Calendar.MONTH)+1;
 					int año=ListaR.calendar1.getCalendar().get(Calendar.YEAR);
-
+				
 					//SimpleDateFormat formato=new SimpleDateFormat("dd-MM-yyyy HH:mm");
 					String fecha5= corregir(dia)+"-"+corregir(mes)+"-"+año;
-
-
+					
+					
 					if(	fecha5!=" " ) {
 						ListaR.filtro.setRowFilter(RowFilter.regexFilter(fecha5,4));
 
 					}
 				}
-
-
+				
+				
 			}
 		});
 
@@ -269,47 +265,47 @@ public class ControllerRegistro implements Constantes {
 									if (JOptionPane.YES_OPTION== confirm) {
 										int tope = VistaR.modelo.getRowCount();
 										try {
-											for(int i = 0; i<tope ; i++) {
-												String dato = VistaR.modelo.getValueAt(i, 0).toString();
-												String valor = VistaR.modelo.getValueAt(i, 4).toString();
+										for(int i = 0; i<tope ; i++) {
+											String dato = VistaR.modelo.getValueAt(i, 0).toString();
+											String valor = VistaR.modelo.getValueAt(i, 4).toString();
 
-												switch(dato) {
+											switch(dato) {
 
-												case "USUARIO":
-													break;
+											case "USUARIO":
+												break;
 
-												case "FECHA Y HORA":
-													DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"); 
-													LocalDateTime dateTime = LocalDateTime.parse(valor, formatter);
-													Timestamp fecha= Timestamp.valueOf(dateTime);
-													r.setFechaHora(fecha);
-													break;
+											case "FECHA Y HORA":
+												DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"); 
+												LocalDateTime dateTime = LocalDateTime.parse(valor, formatter);
+												Timestamp fecha= Timestamp.valueOf(dateTime);
+												r.setFechaHora(fecha);
+												break;
 
-												case "DEPARTAMENTO":
-													Departamento d = deptoBean.buscar(valor.toUpperCase());
-													r.setDepartamento(d);
-													break;
+											case "DEPARTAMENTO":
+												Departamento d = deptoBean.buscar(valor.toUpperCase());
+												r.setDepartamento(d);
+												break;
 
-												default:
-													Casilla c = casBean.buscar(dato);
-													datoBean.actualizar(r, c, valor);
-													break;
-												}
+											default:
+												Casilla c = casBean.buscar(dato);
+												datoBean.actualizar(r, c, valor);
+												break;
 											}
+										}
 
-											if(r.getDepartamento()!= null) {
-												regBean.actualizar(r);
-												JOptionPane.showMessageDialog(null, "Registro modificado con éxito");
-
-											}else {
-												JOptionPane.showMessageDialog(null, "No existe el departamento ingresado");
-											}
-
+										if(r.getDepartamento()!= null) {
+											regBean.actualizar(r);
+											JOptionPane.showMessageDialog(null, "Registro modificado con éxito");
+										}else {
+											JOptionPane.showMessageDialog(null, "No existe el departamento ingresado");
+										}
+										
 										} catch (ServiciosException e1) {}
 										catch(DateTimeParseException e2) {
 											JOptionPane.showMessageDialog(null, "Formato de fecha no valido");
 										}
 									}
+
 
 								}
 							});
@@ -320,7 +316,7 @@ public class ControllerRegistro implements Constantes {
 
 
 				} catch (NamingException e1) {}
-
+				  
 
 			}
 		});
@@ -428,6 +424,7 @@ public class ControllerRegistro implements Constantes {
 
 
 				}
+
 				JOptionPane.showMessageDialog(null, "Registro ingresado con éxito");
 			}
 
@@ -510,7 +507,7 @@ public class ControllerRegistro implements Constantes {
 		Registro reg = datos.get(0).getRegistro();
 
 		String dep = reg.getDepartamento().getNombre();
-
+		
 		Calendar calendar = GregorianCalendar.getInstance(); 
 		Date fecha = reg.getFechaHora();
 		calendar.setTime(fecha);
@@ -519,10 +516,10 @@ public class ControllerRegistro implements Constantes {
 		int year = calendar.get(Calendar.YEAR); 
 		int horas = calendar.get(Calendar.HOUR_OF_DAY); 
 		int min = calendar.get(Calendar.MINUTE);
-
+		
 		String date = corregir(dia)+"-"+corregir(mes)+"-"+year+" "+corregir(horas)+":"+corregir(min);
-
-
+		
+	
 		String user = reg.getUsuario().getNombreUsuario();
 
 
@@ -592,9 +589,6 @@ public class ControllerRegistro implements Constantes {
 
 	}
 
-	
-	
-
 	public static Registro eliminarR(String id) {
 
 		RegistroBeanRemote regBean;
@@ -608,7 +602,7 @@ public class ControllerRegistro implements Constantes {
 		}	
 
 	}
-
+	
 	public static String corregir(int v) {
 		String dato;
 		if(v < 10) {
@@ -616,7 +610,7 @@ public class ControllerRegistro implements Constantes {
 		}else {
 			dato = v+"";
 		}
-
+		
 		return dato;
 	}
 

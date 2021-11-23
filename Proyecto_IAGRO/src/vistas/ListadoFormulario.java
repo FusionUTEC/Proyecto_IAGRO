@@ -152,12 +152,12 @@ public class ListadoFormulario extends JFrame implements Constantes{
 		btnNuevo.setBounds(332, 356, 125, 27);
 		panel.add(btnNuevo);
 
-		btnVolver = new JButton("");
+		btnVolver = new JButton("Volver");
 		btnVolver.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnVolver.setBorderPainted(false);
 		btnVolver.setVerticalAlignment(SwingConstants.TOP);
 		btnVolver.setForeground(Color.WHITE);
-		btnVolver.setBounds(20, 356, 50, 30);		
+		btnVolver.setBounds(20, 356, 52, 35);		
 		Image volver = new ImageIcon(this.getClass().getResource("volver1.png")).getImage();
 		btnVolver.setIcon(new ImageIcon(volver));
 		btnVolver.setBackground(Color.WHITE);

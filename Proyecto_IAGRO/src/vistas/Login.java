@@ -109,7 +109,7 @@ public class Login extends JFrame {
 		btnojo = new JButton("");
 		btnojo.setBackground(Color.WHITE);
 		panel.add(btnojo);
-		btnojo.setBounds(300, 223, 40, 30);
+		btnojo.setBounds(300, 223, 36, 35);
 		btnojo.setIcon(new ImageIcon(ojo));
 		btnojo.setHorizontalTextPosition(SwingConstants.RIGHT);
 		btnojo.setForeground(new Color(255, 255, 255));

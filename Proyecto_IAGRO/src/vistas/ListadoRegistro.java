@@ -159,12 +159,12 @@ public class ListadoRegistro extends JFrame implements Constantes{
 
 
 
-		btnVolver = new JButton("");
+		btnVolver = new JButton("Volver");
 		btnVolver.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnVolver.setBorderPainted(false);
 		btnVolver.setVerticalAlignment(SwingConstants.TOP);
 		btnVolver.setForeground(Color.WHITE);
-		btnVolver.setBounds(10, 369, 50, 30);		
+		btnVolver.setBounds(10, 369, 52, 35);		
 		Image volver = new ImageIcon(this.getClass().getResource("volver1.png")).getImage();
 		btnVolver.setIcon(new ImageIcon(volver));
 		btnVolver.setBackground(Color.WHITE);
@@ -198,7 +198,7 @@ public class ListadoRegistro extends JFrame implements Constantes{
 		btnEliminar.setBorderPainted(false);
 		btnEliminar.setBackground(verde);
 
-		btnEliminar.setBounds(488, 369, 90, 27);
+		btnEliminar.setBounds(492, 369, 90, 27);
 
 		panel.add(btnEliminar);
 

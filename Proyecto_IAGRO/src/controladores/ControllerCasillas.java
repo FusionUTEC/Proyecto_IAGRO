@@ -167,6 +167,7 @@ public class ControllerCasillas implements Constantes{
 					}
 
 					Casilla cas =map.get(id);
+					//Cargar datos de usuario
 
 
 					altaC.textnombre.setText(cas.getNombre());
@@ -192,24 +193,38 @@ public class ControllerCasillas implements Constantes{
 					case "Porcentaje": 	
 						altaC.comboParametro.setSelectedIndex(4);
 						break;
-					case "N/A": 	
-						altaC.comboParametro.setSelectedIndex(5);
-						break;
 					}
 					switch(tipIn) {
 					case "":
 						altaC.comboTipoValor.setSelectedIndex(0);
 						break;
-					case "Entero": 
+					case "String": 
 						altaC.comboTipoValor.setSelectedIndex(1);
 						break;
-					case "Decimal": 
+					case "byte": 
 						altaC.comboTipoValor.setSelectedIndex(2);
 						break;
-					case "N/A": 	
+					case "short": 	
 						altaC.comboTipoValor.setSelectedIndex(3);
 						break;
-			
+					case "int": 	
+						altaC.comboTipoValor.setSelectedIndex(4);
+						break;
+					case "long": 
+						altaC.comboTipoValor.setSelectedIndex(5);
+						break;
+					case "float": 
+						altaC.comboTipoValor.setSelectedIndex(6);
+						break;
+					case "double": 	
+						altaC.comboTipoValor.setSelectedIndex(7);
+						break;
+					case "boolean": 	
+						altaC.comboTipoValor.setSelectedIndex(8);
+						break;
+					case "char": 	
+						altaC.comboTipoValor.setSelectedIndex(9);
+						break;
 					}
 
 					switch(unidad) {
@@ -236,9 +251,6 @@ public class ControllerCasillas implements Constantes{
 						break;
 					case "mg/l":
 						altaC.comboUnidad.setSelectedIndex(7);
-						break;
-					case "N/A":
-						altaC.comboUnidad.setSelectedIndex(8);
 						break;
 
 					}

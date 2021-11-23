@@ -116,8 +116,8 @@ public class AltaCasilla extends JFrame {
 		btnGuardar.setBackground(azul);
 		panel.add(btnGuardar);
 
-		btnVolver = new JButton("");
-		btnVolver.setBounds(10, 369, 50, 30);
+		btnVolver = new JButton("Volver");
+		btnVolver.setBounds(10, 369, 52, 35);
 		btnVolver.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnVolver.setBorderPainted(false);
 		btnVolver.setVerticalAlignment(SwingConstants.TOP);
