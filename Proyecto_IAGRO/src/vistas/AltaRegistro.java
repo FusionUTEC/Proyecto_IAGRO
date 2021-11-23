@@ -130,13 +130,13 @@ public class AltaRegistro extends JFrame implements Constantes {
 	
 
 
-		btnVolver = new JButton("Volver");
+		btnVolver = new JButton("");
 		btnVolver.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnVolver.setBorderPainted(false);
 		btnVolver.setVerticalAlignment(SwingConstants.TOP);
 		btnVolver.setForeground(Color.WHITE);
 
-		btnVolver.setBounds(10, 369, 52, 35);		
+		btnVolver.setBounds(10, 369, 50, 30);		
 
 		Image volver = new ImageIcon(this.getClass().getResource("volver1.png")).getImage();
 		btnVolver.setIcon(new ImageIcon(volver));

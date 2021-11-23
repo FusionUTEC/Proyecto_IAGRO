@@ -173,7 +173,7 @@ public class Main implements Constantes	{
 					menuP.setVisible(false);
 				} catch (NamingException | ServiciosException e1) {
 					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					e1.printStackTrace();	
 				}
 			}
 		});
