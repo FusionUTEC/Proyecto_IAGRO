@@ -340,11 +340,13 @@ public class ListadoRegistro extends JFrame implements Constantes{
 
 		});
 		
-	
+	}
+		public void perfil (String tipo) {
 
-
-
-
+			if (tipo.equalsIgnoreCase("Aficionado")) {
+				btnEliminar.setVisible(false);
+			
+			}
 
 	}
 	

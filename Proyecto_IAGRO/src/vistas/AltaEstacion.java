@@ -69,7 +69,7 @@ public class AltaEstacion extends JFrame {
 		banner.setLayout(null);
 
 		textnombre = new JTextField();
-		textnombre.setBounds(170, 111, 116, 23);
+		textnombre.setBounds(170, 111, 149, 23);
 		textnombre.setBackground(Color.LIGHT_GRAY);
 		textnombre.setBorder(new MatteBorder(0, 0, 2, 0, (Color) Color.LIGHT_GRAY));
 		textnombre.setOpaque(false); //Le quita la opacidad

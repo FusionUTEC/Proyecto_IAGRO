@@ -125,7 +125,7 @@ public class MenuPrincipal extends JFrame {
 		btnRegistroAfi.setToolTipText("Registros");
 		btnRegistroAfi.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 16));
 		btnRegistroAfi.setForeground(new Color(255, 255, 255));
-		btnRegistroAfi.setBounds(19, 150, 146, 40);
+		btnRegistroAfi.setBounds(10, 156, 146, 40);
 		reg= new ImageIcon(this.getClass().getResource("Registros.png")).getImage();
 		btnRegistroAfi.setIcon(new ImageIcon(reg));
 		btnRegistroAfi.setBackground(Color.WHITE);
@@ -221,7 +221,7 @@ public class MenuPrincipal extends JFrame {
 		btnFormularioInv.setToolTipText("Formularios");
 		btnFormularioInv.setFont(new Font("Voces", Font.BOLD, 14));
 		btnFormularioInv.setForeground(new Color(255, 255, 255));
-		btnFormularioInv.setBounds(18, 35, 130, 40);
+		btnFormularioInv.setBounds(0, 36, 156, 40);
 		btnFormularioInv.setIcon(new ImageIcon(form));
 		btnFormularioInv.setBackground(Color.WHITE);
 		btnFormularioInv.setBorder(null);
@@ -232,7 +232,7 @@ public class MenuPrincipal extends JFrame {
 		btnRegistroInv.setToolTipText("Registros");
 		btnRegistroInv.setFont(new Font("Trebuchet MS", Font.BOLD, 14));
 		btnRegistroInv.setForeground(new Color(255, 255, 255));
-		btnRegistroInv.setBounds(-8, 154, 156, 40);
+		btnRegistroInv.setBounds(0, 161, 144, 40);
 		btnRegistroInv.setIcon(new ImageIcon(reg));
 		btnRegistroInv.setBackground(Color.WHITE);
 		btnRegistroInv.setBorder(null);

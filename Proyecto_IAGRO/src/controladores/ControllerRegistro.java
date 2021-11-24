@@ -114,7 +114,7 @@ public class ControllerRegistro implements Constantes {
 
 		ListaR = new ListadoRegistro();
 		ListaR.setVisible(true);
-		
+		ListaR.perfil(Main.User.getTipo());
 		ListaR.calendar1.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
 				
@@ -592,6 +592,8 @@ public class ControllerRegistro implements Constantes {
 	}
 
 	public static Registro eliminarR(String id) {
+		
+	
 
 		RegistroBeanRemote regBean;
 		try {
