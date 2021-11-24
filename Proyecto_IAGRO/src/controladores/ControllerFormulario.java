@@ -535,7 +535,7 @@ public class ControllerFormulario implements Constantes {
 
 		boolean bandera = true;
 
-		if(nombre.isEmpty()) {
+		if(nombre.isBlank()) {
 			JOptionPane.showMessageDialog(null, "Debe completar el campo Nombre", null, 1);
 			return false;
 		}

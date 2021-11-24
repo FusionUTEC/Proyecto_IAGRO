@@ -861,48 +861,48 @@ public class ControllerUsuario implements Constantes{
 
 		boolean bandera = true;
 
-		if(nom.isEmpty()) {
+		if(nom.isBlank()) {
 			JOptionPane.showMessageDialog(null, "Debe completar el campo Nombre", null, 1);
 			return false;
 		}
-		if(ap.isEmpty()) {
+		if(ap.isBlank()) {
 			JOptionPane.showMessageDialog(null, "Debe completar el campo Apellido", null, 1);
 			return false;
 		}
 
-		if(mail.isEmpty()) {
+		if(mail.isBlank()) {
 			JOptionPane.showMessageDialog(null, "Debe completar el campo Correo", null, 1);
 			return false;
 		}
-		if(user.isEmpty()) {
+		if(user.isBlank()) {
 			JOptionPane.showMessageDialog(null, "Debe completar el campo Nombre de Usuario", null, 1);
 			return false;
 		}
 
 		if(tipo != "Aficionado") {
 
-			if(domicilio.isEmpty()) {
+			if(domicilio.isBlank()) {
 				JOptionPane.showMessageDialog(null, "Debe completar el campo Domicilio", null, 1);
 				return false;
 			}
 
-			if(ciudad.isEmpty()) {
+			if(ciudad.isBlank()) {
 				JOptionPane.showMessageDialog(null, "Debe completar el campo Ciudad", null, 1);
 				return false;
 			}
 
-			if(documento.isEmpty()) {
+			if(documento.isBlank()) {
 				JOptionPane.showMessageDialog(null, "Debe completar el campo Cedula", null, 1);
 				return false;
 			}
 
-			if(telefono.isEmpty()) {
+			if(telefono.isBlank()) {
 				JOptionPane.showMessageDialog(null, "Debe completar el campo Telefono", null, 1);
 				return false;
 			}
 
 		}else {
-			if(ocupacion.isEmpty()) {
+			if(ocupacion.isBlank()) {
 				JOptionPane.showMessageDialog(null, "Debe completar el campo Ocupacion", null, 1);
 				return false;
 			}
@@ -973,7 +973,7 @@ public class ControllerUsuario implements Constantes{
 			return false;
 		}
 		
-		if(pass.isEmpty()) {
+		if(pass.isBlank()) {
 			JOptionPane.showMessageDialog(null, "Debe completar el campo Contraseña", null, 1);
 			return false;
 		}

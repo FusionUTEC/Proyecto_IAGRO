@@ -473,27 +473,27 @@ public class ControllerEstacion implements Constantes{
 
 		boolean bandera = true;
 
-		if(nombre.isEmpty()) {
+		if(nombre.isBlank()) {
 			JOptionPane.showMessageDialog(null, "Debe completar el campo Nombre", null, 1);
 			return false;
 		}
-		if (latitud.isEmpty()) {
+		if (latitud.isBlank()) {
 			JOptionPane.showMessageDialog(null, "Debe completar el campo Latitud", null, 1);
 			return false;
 
 		}
-		if(longitud.isEmpty()) {
+		if(longitud.isBlank()) {
 			JOptionPane.showMessageDialog(null, "Debe completar el campo Longitud", null, 1);
 			return false;
 
 		}
 
-		if(calAgua.isEmpty()) {
+		if(calAgua.isBlank()) {
 			JOptionPane.showMessageDialog(null, "Debe completar el campo Calidad del Agua", null, 1);
 			return false;	
 
 		}
-		if(humRel.isEmpty()) {
+		if(humRel.isBlank()) {
 			JOptionPane.showMessageDialog(null, "Debe completar el campo Humedad Relativa", null, 1);
 			return false;
 		}

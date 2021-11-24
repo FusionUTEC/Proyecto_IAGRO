@@ -427,7 +427,7 @@ public class ControllerCasillas implements Constantes{
 		listC.table.setRowSorter(orden);
 
 
-		final String[] columnNames = {"Nombre","Descripción","Parametro", "Tipo Input", "Unidad de Medida", "Identificador"};
+		final String[] columnNames = {"Nombre","Descripción","Parametro", "Tipo de Dato", "Unidad de Medida", "Identificador"};
 		// insertamos las columnas
 
 		// Se crea un array que será una de las filas de la tabla. 
@@ -519,21 +519,21 @@ public class ControllerCasillas implements Constantes{
 
 		boolean bandera = true;
 
-		if(nombre.isEmpty()) {
+		if(nombre.isBlank()) {
 			JOptionPane.showMessageDialog(null, "Debe completar el campo Nombre", null, 1);
 			return false;
 		}
 
-		if(parametro.isEmpty()) {
+		if(parametro.isBlank()) {
 			JOptionPane.showMessageDialog(null, "Debe completar el campo Parametro", null, 1);
 			return false;
 		}
-		if(tipo.isEmpty()) {
-			JOptionPane.showMessageDialog(null, "Debe completar el campo Tipo Input", null, 1);
+		if(tipo.isBlank()) {
+			JOptionPane.showMessageDialog(null, "Debe completar el campo Tipo de Dato", null, 1);
 			return false;
 		}
 
-		if(unidad.isEmpty()) {
+		if(unidad.isBlank()) {
 			JOptionPane.showMessageDialog(null, "Debe completar el campo Unidad", null, 1);
 			return false;
 		}
