@@ -27,6 +27,7 @@ public class ControllerImpExp implements ActionListener  {
 		this.modelE=modelE;
 		this.vistaR.btnImportar.addActionListener(this);
 		this.vistaR.btnExportarPlant.addActionListener(this);
+		
 	}
 	
 	public ControllerImpExp(VistaRegistro vista, ModelImpExp modelE) {

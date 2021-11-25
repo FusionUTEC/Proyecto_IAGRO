@@ -72,6 +72,7 @@ public class ModelImpExp  {
 
 			}
 			respuesta="Importación Exitosa";
+			ControllerRegistro.AltaR.modelo = modeloT;
 		}catch (Exception e) {
 			e.getMessage();
 		}
