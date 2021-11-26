@@ -105,7 +105,7 @@ public class ControllerUsuario implements Constantes{
 		altaU.ocupacion.setBounds(130, 333, 105, 23);
 
 		altaU.lblDomicilio.setBounds(490, 265, 84, 23);
-		altaU.domicilio.setBounds(570, 265, 110, 23);
+		altaU.domicilio.setBounds(570, 265, 177, 23);
 
 		altaU.nombreUsu.enable(false);
 		altaU.email.enable(false);
@@ -224,7 +224,7 @@ public class ControllerUsuario implements Constantes{
 		listU.btnVolver.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				listU.setVisible(false);
+				//listU.setVisible(false);
 				Main.menuP.setVisible(true);
 				listU.setVisible(false);
 			}

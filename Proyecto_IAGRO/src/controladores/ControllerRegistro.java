@@ -434,7 +434,7 @@ public class ControllerRegistro implements Constantes {
 
 		} catch (NamingException | ServiciosException e) {}
 		catch(DateTimeParseException e) {
-			JOptionPane.showMessageDialog(null, "Formato de fecha no valido");
+			JOptionPane.showMessageDialog(null, "Formato de fecha no valido (dd-MM-yyyy HH:mm)");
 		}
 
 
