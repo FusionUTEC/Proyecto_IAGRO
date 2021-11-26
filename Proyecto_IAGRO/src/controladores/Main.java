@@ -46,6 +46,20 @@ public class Main implements Constantes	{
 				if (JOptionPane.YES_OPTION== confirm) {
 					User = null;
 					menuP.dispose();
+					ControllerFormulario.listF = null;
+					ControllerCasillas.listC = null;
+					ControllerUsuario.listU = null;
+					ControllerEstacion.listE = null;
+					ControllerRegistro.ListaR = null;
+					
+					ControllerFormulario.altaF = null;
+					ControllerCasillas.altaC = null;
+					ControllerUsuario.altaU = null;
+					ControllerEstacion.altaE = null;
+					ControllerRegistro.AltaR = null;
+					
+					ControllerRegistro.VistaR = null;
+					
 					menuP.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 					try {
 						V_login();
@@ -264,6 +278,7 @@ public class Main implements Constantes	{
 			public void mouseClicked(MouseEvent e) {	
 				try {
 					ControllerCasillas.V_ListaCasilla();
+					
 					menuP.setVisible(false);
 				} catch (NamingException | ServiciosException e1) {
 					// TODO Auto-generated catch block

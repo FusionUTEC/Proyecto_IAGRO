@@ -111,8 +111,11 @@ public class ControllerRegistro implements Constantes {
 	}
 
 	public static void V_Listado_Registro()  {
-
-		ListaR = new ListadoRegistro();
+		
+		if(ListaR == null) {
+			ListaR = new ListadoRegistro();
+		}
+		
 		ListaR.setVisible(true);
 		ListaR.perfil(Main.User.getTipo());
 		ListaR.calendar1.addPropertyChangeListener(new PropertyChangeListener() {

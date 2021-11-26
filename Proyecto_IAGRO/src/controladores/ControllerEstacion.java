@@ -42,7 +42,10 @@ public class ControllerEstacion implements Constantes{
 	//ventana Listado Estación
 	public static void  V_ListaEst () throws NamingException, ServiciosException {
 
-		listE=new ListadoEstacion();
+		if(listE == null) {
+			listE=new ListadoEstacion();
+		}
+		
 		listE.setVisible(true);
 
 		obtenerTodos();
