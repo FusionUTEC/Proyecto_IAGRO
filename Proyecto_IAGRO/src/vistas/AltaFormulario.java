@@ -42,7 +42,6 @@ public class AltaFormulario extends JFrame implements Constantes{
 	public JLabel lblfechaHoy;
 	public JLabel lblUser;
 	public HashMap<Long, Casilla> map = new HashMap<>();
-	public JComboBox comboPrueba;
 
 	public AltaFormulario() throws NamingException {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(AltaUsuario.class.getResource("/vistas/Logo_original.png")));
@@ -96,7 +95,7 @@ public class AltaFormulario extends JFrame implements Constantes{
 
 
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(528, 136, 231, 263);
+		scrollPane.setBounds(528, 109, 231, 263);
 		scrollPane.setBackground(Color.WHITE);
 		panel.add(scrollPane);
 		scrollPane.setOpaque(false);
@@ -104,7 +103,7 @@ public class AltaFormulario extends JFrame implements Constantes{
 		panel_1 = new JPanel();
 		panel_1.setBackground(Color.WHITE);
 		panel_1.setBounds(243, 132, 170, 300);
-		panel_1.setPreferredSize(new Dimension(20,300));
+		panel_1.setPreferredSize(new Dimension(170,300));
 		panel_1.setOpaque(false);
 
 		scrollPane.setViewportView(panel_1);
@@ -196,10 +195,6 @@ public class AltaFormulario extends JFrame implements Constantes{
 		lblUser.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 15));
 		lblUser.setBounds(122, 167, 87, 23);
 		panel.add(lblUser);
-		
-		comboPrueba = new JComboBox();
-		comboPrueba.setBounds(308, 124, 142, 23);
-		panel.add(comboPrueba);
 
 
 
@@ -224,19 +219,14 @@ public class AltaFormulario extends JFrame implements Constantes{
 			int h = 300;
 
 			for(Casilla c: allCasillas){
-
-			
-				int w = panel_1.getWidth();
-				//int h = panel_1.getHeight();
 				
-				if(y> 300) {
-					h+= 60;
-					panel_1.setPreferredSize(new Dimension(20,h));
+				if(y>= 300) {
+					h+= 30;
+					panel_1.setBounds(243, 132, 170, h);
+					panel_1.setPreferredSize(new Dimension(170,h));
 				}
 				
 				
-				
-				comboPrueba.addItem(c.getNombre());
 				chckbxNewCheckBox = new JCheckBox(c.getNombre());
 				chckbxNewCheckBox.setBounds(0, y, 160, 23);
 				chckbxNewCheckBox.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 13));
