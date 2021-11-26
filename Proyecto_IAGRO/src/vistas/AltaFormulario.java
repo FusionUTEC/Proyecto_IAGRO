@@ -42,6 +42,7 @@ public class AltaFormulario extends JFrame implements Constantes{
 	public JLabel lblfechaHoy;
 	public JLabel lblUser;
 	public HashMap<Long, Casilla> map = new HashMap<>();
+	public JComboBox comboPrueba;
 
 	public AltaFormulario() throws NamingException {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(AltaUsuario.class.getResource("/vistas/Logo_original.png")));
@@ -77,18 +78,7 @@ public class AltaFormulario extends JFrame implements Constantes{
 
 
 
-		buscador = new JTextField();
-		buscador.setBounds(528, 88, 231, 30);
-		buscador.setBackground(Color.LIGHT_GRAY);
-		buscador.setBorder(new MatteBorder(0, 0, 2, 0, (Color) Color.LIGHT_GRAY));
-		buscador.setOpaque(false); //Le quita la opacidad
-		buscador.setForeground(Color.LIGHT_GRAY);
-		buscador.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-		PlaceHolder BuscarCasilla = new PlaceHolder("Buscar casilla...", buscador);
-		BuscarCasilla.changeAlpha(0.75f);
-		BuscarCasilla.changeStyle(Font.ITALIC | Font.BOLD);
-		panel.add(buscador);
-		buscador.setColumns(10);
+		
 
 		nombre = new JTextField();
 		nombre.setBounds(122, 123, 124, 23);
@@ -106,14 +96,14 @@ public class AltaFormulario extends JFrame implements Constantes{
 
 
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(528, 136, 231, 208);
+		scrollPane.setBounds(528, 136, 231, 263);
 		scrollPane.setBackground(Color.WHITE);
 		panel.add(scrollPane);
 		scrollPane.setOpaque(false);
 
 		panel_1 = new JPanel();
 		panel_1.setBackground(Color.WHITE);
-		panel_1.setBounds(243, 132, 170, 163);
+		panel_1.setBounds(243, 132, 170, 300);
 		panel_1.setPreferredSize(new Dimension(20,300));
 		panel_1.setOpaque(false);
 
@@ -206,6 +196,10 @@ public class AltaFormulario extends JFrame implements Constantes{
 		lblUser.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 15));
 		lblUser.setBounds(122, 167, 87, 23);
 		panel.add(lblUser);
+		
+		comboPrueba = new JComboBox();
+		comboPrueba.setBounds(308, 124, 142, 23);
+		panel.add(comboPrueba);
 
 
 
@@ -227,10 +221,22 @@ public class AltaFormulario extends JFrame implements Constantes{
 			ArrayList<Casilla> allCasillas = (ArrayList<Casilla>) casillaBean.obtenerTodos();
 
 			int y = 0;
+			int h = 300;
 
 			for(Casilla c: allCasillas){
 
-
+			
+				int w = panel_1.getWidth();
+				//int h = panel_1.getHeight();
+				
+				if(y> 300) {
+					h+= 60;
+					panel_1.setPreferredSize(new Dimension(20,h));
+				}
+				
+				
+				
+				comboPrueba.addItem(c.getNombre());
 				chckbxNewCheckBox = new JCheckBox(c.getNombre());
 				chckbxNewCheckBox.setBounds(0, y, 160, 23);
 				chckbxNewCheckBox.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 13));
@@ -241,6 +247,7 @@ public class AltaFormulario extends JFrame implements Constantes{
 					//HABRÍA QUE ORDENARLAS. PQ NO LAS MUESTRA PERO DEJA LOS ESPACIOS VACÍOS
 					panel_1.add(chckbxNewCheckBox);
 					y += 30;
+					
 				}
 				
 				//Marcar casillas ya existentes
