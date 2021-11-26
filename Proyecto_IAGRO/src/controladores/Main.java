@@ -46,6 +46,9 @@ public class Main implements Constantes	{
 				if (JOptionPane.YES_OPTION== confirm) {
 					User = null;
 					menuP.dispose();
+					ControllerRegistro.cerrarTodo();
+					ControllerFormulario.cerrarTodo();
+					
 					menuP.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 					try {
 						V_login();

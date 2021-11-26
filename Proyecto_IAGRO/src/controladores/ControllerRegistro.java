@@ -618,6 +618,12 @@ public class ControllerRegistro implements Constantes {
 		return dato;
 	}
 
+	
+	public static void cerrarTodo() {
+		AltaR.dispose();
+		VistaR.dispose();
+		ListaR.dispose();
+	}
 }
 
 

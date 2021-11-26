@@ -544,6 +544,11 @@ public class ControllerFormulario implements Constantes {
 		return bandera;
 
 	}
+	
+	public static void cerrarTodo() {
+		altaF.dispose();
+		listF.dispose();
+	}
 
 }
 

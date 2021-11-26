@@ -551,4 +551,9 @@ public class ControllerCasillas implements Constantes{
 		System.out.println(list.size());
 		return list;
 	}
+	
+	public static void cerrarTodo() {
+		altaC.dispose();
+		listC.dispose();
+	}
 }
