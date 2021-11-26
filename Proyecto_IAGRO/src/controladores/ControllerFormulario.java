@@ -53,8 +53,10 @@ public class ControllerFormulario implements Constantes {
 	//ventana Listado Formulario
 	public static void  V_ListaForm () throws NamingException, ServiciosException {
 
-
-		listF=new ListadoFormulario();
+		if(listF == null) {
+			listF=new ListadoFormulario();
+		}
+		
 		listF.setVisible(true);
 		obtenerTodos();
 

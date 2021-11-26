@@ -41,7 +41,10 @@ public class ControllerCasillas implements Constantes{
 	//ventana Listado Casilla
 	public static void  V_ListaCasilla () throws NamingException, ServiciosException {
 
-		listC=new ListadoCasilla();
+		if(listC == null) {
+			listC=new ListadoCasilla();
+		}
+		
 		listC.setVisible(true);
 		obtenerTodos();
 
