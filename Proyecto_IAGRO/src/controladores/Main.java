@@ -19,6 +19,7 @@ import com.entities.Usuario;
 import com.exception.ServiciosException;
 import com.servicios.UsuarioBeanRemote;
 
+import vistas.ListadoFormulario;
 import vistas.Login;
 import vistas.MenuPrincipal;
 
@@ -44,15 +45,11 @@ public class Main implements Constantes	{
 						"Exit Confirmation", JOptionPane.YES_NO_OPTION,
 						JOptionPane.QUESTION_MESSAGE,null, null, null);							//Si el usuario elige sí se borra la fila
 				if (JOptionPane.YES_OPTION== confirm) {
-					User = null;
-					menuP.dispose();
-					ControllerRegistro.cerrarTodo();
-					ControllerFormulario.cerrarTodo();
-					
-					menuP.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 					try {
-						V_login();
-					} catch (NamingException e1) {
+						menuP.dispose();
+						menuP = null;
+						Main.main(null);
+					} catch (NamingException | ServiciosException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
