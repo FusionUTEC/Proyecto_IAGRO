@@ -79,14 +79,6 @@ public class ControllerImpExp implements ActionListener  {
 
 		}
 
-		vistaR.btnVolver.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				;
-				Main.menuP.setVisible(true);
-				vistaR.setVisible(false);
-			}
-		});
 
 
 	}
