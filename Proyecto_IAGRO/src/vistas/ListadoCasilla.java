@@ -73,7 +73,7 @@ public class ListadoCasilla extends JFrame implements Constantes{
 		Color azul=new Color (104,171,196); //color azul 104,171,196 / 68abc4
 		Color verde=new Color (166,187,95); //color verde 166,187,95 / a6bb5f 
 		setResizable(false);
-		setTitle("Usuarios");
+		setTitle("Casillas");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 806, 450);
 		contentPane = new JPanel();
