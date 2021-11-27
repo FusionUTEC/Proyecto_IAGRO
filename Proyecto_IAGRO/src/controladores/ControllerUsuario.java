@@ -204,11 +204,8 @@ public class ControllerUsuario implements Constantes{
 	}
 
 	public static void  V_ListaUser () throws NamingException {
-		
-		if(listU == null) {
-			listU=new ListadoUsuarios();
-		}
-		
+
+		listU=new ListadoUsuarios();
 		listU.setVisible(true);
 		
 		listU.btnEliminar.addMouseListener(new MouseAdapter() {

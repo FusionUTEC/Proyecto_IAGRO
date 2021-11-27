@@ -41,10 +41,7 @@ public class ControllerCasillas implements Constantes{
 	//ventana Listado Casilla
 	public static void  V_ListaCasilla () throws NamingException, ServiciosException {
 
-		if(listC == null) {
-			listC=new ListadoCasilla();
-		}
-		
+		listC=new ListadoCasilla();
 		listC.setVisible(true);
 		obtenerTodos();
 
@@ -553,5 +550,10 @@ public class ControllerCasillas implements Constantes{
 		List<Casilla> list = (List<Casilla>) casillaBean.obtenerTodos();
 		System.out.println(list.size());
 		return list;
+	}
+	
+	public static void cerrarTodo() {
+		altaC.dispose();
+		listC.dispose();
 	}
 }
